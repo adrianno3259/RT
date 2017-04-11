@@ -45,8 +45,6 @@
 		<Unit filename="sphere.h" />
 		<Unit filename="vec3.cpp" />
 		<Unit filename="vec3.h" />
-		<Unit filename="world.cpp" />
-		<Unit filename="world.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
