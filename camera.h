@@ -19,6 +19,8 @@ public:
     Ray generateRay(const int r, const int c) const;
     Image render(const Scene& sc);
 
+
+
 };
 
 #endif // CAMERA_H

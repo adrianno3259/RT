@@ -14,7 +14,6 @@
 
 #include "globals.h"
 
-
 using namespace std;
 /*
 namespace debug
@@ -32,16 +31,13 @@ Scene SCENE;
 int VERTICAL_RES = 400;
 int HORIZONTAL_RES = 400;
 float ZOOM = 1.0;
-int PIX_X = 0, PIX_Y = 0;
-int P_SKIP = 50;
+
 
 int main(int argc, char** argv)
 {
 
     int nObjs, nLights, i;
 
-    cin>>nObjs;
-    cout<<nObjs<<" objetos..."<<endl;
 
     CAMERA = Camera(Vec3d(200.0, 0.0, 0.0),
                     Vec3d(),
@@ -54,6 +50,12 @@ int main(int argc, char** argv)
     SCENE.bg = Color();
 
 
+    /**
+    **  Setup Objects
+    **/
+
+    cin>>nObjs;
+    cout<<nObjs<<" objetos..."<<endl;
     for(i = 0; i < nObjs; i++)
     {
         string type;
@@ -75,20 +77,43 @@ int main(int argc, char** argv)
 
     }
 
+    /**
+    **  Setup Lights
+    **/
+
+    cin>>nLights;
+
+    for(i = 0; i < nLights; i++)
+    {
+        string type;
+        cin >> type;
+        cout<<"Luz "<<i<<endl;
+        if(type == "point")
+        {
+            float a, b, c, s;
+            cin>>a>>b>>c;
+            Vec3d pos = Vec3d(a, b, c);
+            cin>>s;
+            cin>>a>>b>>c;
+            Color col = Color(a, b, c);
+            Light* l = new Light(pos, s, col);
+            SCENE.addLight(l);
+        }
+    }
 
 
-    //cin>>nLights;
 
-    //for(i = 0; i < nLights; i++);
-
-    Light* l = new Light(Vec3d(100.0, 0.0, 100.0),
-                     1.0,
-                     Color(1.0));
-    printLight((*l));
-    SCENE.addLight(l);
+    Image im = CAMERA.render(SCENE);
+    im.save("image.ppm");
+       cout<<true<<endl;//system("start image.ppm");
+    return 0;
+}
 
 
-/*
+void testScene()
+{
+
+
     Sphere* s = new Sphere(30.0);
     Color col = Color(1.0, 0.0, 0.0);
     s->c = col;
@@ -134,12 +159,13 @@ int main(int argc, char** argv)
     printLight((*l2));
     SCENE.addLight(l2);
 
+    Light* l = new Light(Vec3d(100.0, 0.0, 100.0),
+                 1.0,
+                 Color(1.0));
+    printLight((*l));
+    SCENE.addLight(l);
 
-    */
-    Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
-    system("start image.ppm");
-    return 0;
+
 }
 
 

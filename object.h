@@ -4,12 +4,15 @@
 #include "intersect.h"
 #include "ray.h"
 #include "globals.h"
+#include "scene.h"
+#include "light.h"
 #include <iostream>
 
 #define printObject(A) std::cout<< #A << " ----------" <<std::endl; A.printData()
 #define printObjectPtr(A) std::cout<< #A << " ----------" <<std::endl; A->printData()
 
 class Material;
+class Scene;
 
 class Object{
 public:
@@ -19,6 +22,8 @@ public:
     virtual Intersect hit(const Ray& r) const ;
     virtual void printData(void) const;
     virtual Vec3d getNormal(const Vec3d& P) const ;
+    virtual float shadowHit(const Scene& sc, Light* l, const Intersect& it, float maxDist) const;
+
 };
 
 #endif // OBJECT_H

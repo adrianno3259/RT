@@ -41,6 +41,39 @@ Intersect Scene::hitObject(const Ray& ray) const
     return ret;
 }
 
+float Scene::hitShadow(int lightId, const Intersect& it, float dist) const
+{
+    int i, ;
+    Vec3d lv = (lights[lightId]->position - it.hitPoint);
+    printVec(lv);
+    float d = lv.length();
+    printVar(d);
+    lv.normalize();
+
+    Vec3d k = it.hitPoint +(it.normal*(0.01));
+    printVec(it.hitPoint); printVec(k);
+    Ray r = Ray(k, lv);
+
+    for(int o = 0; o < objects.size(); o++)
+    {
+        i = objects[o]->hitShadow(ray);
+
+
+        if(i.hit)
+        {
+            if(i.t < t)
+            {
+                ret = i;
+                t = i.t;
+            }
+        }
+    }
+
+    if((!it_s.hit ||it_s.t > d) && it_s.t < dist ) return 0.0;
+    else return 1.0;
+
+}
+
 void Scene::addObject(Object* o)
 {
     objects.push_back(o);
