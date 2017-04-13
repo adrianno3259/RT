@@ -37,6 +37,8 @@
 		<Unit filename="material.h" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
+		<Unit filename="plane.cpp" />
+		<Unit filename="plane.h" />
 		<Unit filename="ray.cpp" />
 		<Unit filename="ray.h" />
 		<Unit filename="scene.cpp" />

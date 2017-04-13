@@ -4,6 +4,6 @@
 #define QP(A) cout << #A <<endl
 #define printVar(A) std::cout << #A << " = ( " << (A)<<" )"<<std::endl
 
-#define MAX_DISTANCE 1000.0
+#define MAX_DISTANCE 5000.0
 
 

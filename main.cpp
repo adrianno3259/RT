@@ -7,6 +7,7 @@
 #include "ray.h"
 #include "sphere.h"
 #include <cmath>
+#include "plane.h"
 
 #include "camera.h"
 #include "scene.h"
@@ -50,6 +51,11 @@ int main(int argc, char** argv)
     SCENE = Scene();
     SCENE.bg = Color();
 
+    Plane* s = new Plane( Vec3d(0, 0, -200.0), Vec3d(0, 0, 1.0) );
+    Color col = Color(1.0, 1.0, 1.0);
+    s->c = col;
+    s->m = new Material(col);
+    SCENE.addObject(s);
 
     /**
     **  Setup Objects

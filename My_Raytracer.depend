@@ -362,7 +362,7 @@
 1492023902 c:\users\adria\desktop\my_raytracer\rt\ray.h
 	"vec3.h"
 
-1492031944 c:\users\adria\desktop\my_raytracer\rt\globals.h
+1492063892 c:\users\adria\desktop\my_raytracer\rt\globals.h
 
 1492023902 c:\users\adria\desktop\my_raytracer\rt\light.h
 	"vec3.h"
@@ -398,7 +398,7 @@
 1492023902 source:c:\users\adria\desktop\my_raytracer\rt\ray.cpp
 	"ray.h"
 
-1492056579 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
+1492062028 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
 	"scene.h"
 	<cmath>
 
@@ -512,7 +512,7 @@
 	"vec3.h"
 	<cmath>
 
-1492047415 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1492063906 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -521,15 +521,16 @@
 	"ray.h"
 	"sphere.h"
 	<cmath>
+	"plane.h"
 	"camera.h"
 	"scene.h"
 	"material.h"
 	"globals.h"
 
-1492053339 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
+1492063795 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
 	"plane.h"
 	<cmath>
 
-1492053207 c:\users\adria\desktop\my_raytracer\rt\plane.h
+1492063716 c:\users\adria\desktop\my_raytracer\rt\plane.h
 	"object.h"
 
