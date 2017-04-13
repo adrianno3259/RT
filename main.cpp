@@ -28,13 +28,14 @@ namespace debug
 
 Camera CAMERA;
 Scene SCENE;
-int VERTICAL_RES = 400;
-int HORIZONTAL_RES = 400;
+int VERTICAL_RES = 200;
+int HORIZONTAL_RES = 200;
 float ZOOM = 1.0;
 
 
 int main(int argc, char** argv)
 {
+
 
     int nObjs, nLights, i;
 
@@ -100,20 +101,15 @@ int main(int argc, char** argv)
             SCENE.addLight(l);
         }
     }
-
-
-
     Image im = CAMERA.render(SCENE);
     im.save("image.ppm");
-       cout<<true<<endl;//system("start image.ppm");
+    cout<<true<<endl; system("start image.ppm");
     return 0;
 }
 
 
 void testScene()
 {
-
-
     Sphere* s = new Sphere(30.0);
     Color col = Color(1.0, 0.0, 0.0);
     s->c = col;

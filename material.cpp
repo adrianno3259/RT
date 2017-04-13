@@ -1,5 +1,5 @@
 #include "material.h"
-
+#include "globals.h"
 
 Material::Material(const Color& col) : c(col){}
 
@@ -7,34 +7,21 @@ Color Material::shade(const Scene& sc, Intersect& it)
 {
 
     Color L = Color(0.0);
-
-    for(int i = 0; i< sc.lights.size(); i++)
+    for(unsigned int i = 0; i< sc.lights.size(); i++)
     {
-            float ld_dot_n = (sc.lights[i]->getDirection(it.hitPoint)*it.normal);
-            //printVar(i);
-            //printLight((*sc.lights[i]));
-            //printVec(it.hitPoint);
-            //printVec(it.normal);
-            //printVec(sc.lights[i]->getDirection(it.hitPoint));
-            //printVar(ld_dot_n);
-
-            float shadow = checkShadow(sc, sc.lights[i], it, MAX_DISTANCE);
-            printVar(shadow);
-
+        float ld_dot_n = (sc.lights[i]->getDirection(it.hitPoint)*it.normal);
+        float shadow = sc.lightHitsPoint(i, it, MAX_DISTANCE);
         if(ld_dot_n>0 && shadow <1.0)
         {
             L += ld_dot_n*(sc.lights[i]->getL())*c;
         }
     }
-    //printCol(L);
     return L;
 }
 
 
 float Material::checkShadow(const Scene& sc, Light* l, const Intersect& it, float dist) const
 {
-
-
     Vec3d lv = (l->position - it.hitPoint);
     printVec(lv);
     float d = lv.length();
@@ -42,7 +29,7 @@ float Material::checkShadow(const Scene& sc, Light* l, const Intersect& it, floa
     lv.normalize();
 
     Vec3d k = it.hitPoint +(it.normal*(0.01));
-    printVec(it.hitPoint); printVec(k);
+    //printVec(it.hitPoint); printVec(k);
     Ray r = Ray(k, lv);
     Intersect it_s = sc.hitObject(r);
  /*    //it_s.hit = false;

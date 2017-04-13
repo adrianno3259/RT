@@ -22,6 +22,7 @@ public:
     void addObject(Object* o);
     void addLight(Light* l);
     Intersect hitObject(const Ray& ray) const;
+    bool lightHitsPoint(int lightId, const Intersect& it, float dist) const;
 };
 
 #endif // SCENE_H

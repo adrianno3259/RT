@@ -4,6 +4,8 @@
 #include "intersect.h"
 #include "scene.h"
 
+//int N = 0;
+
 class Material
 {
 public:

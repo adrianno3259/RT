@@ -22,8 +22,6 @@ public:
     virtual Intersect hit(const Ray& r) const ;
     virtual void printData(void) const;
     virtual Vec3d getNormal(const Vec3d& P) const ;
-    virtual float shadowHit(const Scene& sc, Light* l, const Intersect& it, float maxDist) const;
-
 };
 
 #endif // OBJECT_H
