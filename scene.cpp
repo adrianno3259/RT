@@ -42,16 +42,12 @@ bool Scene::lightHitsPoint(int lightId, const Intersect& it, float maxDist) cons
     Light* li = lights[lightId];
     Vec3d lightVector = (li->position - it.hitPoint);
     float distToLight = lightVector.length();
-    //printVar(distToLight);
-    //printVar(maxDist);
     lightVector.normalize();
 
     Vec3d origin = it.hitPoint +(it.normal*(0.001));
     Ray r = Ray(origin, lightVector);
 
     i = hitObject(r);
-    //printInters(i);
-    //printVar(i.t);
     if(!i.hit || i.t > distToLight)
         if(distToLight < maxDist)
             return 0.0;

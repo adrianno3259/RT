@@ -12,7 +12,7 @@
 #include "camera.h"
 #include "scene.h"
 #include "material.h"
-
+#include "box.h"
 #include "globals.h"
 
 using namespace std;
@@ -29,8 +29,8 @@ namespace debug
 
 Camera CAMERA;
 Scene SCENE;
-int VERTICAL_RES = 200;
-int HORIZONTAL_RES = 200;
+int VERTICAL_RES = 800;
+int HORIZONTAL_RES = 800;
 float ZOOM = 1.0;
 
 
@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     int nObjs, nLights, i;
 
 
-    CAMERA = Camera(Vec3d(200.0, 0.0, 0.0),
+    CAMERA = Camera(Vec3d(200.0, 0.0, 200.0),
                     Vec3d(),
                     Vec3d(0.0, 0.0, 1.0),
                     HORIZONTAL_RES,
@@ -50,12 +50,18 @@ int main(int argc, char** argv)
 
     SCENE = Scene();
     SCENE.bg = Color();
+//
+//    Box* s = new Box(Vec3d(-30), Vec3d(30));
+//    Color col = Color(1.0, 0.0, 0.0);
+//    s->c = col;
+//    s->m = new Material(col);
+//    SCENE.addObject(s);
 
-    Plane* s = new Plane( Vec3d(0, 0, -200.0), Vec3d(0, 0, 1.0) );
-    Color col = Color(1.0, 1.0, 1.0);
-    s->c = col;
-    s->m = new Material(col);
-    SCENE.addObject(s);
+//    Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
+//             1.0,
+//             Color(1.0));
+//    printLight((*l));
+//    SCENE.addLight(l);
 
     /**
     **  Setup Objects
@@ -70,6 +76,12 @@ int main(int argc, char** argv)
         cout<<"objeto "<<i<<endl;
         if(type == "sphere")
         {
+            /**
+                sphere
+                <center_coords>
+                <radius>
+                <color>
+            **/
             float a, b, c, r;
             cin>>a>>b>>c;
             Vec3d center = Vec3d(a, b, c);
@@ -80,6 +92,46 @@ int main(int argc, char** argv)
             s->c = col;
             s->m = new Material(col);
             SCENE.addObject(s);
+        }
+        else if(type == "plane")
+        {
+            /**
+                plane
+                <point_coords>
+                <plane_normal>
+                <color>
+            **/
+            float a, b, c;
+            cin>>a>>b>>c;
+            Vec3d point = Vec3d(a, b, c);
+            cin>>a>>b>>c;
+            Vec3d normal = Vec3d(a, b, c);
+            cin>>a>>b>>c;
+            Color col = Color(a, b, c);
+            Plane* p = new Plane(point, normal);
+            p->c = col;
+            p->m = new Material(col);
+            SCENE.addObject(p);
+        }
+        else if(type == "box")
+        {
+            /**
+                box
+                <min_point>
+                <max_point>
+                <color>
+            **/
+            float a, b, c;
+            cin>>a>>b>>c;
+            Vec3d min_point = Vec3d(a, b, c);
+            cin>>a>>b>>c;
+            Vec3d max_point = Vec3d(a, b, c);
+            cin>>a>>b>>c;
+            Color col = Color(a, b, c);
+            Box* box = new Box(min_point, max_point);
+            box->c = col;
+            box->m = new Material(col);
+            SCENE.addObject(box);
         }
 
     }

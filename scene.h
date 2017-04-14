@@ -9,8 +9,6 @@
 //class Object;
 //class Light;
 
-
-
 class Scene
 {
 public:

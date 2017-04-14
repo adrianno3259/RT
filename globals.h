@@ -6,4 +6,3 @@
 
 #define MAX_DISTANCE 5000.0
 
-
