@@ -29,10 +29,10 @@ Intersect Plane::hit(const Ray& ray) const
             i.m = this->m;
             i.t = t;
             i.hitPoint = ray.rayPoint(i.t);
-            //if(vd<0)
+            if(vd<0)
                 i.normal = normal;
-            //else
-            //    i.normal = -normal;
+            else
+                i.normal = -normal;
         }
     }
     return i;

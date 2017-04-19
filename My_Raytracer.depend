@@ -388,7 +388,7 @@
 1492023902 source:c:\users\adria\desktop\my_raytracer\rt\light.cpp
 	"light.h"
 
-1492144005 source:c:\users\adria\desktop\my_raytracer\rt\material.cpp
+1492148301 source:c:\users\adria\desktop\my_raytracer\rt\material.cpp
 	"material.h"
 	"globals.h"
 
@@ -528,7 +528,7 @@
 	"box.h"
 	"globals.h"
 
-1492106893 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
+1492190741 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
 	"plane.h"
 	<cmath>
 

@@ -33,15 +33,11 @@ int VERTICAL_RES = 800;
 int HORIZONTAL_RES = 800;
 float ZOOM = 1.0;
 
-
 int main(int argc, char** argv)
 {
-
-
     int nObjs, nLights, i;
 
-
-    CAMERA = Camera(Vec3d(200.0, 0.0, 200.0),
+    CAMERA = Camera(Vec3d(200.0, 0.0, 0.0),
                     Vec3d(),
                     Vec3d(0.0, 0.0, 1.0),
                     HORIZONTAL_RES,
