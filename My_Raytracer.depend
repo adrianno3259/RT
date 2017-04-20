@@ -512,7 +512,7 @@
 	"vec3.h"
 	<cmath>
 
-1492148167 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1492662160 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -527,6 +527,7 @@
 	"material.h"
 	"box.h"
 	"globals.h"
+	"interval.h"
 
 1492190741 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
 	"plane.h"
@@ -540,4 +541,19 @@
 
 1492106836 c:\users\adria\desktop\my_raytracer\rt\box.h
 	"object.h"
+
+1492632095 source:c:\users\adria\desktop\my_raytracer\rt\compositeobject.cpp
+	"compositeobject.h"
+
+1492661716 c:\users\adria\desktop\my_raytracer\rt\compositeobject.h
+	"Object.h"
+	<algorithm>
+
+1492662187 source:c:\users\adria\desktop\my_raytracer\rt\interval.cpp
+	"interval.h"
+	"globals.h"
+
+1492661549 c:\users\adria\desktop\my_raytracer\rt\interval.h
+	<vector>
+	<iostream>
 

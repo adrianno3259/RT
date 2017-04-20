@@ -15,6 +15,8 @@
 #include "box.h"
 #include "globals.h"
 
+#include "interval.h"
+
 using namespace std;
 /*
 namespace debug
@@ -35,7 +37,7 @@ float ZOOM = 1.0;
 
 int main(int argc, char** argv)
 {
-    int nObjs, nLights, i;
+    int nObjs = 0, nLights = 0, i;
 
     CAMERA = Camera(Vec3d(200.0, 0.0, 0.0),
                     Vec3d(),
@@ -43,6 +45,20 @@ int main(int argc, char** argv)
                     HORIZONTAL_RES,
                     VERTICAL_RES,
                     200.0);
+
+
+    Interval it = Interval();
+    it.points.push_back(1); it.points.push_back(3);
+    it.points.push_back(7); it.points.push_back(6);
+    printInterval(it);
+
+    Interval it2 = Interval();
+    it2.points.push_back(2); it2.points.push_back(4);
+    printInterval(it2);
+
+    Interval itr = it2.intervalOr(it);
+    printInterval(itr);
+
 
     SCENE = Scene();
     SCENE.bg = Color();
@@ -63,7 +79,7 @@ int main(int argc, char** argv)
     **  Setup Objects
     **/
 
-    cin>>nObjs;
+    //cin>>nObjs;
     cout<<nObjs<<" objetos..."<<endl;
     for(i = 0; i < nObjs; i++)
     {
@@ -136,7 +152,7 @@ int main(int argc, char** argv)
     **  Setup Lights
     **/
 
-    cin>>nLights;
+    //cin>>nLights;
 
     for(i = 0; i < nLights; i++)
     {
@@ -155,9 +171,9 @@ int main(int argc, char** argv)
             SCENE.addLight(l);
         }
     }
-    Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
-    cout<<true<<endl; system("start image.ppm");
+    //Image im = CAMERA.render(SCENE);
+    //im.save("image.ppm");
+    //cout<<true<<endl; system("start image.ppm");
     return 0;
 }
 
