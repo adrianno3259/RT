@@ -1,7 +1,7 @@
 #ifndef COMPOSITEOBJECT_H
 #define COMPOSITEOBJECT_H
 
-#include "Object.h"
+#include "object.h"
 #include <algorithm>
 
 

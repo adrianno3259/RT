@@ -3,6 +3,7 @@
 
 #include<vector>
 #include<iostream>
+#include<algorithm>
 
 #define printInterval(A) std::cout<<#A<<std::endl; \
                          for(int i = 0; i < A.points.size(); i++)\

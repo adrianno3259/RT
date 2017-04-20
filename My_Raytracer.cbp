@@ -28,10 +28,14 @@
 		<Unit filename="camera.h" />
 		<Unit filename="color.cpp" />
 		<Unit filename="color.h" />
+		<Unit filename="compositeobject.cpp" />
+		<Unit filename="compositeobject.h" />
 		<Unit filename="globals.h" />
 		<Unit filename="image.cpp" />
 		<Unit filename="image.h" />
 		<Unit filename="intersect.h" />
+		<Unit filename="interval.cpp" />
+		<Unit filename="interval.h" />
 		<Unit filename="light.cpp" />
 		<Unit filename="light.h" />
 		<Unit filename="main.cpp" />

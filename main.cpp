@@ -48,12 +48,13 @@ int main(int argc, char** argv)
 
 
     Interval it = Interval();
-    it.points.push_back(1); it.points.push_back(3);
-    it.points.push_back(7); it.points.push_back(6);
+    it.points.push_back(2); it.points.push_back(3);
+    it.points.push_back(5); it.points.push_back(6);
     printInterval(it);
 
     Interval it2 = Interval();
-    it2.points.push_back(2); it2.points.push_back(4);
+    it2.points.push_back(1); it2.points.push_back(4);
+    it2.points.push_back(6); it2.points.push_back(8);
     printInterval(it2);
 
     Interval itr = it2.intervalOr(it);
