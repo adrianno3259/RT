@@ -559,19 +559,20 @@
 	<vector>
 	<iostream>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/box.cpp
+1493047520 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/box.cpp
 	"box.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/box.h
+1493039649 /home/admin01/Documentos/Adrianno_IC/RT/RT/box.h
 	"object.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
+1493036847 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
 	"intersect.h"
 	"ray.h"
 	"globals.h"
 	"scene.h"
 	"light.h"
 	<iostream>
+	<vector>
 
 1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/intersect.h
 	"color.h"
@@ -626,7 +627,7 @@
 1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/light.cpp
 	"light.h"
 
-1492707174 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+1493060336 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -641,12 +642,13 @@
 	"material.h"
 	"box.h"
 	"globals.h"
+	"mergehits.h"
 	"interval.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
+1493036966 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
 	"object.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/plane.h
+1493041198 /home/admin01/Documentos/Adrianno_IC/RT/RT/plane.h
 	"object.h"
 
 1492706328 /home/admin01/Documentos/Adrianno_IC/RT/RT/interval.h
@@ -658,10 +660,10 @@
 	"material.h"
 	"globals.h"
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/object.cpp
+1493036913 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/object.cpp
 	"object.h"
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/plane.cpp
+1493041271 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/plane.cpp
 	"plane.h"
 	<cmath>
 
@@ -672,7 +674,7 @@
 	"scene.h"
 	<cmath>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
+1493041715 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
 	"sphere.h"
 	<cmath>
 
@@ -687,7 +689,16 @@
 	"object.h"
 	<algorithm>
 
-1492707390 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/interval.cpp
+1493050310 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/interval.cpp
 	"interval.h"
 	"globals.h"
+
+1493060336 /home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.h
+	<vector>
+	"intersect.h"
+
+1493060567 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.cpp
+	"mergehits.h"
+	"globals.h"
+	<iostream>
 

@@ -8,6 +8,7 @@ Interval::~Interval(){}
 
 Interval Interval::intervalOr(const Interval& i)
 {
+
     Interval ret;
     int smaller = points.size() < i.points.size() ;// 1 se for o objeto e 0 se for o parâmetro
     int it, jt, minSize = smaller ? points.size() : i.points.size(),

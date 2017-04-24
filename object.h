@@ -7,6 +7,7 @@
 #include "scene.h"
 #include "light.h"
 #include <iostream>
+#include <vector>
 
 #define printObject(A) std::cout<< #A << " ----------" <<std::endl; A.printData()
 #define printObjectPtr(A) std::cout<< #A << " ----------" <<std::endl; A->printData()
@@ -22,6 +23,7 @@ public:
     virtual Intersect hit(const Ray& r) const ;
     virtual void printData(void) const;
     virtual Vec3d getNormal(const Vec3d& P) const ;
+    virtual std::vector<Intersect> hitList(const Ray& ray) const;
 };
 
 #endif // OBJECT_H

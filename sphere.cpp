@@ -56,14 +56,60 @@ Intersect Sphere::hit(const Ray& ray) const
     i.hit = false;
     return i;
 }
+
 void Sphere::printData(void) const
 {
     printVar(radius);
     printVec(center);
 }
+
 Vec3d Sphere::getNormal(const Vec3d& P) const
 {
     Vec3d tmp = P - center;
     tmp.normalize();
     return tmp;
+}
+
+
+std::vector<Intersect> Sphere::hitList(const Ray& ray) const
+{
+
+    std::vector<Intersect> li = std::vector<Intersect>();
+    Intersect i1, i2;
+    float t;
+    Vec3d temp = ray.origin - center;
+    double a = ray.direction * ray.direction;
+    double b = 2.0 * temp * ray.direction;
+    double c = temp*temp - radius*radius;
+    double disc = b * b - (4.0 * a * c);
+
+    if(disc > 0.0){
+
+        float e = sqrt(disc);
+        float denom = 2.0*a;
+        t = ((-b) -e)/denom; printVar(t);
+        i1.t= t;
+        i1.entering = true;
+        i1.hit = true;
+        i1.obj = (Object*) this;
+        i1.c = this->c;
+        i1.m = this->m;
+        i1.hitPoint = ray.rayPoint(t);
+        i1.normal = this->getNormal(i1.hitPoint);
+        li.push_back(i1);
+
+        t = (-b + e)/denom; printVar(t);
+        i2.t= t;
+        i2.entering = false;
+        i2.hit = true;
+        i2.obj = (Object*)this;
+        i2.c = this->c;
+        i2.m = this->m;
+        i2.hitPoint = ray.rayPoint(t);
+        i2.normal = -this->getNormal(i2.hitPoint);
+        li.push_back(i2);
+
+    }
+
+    return li;
 }

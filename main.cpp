@@ -15,6 +15,9 @@
 #include "box.h"
 #include "globals.h"
 
+
+#include "mergehits.h"
+
 #include "interval.h"
 
 using namespace std;
@@ -37,9 +40,9 @@ float ZOOM = 1.0;
 
 int main(int argc, char** argv)
 {
-    int nObjs = 0, nLights = 0, i;
+    int i;
 
-    CAMERA = Camera(Vec3d(200.0, 0.0, 0.0),
+    CAMERA = Camera(Vec3d(150.0, 0.0, 0.0),
                     Vec3d(),
                     Vec3d(0.0, 0.0, 1.0),
                     HORIZONTAL_RES,
@@ -47,35 +50,115 @@ int main(int argc, char** argv)
                     200.0);
 
 
-    Interval it = Interval();
-    it.points.push_back(2); it.points.push_back(3);
-    it.points.push_back(5); it.points.push_back(6);
-    printInterval(it);
+    Color col = Color(1.0, 0.0, 0.0);
 
-    Interval it2 = Interval();
-    it2.points.push_back(1); it2.points.push_back(4);
-    it2.points.push_back(6); it2.points.push_back(8);
-    printInterval(it2);
+    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 5);
+    s->c = col;
+    s->m = new Material(col);
 
-    Interval itr = it2.intervalOr(it);
-    printInterval(itr);
+    Box* b = new Box(Vec3d(-20, -5, -5), Vec3d(-10, 5, 5));
+    b->c = col;
+    b->m = new Material(col);
 
 
+    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 2);
+    s2->c = col;
+    s2->m = new Material(col);
+
+
+    Box* b2 = new Box(Vec3d(5,-10,-10), Vec3d(15, 10, 10));
+    b2->c = col;
+    b2->m = new Material(col);
+
+
+    Sphere* s3 = new Sphere(Vec3d(-15.0, 0.0, 0.0), 2);
+    s3->c = col;
+    s3->m = new Material(col);
+
+
+    Ray r = Ray(Vec3d(-25.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
+
+    vector<Intersect> v1 = b->hitList(r);
+    vector<Intersect> v2 = s->hitList(r);
+    vector<Intersect> v4 = b2->hitList(r);
+    vector<Intersect> v3 = s2->hitList(r);
+    vector<Intersect> v5 = s3->hitList(r);
+
+    cout<<"inters v1 :"<<endl;
+    for(int l = 0; l < v1.size(); l++)
+    {
+        printVar(l);
+        cout<<v1[l].t<<endl;
+        printVec(v1[l].normal);
+    }
+    cout<<"inters v2:"<<endl;
+    for(int l = 0; l < v2.size(); l++)
+    {
+        printVar(l);
+        cout<<v2[l].t<<endl;
+        printVec(v2[l].normal);
+    }
+    cout<<"inters v3 :"<<endl;
+    for(int l = 0; l < v1.size(); l++)
+    {
+        printVar(l);
+        cout<<v3[l].t<<endl;
+        printVec(v3[l].normal);
+    }
+    cout<<"inters v4:"<<endl;
+    for(int l = 0; l < v4.size(); l++)
+    {
+        printVar(l);
+        cout<<v4[l].t<<endl;
+        printVec(v4[l].normal);
+    }
+
+    vector<Intersect> vr = MergeHits::csg_and(v1, v2);
+    cout<<"inters:"<<endl;
+    for(int l = 0; l < vr.size(); l++)
+    {
+        printVar(l);
+        cout<<vr[l].t<<endl;
+        printVec(vr[l].normal);
+    }
+
+/*
+
+
+
+    vr = MergeHits::csg_or(vr, v3);
+    cout<<"inters:"<<endl;
+    for(int l = 0; l < vr.size(); l++)
+    {
+        printVar(l);
+        cout<<vr[l].t<<endl;
+        printVec(vr[l].normal);
+    }
+
+
+
+    vr = MergeHits::csg_or(vr, v4);
+    vr = MergeHits::csg_or(vr, v5);
+    cout<<"inters:"<<endl;
+    for(int l = 0; l < vr.size(); l++)
+    {
+        printVar(l);
+        cout<<vr[l].t<<endl;
+        printVec(vr[l].normal);
+    }
+*/
     SCENE = Scene();
     SCENE.bg = Color();
-//
-//    Box* s = new Box(Vec3d(-30), Vec3d(30));
-//    Color col = Color(1.0, 0.0, 0.0);
-//    s->c = col;
-//    s->m = new Material(col);
-//    SCENE.addObject(s);
+////
 
-//    Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
-//             1.0,
-//             Color(1.0));
-//    printLight((*l));
-//    SCENE.addLight(l);
+    Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
+             1.0,
+             Color(1.0));
+    //printLight((*l));
+    SCENE.addLight(l);
 
+
+    int nObjs = 0, nLights = 0;
     /**
     **  Setup Objects
     **/
@@ -172,8 +255,8 @@ int main(int argc, char** argv)
             SCENE.addLight(l);
         }
     }
-    //Image im = CAMERA.render(SCENE);
-    //im.save("image.ppm");
+    Image im = CAMERA.render(SCENE);
+    im.save("image.ppm");
     //cout<<true<<endl; system("start image.ppm");
     return 0;
 }

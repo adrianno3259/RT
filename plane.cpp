@@ -37,6 +37,7 @@ Intersect Plane::hit(const Ray& ray) const
     }
     return i;
 }
+
 void Plane::printData(void) const
 {
     printVec(point);
@@ -45,4 +46,35 @@ void Plane::printData(void) const
 Vec3d Plane::getNormal(const Vec3d& P) const
 {
     return normal;
+}
+
+
+std::vector<Intersect> Plane::hitList(const Ray& ray) const
+{
+    std::vector<Intersect> v = std::vector<Intersect>();
+    Intersect i;
+    i.hit = false;
+    i.entering = false;
+
+    float vd = normal*ray.direction;
+
+    if(vd != 0)
+    {
+        Vec3d tmp = point - ray.origin;
+        int v0 = tmp*normal;
+        int t = v0/vd;
+
+        i.hit = true;
+        i.entering = true;
+        i.obj = (Object*)(this);
+        i.m = this->m;
+        i.t = t;
+        i.hitPoint = ray.rayPoint(i.t);
+        if(vd<0)
+            i.normal = normal;
+        else
+            i.normal = -normal;
+        v.push_back(i);
+    }
+    return v;
 }
