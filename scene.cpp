@@ -21,6 +21,7 @@ Intersect Scene::hitObject(const Ray& ray) const
 
     for(int o = 0; o < objects.size(); o++)
     {
+
         i = objects[o]->hit(ray);
         if(i.hit)
         {

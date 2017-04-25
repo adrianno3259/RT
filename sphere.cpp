@@ -87,7 +87,7 @@ std::vector<Intersect> Sphere::hitList(const Ray& ray) const
 
         float e = sqrt(disc);
         float denom = 2.0*a;
-        t = ((-b) -e)/denom; printVar(t);
+        t = ((-b) -e)/denom; //printVar(t);
         i1.t= t;
         i1.entering = true;
         i1.hit = true;
@@ -98,14 +98,14 @@ std::vector<Intersect> Sphere::hitList(const Ray& ray) const
         i1.normal = this->getNormal(i1.hitPoint);
         li.push_back(i1);
 
-        t = (-b + e)/denom; printVar(t);
+        t = (-b + e)/denom; //printVar(t);
         i2.t= t;
         i2.entering = false;
         i2.hit = true;
         i2.obj = (Object*)this;
         i2.c = this->c;
         i2.m = this->m;
-        i2.hitPoint = ray.rayPoint(t);
+        i2.hitPoint = ray.rayPoint(i2.t);
         i2.normal = -this->getNormal(i2.hitPoint);
         li.push_back(i2);
 

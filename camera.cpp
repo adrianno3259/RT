@@ -50,6 +50,7 @@ Image Camera::render(const Scene& sc){
     Intersect intersect;
     Image i = Image(hres, vres);
 
+
     for(int r = 0; r < vres; r++)
     for(int c = 0; c < hres; c++)
     {
@@ -57,6 +58,10 @@ Image Camera::render(const Scene& sc){
         L = Color();
         R = generateRay(r, c);
         intersect = sc.hitObject(R);
+        if(r%50 == 0 && c%50 == 0){
+            printVar(r); printVar(c);
+
+        }
 
         if(intersect.hit)
         {

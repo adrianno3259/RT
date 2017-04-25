@@ -225,20 +225,19 @@ std::vector<Intersect> Box::hitList(const Ray& r) const
         i.hit = true;
         i.obj = (Object*) this;
         i.m = this->m;
-        i.hitPoint = r.rayPoint(i.t);
-
         i.t = t0;
+        i.hitPoint = r.rayPoint(i.t);
         i.normal = getNormal(face_in);
         i.entering = true;
         v.push_back(i);
 
+
         i.t = t1;
+        i.hitPoint = r.rayPoint(i.t);
         i.normal = getNormal(face_out);
         i.entering = false;
         i.normal = -i.normal;
         v.push_back(i);
-    } //else {
-        //v.push_back(i);
-    //}
+    }
     return v;
 }

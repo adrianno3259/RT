@@ -30,6 +30,14 @@
 		<Unit filename="color.h" />
 		<Unit filename="compositeobject.cpp" />
 		<Unit filename="compositeobject.h" />
+		<Unit filename="csgnode.cpp" />
+		<Unit filename="csgnode.h" />
+		<Unit filename="csgobject.cpp" />
+		<Unit filename="csgobject.h" />
+		<Unit filename="csgoperation.cpp" />
+		<Unit filename="csgoperation.h" />
+		<Unit filename="csgprimitive.cpp" />
+		<Unit filename="csgprimitive.h" />
 		<Unit filename="globals.h" />
 		<Unit filename="image.cpp" />
 		<Unit filename="image.h" />

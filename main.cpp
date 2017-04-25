@@ -17,8 +17,24 @@
 
 
 #include "mergehits.h"
-
 #include "interval.h"
+
+#include "csgnode.h"
+#include "csgprimitive.h"
+#include "csgoperation.h"
+#include "csgobject.h"
+
+
+#define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
+                            for(int l = 0; l < A.size(); l++)       \
+                            {                                       \
+                                printVar(l);                        \
+                                printVec(A[l].hitPoint);             \
+                                printVec(r.rayPoint(A[l].t));       \
+                                cout<<A[l].t<<endl;                 \
+                            } cout<<endl<<endl;
+
+
 
 using namespace std;
 /*
@@ -34,15 +50,15 @@ namespace debug
 
 Camera CAMERA;
 Scene SCENE;
-int VERTICAL_RES = 800;
-int HORIZONTAL_RES = 800;
+int VERTICAL_RES = 400;
+int HORIZONTAL_RES = 400;
 float ZOOM = 1.0;
 
 int main(int argc, char** argv)
 {
     int i;
 
-    CAMERA = Camera(Vec3d(150.0, 0.0, 0.0),
+    CAMERA = Camera(Vec3d(200, 0.0, 0.0),
                     Vec3d(),
                     Vec3d(0.0, 0.0, 1.0),
                     HORIZONTAL_RES,
@@ -50,120 +66,104 @@ int main(int argc, char** argv)
                     200.0);
 
 
+    SCENE = Scene();
+    SCENE.bg = Color(0.2);
+
     Color col = Color(1.0, 0.0, 0.0);
 
     Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 5);
     s->c = col;
     s->m = new Material(col);
 
-    Box* b = new Box(Vec3d(-20, -5, -5), Vec3d(-10, 5, 5));
+    Box* b = new Box(Vec3d(-23, -5, -5), Vec3d(-10, 5, 5));
     b->c = col;
     b->m = new Material(col);
 
 
-    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 2);
+    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 50);
     s2->c = col;
     s2->m = new Material(col);
+    //SCENE.addObject(s2);
 
 
-    Box* b2 = new Box(Vec3d(5,-10,-10), Vec3d(15, 10, 10));
+    Box* b2 = new Box(Vec3d(-3, -3, -3), Vec3d(3, 3, 3));
     b2->c = col;
     b2->m = new Material(col);
 
 
-    Sphere* s3 = new Sphere(Vec3d(-15.0, 0.0, 0.0), 2);
+    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 0.0), 2);
     s3->c = col;
     s3->m = new Material(col);
-
-
+//
     Ray r = Ray(Vec3d(-25.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
-
+//
     vector<Intersect> v1 = b->hitList(r);
     vector<Intersect> v2 = s->hitList(r);
     vector<Intersect> v4 = b2->hitList(r);
     vector<Intersect> v3 = s2->hitList(r);
     vector<Intersect> v5 = s3->hitList(r);
+    vector<Intersect> vr = MergeHits::csg_minus(v2, v3);
 
-    cout<<"inters v1 :"<<endl;
-    for(int l = 0; l < v1.size(); l++)
-    {
-        printVar(l);
-        cout<<v1[l].t<<endl;
-        printVec(v1[l].normal);
-    }
-    cout<<"inters v2:"<<endl;
-    for(int l = 0; l < v2.size(); l++)
-    {
-        printVar(l);
-        cout<<v2[l].t<<endl;
-        printVec(v2[l].normal);
-    }
-    cout<<"inters v3 :"<<endl;
-    for(int l = 0; l < v1.size(); l++)
-    {
-        printVar(l);
-        cout<<v3[l].t<<endl;
-        printVec(v3[l].normal);
-    }
-    cout<<"inters v4:"<<endl;
-    for(int l = 0; l < v4.size(); l++)
-    {
-        printVar(l);
-        cout<<v4[l].t<<endl;
-        printVec(v4[l].normal);
-    }
+////    printHitList(v1);
+////    printHitList(v2);
+////    printHitList(v3);
+////    printHitList(v4);
+////    printHitList(v5);
+////    printHitList(vr);
+//
+//
+//    printHitList(v1);
+//    printHitList(v2);
+//    printHitList(v5);
+////    printHitList(MergeHits::csg_or(v1, v2));
+////    printHitList(MergeHits::csg_and(v1, v2));
+////    printHitList(MergeHits::csg_minus(v1, v2));
+////    printHitList(MergeHits::csg_minus(v2, v1));
+//
+//
+//
+    // (b - s3) - s
+    CSGNode* node = new CSGPrimitive(s);
+    CSGNode* node2 = new CSGPrimitive(b);
+    CSGNode* node3 = new CSGPrimitive(s3);
 
-    vector<Intersect> vr = MergeHits::csg_and(v1, v2);
-    cout<<"inters:"<<endl;
-    for(int l = 0; l < vr.size(); l++)
-    {
-        printVar(l);
-        cout<<vr[l].t<<endl;
-        printVec(vr[l].normal);
-    }
+    CSGNode* nodeOp1 = new CSGOperation(node2, node3, '&');
+    CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '+');
+    vr = nodeOp2->getHitPoints(r);
+    printHitList(vr);
 
-/*
-
-
-
-    vr = MergeHits::csg_or(vr, v3);
-    cout<<"inters:"<<endl;
-    for(int l = 0; l < vr.size(); l++)
-    {
-        printVar(l);
-        cout<<vr[l].t<<endl;
-        printVec(vr[l].normal);
-    }
-
-
-
-    vr = MergeHits::csg_or(vr, v4);
-    vr = MergeHits::csg_or(vr, v5);
-    cout<<"inters:"<<endl;
-    for(int l = 0; l < vr.size(); l++)
-    {
-        printVar(l);
-        cout<<vr[l].t<<endl;
-        printVec(vr[l].normal);
-    }
-*/
-    SCENE = Scene();
-    SCENE.bg = Color();
+    CSGObject * obj = new CSGObject(nodeOp2);
+    printInters(obj->hit(r));
+    obj->m = new Material(col);
+    SCENE.addObject(obj);
+//
+//
+//
 ////
+////    CSGNode* nodeOp = new CSGOperation(node, node2, '+');
+////    printHitList(nodeOp->getHitPoints(r));
+////
+////    nodeOp = new CSGOperation(node, node2, '&');
+////    printHitList(nodeOp->getHitPoints(r));
+////
+////    nodeOp = new CSGOperation(node, node2, '-');
+////    printHitList(nodeOp->getHitPoints(r));
+
+
 
     Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
              1.0,
              Color(1.0));
-    //printLight((*l));
     SCENE.addLight(l);
 
 
-    int nObjs = 0, nLights = 0;
+    int nObjs, nLights;
+
     /**
     **  Setup Objects
     **/
 
-    //cin>>nObjs;
+    cin>>nObjs;
     cout<<nObjs<<" objetos..."<<endl;
     for(i = 0; i < nObjs; i++)
     {
@@ -236,7 +236,7 @@ int main(int argc, char** argv)
     **  Setup Lights
     **/
 
-    //cin>>nLights;
+    cin>>nLights;
 
     for(i = 0; i < nLights; i++)
     {
