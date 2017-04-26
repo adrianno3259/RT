@@ -25,6 +25,8 @@
 #include "csgobject.h"
 
 
+
+
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
                             for(int l = 0; l < A.size(); l++)       \
                             {                                       \
@@ -58,7 +60,7 @@ int main(int argc, char** argv)
 {
     int i;
 
-    CAMERA = Camera(Vec3d(10, 20, 20.0),
+    CAMERA = Camera(Vec3d(200, 200, 200.0),
                     Vec3d(0, 0.0, 0.0),
                     Vec3d(0.0, 0.0, 1.0),
                     HORIZONTAL_RES,
@@ -68,119 +70,91 @@ int main(int argc, char** argv)
     CAMERA.pixelSize /= ZOOM;
     SCENE = Scene();
     SCENE.bg = Color();
-
     Color col = Color(1.0, 0.0, 0.0);
-
-    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
-    s->c = col;
-    s->m = new Material(col);
-
-    Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
-    b->c = col;
-    b->m = new Material(col);
-
-
-    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
-    s2->c = col;
-    s2->m = new Material(col);
-    //SCENE.addObject(s2);
-
-
-    Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
-    b2->c = col;
-    b2->m = new Material(col);
-
-
-    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
-    s3->c = col;
-    s3->m = new Material(col);
-//
-    Ray r = Ray(Vec3d(-25.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
-//
-    vector<Intersect> v1 = b->hitList(r);
-    vector<Intersect> v2 = s->hitList(r);
-    vector<Intersect> v4 = b2->hitList(r);
-    vector<Intersect> v3 = s2->hitList(r);
-    vector<Intersect> v5 = s3->hitList(r);
-    vector<Intersect> vr = MergeHits::csg_minus(v2, v3);
-
-////    printHitList(v1);
-////    printHitList(v2);
-////    printHitList(v3);
-////    printHitList(v4);
-////    printHitList(v5);
-////    printHitList(vr);
+/*
 //
 //
-//    printHitList(v1);
-//    printHitList(v2);
-//    printHitList(v5);
-////    printHitList(MergeHits::csg_or(v1, v2));
-////    printHitList(MergeHits::csg_and(v1, v2));
-////    printHitList(MergeHits::csg_minus(v1, v2));
-////    printHitList(MergeHits::csg_minus(v2, v1));
+//    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
+//    s->c = col;
+//    s->m = new Material(col);
+//
+//    Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
+//    b->c = col;
+//    b->m = new Material(col);
 //
 //
-//
-    // (b - s3) - s
-    CSGNode* node = new CSGPrimitive(s);
-    CSGNode* node2 = new CSGPrimitive(b);
-    CSGNode* node3 = new CSGPrimitive(s3);
-
-    CSGNode* nodeOp1 = new CSGOperation(node2, node3, '-');
-    CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
-    vr = nodeOp2->getHitPoints(r);
-    printHitList(vr);
-
-    CSGObject * obj = new CSGObject(nodeOp2);
-    printInters(obj->hit(r));
-    obj->m = new Material(col);
-    SCENE.addObject(obj);
-
-    CSGNode *box = new CSGPrimitive(b2);
-    CSGNode *sph = new CSGPrimitive(s2);
-    CSGNode *BSMinus = new CSGOperation(box, sph, '-');
-    CSGObject* obj2 = new CSGObject(BSMinus);
-    obj2->m = new Material(Color(1.0, 1.0, 0.0));
-    SCENE.addObject(obj2);
-
-
-
-
-    Sphere* s5 = new Sphere(Vec3d(15.0, 0.0, 0.0), 6);
-    s5->m = new Material(col);
-
-    Box* b5 = new Box(Vec3d(13, -2, -10), Vec3d(17, 2, 10));
-    b5->m = new Material(col);
-
-    Box* b6 = new Box(Vec3d(13, -10, -2), Vec3d(17, 10, 2));
-    b6->m = new Material(col);
-
-    CSGNode *sph2 = new CSGPrimitive(s5);
-    CSGNode *box2 = new CSGPrimitive(b5);
-    CSGNode *box3 = new CSGPrimitive(b6);
-    CSGNode *BSMinus2 = new CSGOperation(sph2, box2, '-');
-    CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
-    CSGObject* obj3 = new CSGObject(BSMinus3);
-    obj3->m = new Material(Color(1.0, 1.0, 0.0));
-    SCENE.addObject(obj3);
-
-    Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
-    p->m = new Material(Color(1.0));
-    SCENE.addObject(p);
-
+//    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
+//    s2->c = col;
+//    s2->m = new Material(col);
+//    //SCENE.addObject(s2);
 //
 //
+//    Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
+//    b2->c = col;
+//    b2->m = new Material(col);
 //
-////
-////    CSGNode* nodeOp = new CSGOperation(node, node2, '+');
-////    printHitList(nodeOp->getHitPoints(r));
-////
-////    nodeOp = new CSGOperation(node, node2, '&');
-////    printHitList(nodeOp->getHitPoints(r));
-////
-////    nodeOp = new CSGOperation(node, node2, '-');
-////    printHitList(nodeOp->getHitPoints(r));
+//
+//    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
+//    s3->c = col;
+//    s3->m = new Material(col);
+//
+//    Ray r = Ray(Vec3d(-25.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
+//    vector<Intersect> v1 = b->hitList(r);
+//    vector<Intersect> v2 = s->hitList(r);
+//    vector<Intersect> v4 = b2->hitList(r);
+//    vector<Intersect> v3 = s2->hitList(r);
+//    vector<Intersect> v5 = s3->hitList(r);
+//    vector<Intersect> vr = MergeHits::csg_minus(v2, v3);
+//
+//    ////////////////////////////////////////////////////////////////////////////////////
+//    // (b - s3) - s
+//    CSGNode* node = new CSGPrimitive(s);
+//    CSGNode* node2 = new CSGPrimitive(b);
+//    CSGNode* node3 = new CSGPrimitive(s3);
+//
+//    CSGNode* nodeOp1 = new CSGOperation(node2, node3, '-');
+//    CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
+//    vr = nodeOp2->getHitPoints(r);
+//    //printHitList(vr);
+//
+//    CSGObject * obj = new CSGObject(nodeOp2);
+//    //printInters(obj->hit(r));
+//    obj->m = new Material(col);
+//    SCENE.addObject(obj);
+//
+//    ////////////////////////////////////////////////////////////////////////////////////
+//
+//    CSGNode *box = new CSGPrimitive(b2);
+//    CSGNode *sph = new CSGPrimitive(s2);
+//    CSGNode *BSMinus = new CSGOperation(box, sph, '-');
+//    CSGObject* obj2 = new CSGObject(BSMinus);
+//    obj2->m = new Material(Color(1.0, 1.0, 0.0));
+//    SCENE.addObject(obj2);
+//
+//    ////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//    Sphere* s5 = new Sphere(Vec3d(15.0, 0.0, 0.0), 6);
+//    s5->m = new Material(col);
+//
+//    Box* b5 = new Box(Vec3d(13, -2, -10), Vec3d(17, 2, 10));
+//    b5->m = new Material(col);
+//
+//    Box* b6 = new Box(Vec3d(13, -10, -2), Vec3d(17, 10, 2));
+//    b6->m = new Material(col);
+//
+//    CSGNode *sph2 = new CSGPrimitive(s5);
+//    CSGNode *box2 = new CSGPrimitive(b5);
+//    CSGNode *box3 = new CSGPrimitive(b6);
+//    CSGNode *BSMinus2 = new CSGOperation(sph2, box2, '-');
+//    CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
+//    CSGObject* obj3 = new CSGObject(BSMinus3);
+//    obj3->m = new Material(Color(1.0, 1.0, 0.0));
+//    SCENE.addObject(obj3);
+//
+//    Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
+//    p->m = new Material(Color(1.0));
+//    SCENE.addObject(p);*/
 
 
 
@@ -193,14 +167,30 @@ int main(int argc, char** argv)
              Color(1.0));
     SCENE.addLight(l1);
 
-    int nObjs, nLights;
+
+
+    int NUM_SPH = 10;
+    cin >> NUM_SPH;
+    cout<<"Esferas: " << NUM_SPH<<endl;
+    Sphere * s;
+    for(int j = 0; j < NUM_SPH; j++)
+    {
+        float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
+        Color col2 = Color(1.0, 0.0, (j%11)*0.1);
+        s = new Sphere(Vec3d(x, y, z), 15);
+        s->m = new Material(col2);
+        SCENE.addObject(s);
+    }
+
+
+    int nObjs = 0, nLights = 0;
 
     /**
     **  Setup Objects
     **/
 
-    cin>>nObjs;
-    cout<<nObjs<<" objetos..."<<endl;
+    //cin>>nObjs;
+    //cout<<nObjs<<" objetos..."<<endl;
     for(i = 0; i < nObjs; i++)
     {
         string type;
@@ -272,7 +262,7 @@ int main(int argc, char** argv)
     **  Setup Lights
     **/
 
-    cin>>nLights;
+    //cin>>nLights;
 
     for(i = 0; i < nLights; i++)
     {
@@ -293,7 +283,7 @@ int main(int argc, char** argv)
     }
     Image im = CAMERA.render(SCENE);
     im.save("image.ppm");
-    cout<<true<<endl; system("start image.ppm");
+    //system("start image.ppm");
     return 0;
 }
 

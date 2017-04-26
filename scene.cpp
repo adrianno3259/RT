@@ -45,7 +45,7 @@ bool Scene::lightHitsPoint(int lightId, const Intersect& it, float maxDist) cons
     float distToLight = lightVector.length();
     lightVector.normalize();
 
-    Vec3d origin = it.hitPoint +(it.normal*(0.001));
+    Vec3d origin = it.hitPoint +(it.normal*(0.01));
     Ray r = Ray(origin, lightVector);
 
     i = hitObject(r);
