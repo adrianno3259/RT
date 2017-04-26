@@ -327,7 +327,7 @@
 	"world.h"
 	"image.h"
 
-1492047767 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
 	"camera.h"
 	"material.h"
 
@@ -347,13 +347,14 @@
 
 1492023901 c:\users\adria\desktop\my_raytracer\rt\color.h
 
-1492099378 c:\users\adria\desktop\my_raytracer\rt\object.h
+1493080085 c:\users\adria\desktop\my_raytracer\rt\object.h
 	"intersect.h"
 	"ray.h"
 	"globals.h"
 	"scene.h"
 	"light.h"
 	<iostream>
+	<vector>
 
 1492106836 c:\users\adria\desktop\my_raytracer\rt\intersect.h
 	"color.h"
@@ -392,21 +393,21 @@
 	"material.h"
 	"globals.h"
 
-1492052923 source:c:\users\adria\desktop\my_raytracer\rt\object.cpp
+1493080085 source:c:\users\adria\desktop\my_raytracer\rt\object.cpp
 	"object.h"
 
 1492106907 source:c:\users\adria\desktop\my_raytracer\rt\ray.cpp
 	"ray.h"
 
-1492099351 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
 	"scene.h"
 	<cmath>
 
-1492054741 source:c:\users\adria\desktop\my_raytracer\rt\sphere.cpp
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\sphere.cpp
 	"sphere.h"
 	<cmath>
 
-1492028680 c:\users\adria\desktop\my_raytracer\rt\sphere.h
+1493080085 c:\users\adria\desktop\my_raytracer\rt\sphere.h
 	"object.h"
 
 1492023902 source:c:\users\adria\desktop\my_raytracer\rt\vec3.cpp
@@ -512,7 +513,7 @@
 	"vec3.h"
 	<cmath>
 
-1492662160 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1493169568 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -527,19 +528,24 @@
 	"material.h"
 	"box.h"
 	"globals.h"
+	"mergehits.h"
 	"interval.h"
+	"csgnode.h"
+	"csgprimitive.h"
+	"csgoperation.h"
+	"csgobject.h"
 
-1492190741 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
+1493080085 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
 	"plane.h"
 	<cmath>
 
-1492063716 c:\users\adria\desktop\my_raytracer\rt\plane.h
+1493080085 c:\users\adria\desktop\my_raytracer\rt\plane.h
 	"object.h"
 
-1492147711 source:c:\users\adria\desktop\my_raytracer\rt\box.cpp
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\box.cpp
 	"box.h"
 
-1492106836 c:\users\adria\desktop\my_raytracer\rt\box.h
+1493080085 c:\users\adria\desktop\my_raytracer\rt\box.h
 	"object.h"
 
 1492632095 source:c:\users\adria\desktop\my_raytracer\rt\compositeobject.cpp
@@ -547,17 +553,18 @@
 
 1492632095 object.h"
 
-1492661716 c:\users\adria\desktop\my_raytracer\rt\compositeobject.h
-	"Object.h"
+1493080085 c:\users\adria\desktop\my_raytracer\rt\compositeobject.h
+	"object.h"
 	<algorithm>
 
-1492662187 source:c:\users\adria\desktop\my_raytracer\rt\interval.cpp
+1493080085 source:c:\users\adria\desktop\my_raytracer\rt\interval.cpp
 	"interval.h"
 	"globals.h"
 
-1492661549 c:\users\adria\desktop\my_raytracer\rt\interval.h
+1493080085 c:\users\adria\desktop\my_raytracer\rt\interval.h
 	<vector>
 	<iostream>
+	<algorithm>
 
 1493148792 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/box.cpp
 	"box.h"
@@ -740,4 +747,48 @@
 	"csgobject.h"
 	"globals.h"
 	<vector>
+
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\csgnode.cpp
+	"csgnode.h"
+
+1493166007 c:\users\adria\desktop\my_raytracer\rt\csgnode.h
+	<vector>
+	"intersect.h"
+	"ray.h"
+
+1493169699 source:c:\users\adria\desktop\my_raytracer\rt\csgobject.cpp
+	"csgobject.h"
+	"globals.h"
+	<vector>
+
+1493166007 c:\users\adria\desktop\my_raytracer\rt\csgobject.h
+	"object.h"
+	"csgnode.h"
+
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\csgoperation.cpp
+	"csgoperation.h"
+	"mergehits.h"
+	<iostream>
+
+1493166007 c:\users\adria\desktop\my_raytracer\rt\csgoperation.h
+	<vector>
+	"intersect.h"
+	"csgnode.h"
+
+1493166007 c:\users\adria\desktop\my_raytracer\rt\mergehits.h
+	<vector>
+	"intersect.h"
+
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\csgprimitive.cpp
+	"csgprimitive.h"
+	<iostream>
+
+1493166007 c:\users\adria\desktop\my_raytracer\rt\csgprimitive.h
+	"object.h"
+	"csgnode.h"
+
+1493166007 source:c:\users\adria\desktop\my_raytracer\rt\mergehits.cpp
+	"mergehits.h"
+	"globals.h"
+	<iostream>
 

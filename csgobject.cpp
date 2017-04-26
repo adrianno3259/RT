@@ -19,12 +19,13 @@ Intersect CSGObject::hit(const Ray& r) const
     float tmin = 999999999999;
     int i;
     for(i = 0; i < vl.size(); i++)
-    {
-
-        if(vl[i].t > K_EPSILON){ return vl[i]; }
-    }
-
-
+        if(vl[i].t > K_EPSILON)
+        {
+            Intersect ret = vl[i];
+            ret.m = m;
+            return vl[i];
+        }
+    return Intersect();
 }
 
 
