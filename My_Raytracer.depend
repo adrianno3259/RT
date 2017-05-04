@@ -327,7 +327,7 @@
 	"world.h"
 	"image.h"
 
-1493166007 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
+1493833005 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
 	"camera.h"
 	"material.h"
 
@@ -399,7 +399,7 @@
 1492106907 source:c:\users\adria\desktop\my_raytracer\rt\ray.cpp
 	"ray.h"
 
-1493166007 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
+1493833005 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
 	"scene.h"
 	<cmath>
 
@@ -513,7 +513,7 @@
 	"vec3.h"
 	<cmath>
 
-1493169568 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1493840388 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -568,13 +568,22 @@
 	<iostream>
 	<algorithm>
 
-1493148792 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/box.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/box.cpp
+	"box.h"
 	"box.h"
 
-1493039649 /home/admin01/Documentos/Adrianno_IC/RT/RT/box.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/box.h
+	"object.h"
 	"object.h"
 
-1493036847 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
+	"intersect.h"
+	"ray.h"
+	"globals.h"
+	"scene.h"
+	"light.h"
+	<iostream>
+	<vector>
 	"intersect.h"
 	"ray.h"
 	"globals.h"
@@ -583,60 +592,105 @@
 	<iostream>
 	<vector>
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/intersect.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/intersect.h
+	"color.h"
+	"vec3.h"
 	"color.h"
 	"vec3.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/color.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/color.h
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.h
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/ray.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/ray.h
+	"vec3.h"
 	"vec3.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/scene.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/scene.h
+	"color.h"
+	"object.h"
+	"light.h"
+	<vector>
 	"color.h"
 	"object.h"
 	"light.h"
 	<vector>
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/light.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/light.h
+	"vec3.h"
+	"color.h"
 	"vec3.h"
 	"color.h"
 
-1493153486 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/camera.cpp
+1493219276 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/camera.cpp
+	"camera.h"
+	"material.h"
 	"camera.h"
 	"material.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/camera.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/camera.h
+	"vec3.h"
+	"scene.h"
+	"ray.h"
+	"image.h"
 	"vec3.h"
 	"scene.h"
 	"ray.h"
 	"image.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/image.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/image.h
+	<vector>
+	<iostream>
+	"color.h"
 	<vector>
 	<iostream>
 	"color.h"
 
-1492704094 /home/admin01/Documentos/Adrianno_IC/RT/RT/material.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/material.h
+	"intersect.h"
+	"scene.h"
 	"intersect.h"
 	"scene.h"
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/color.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/color.cpp
+	"color.h"
+	<algorithm>
 	"color.h"
 	<algorithm>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/image.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/image.cpp
+	"image.h"
+	<fstream>
 	"image.h"
 	<fstream>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/light.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/light.cpp
+	"light.h"
 	"light.h"
 
-1493153522 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+1493220805 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+	<iostream>
+	<cstdlib>
+	"color.h"
+	"vec3.h"
+	"image.h"
+	"ray.h"
+	"sphere.h"
+	<cmath>
+	"plane.h"
+	"camera.h"
+	"scene.h"
+	"material.h"
+	"box.h"
+	"globals.h"
+	"mergehits.h"
+	"interval.h"
+	"csgnode.h"
+	"csgprimitive.h"
+	"csgoperation.h"
+	"csgobject.h"
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -658,94 +712,140 @@
 	"csgoperation.h"
 	"csgobject.h"
 
-1493036966 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
+	"object.h"
 	"object.h"
 
-1493041198 /home/admin01/Documentos/Adrianno_IC/RT/RT/plane.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/plane.h
+	"object.h"
 	"object.h"
 
-1492706328 /home/admin01/Documentos/Adrianno_IC/RT/RT/interval.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/interval.h
+	<vector>
+	<iostream>
+	<algorithm>
 	<vector>
 	<iostream>
 	<algorithm>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/material.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/material.cpp
+	"material.h"
+	"globals.h"
 	"material.h"
 	"globals.h"
 
-1493036913 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/object.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/object.cpp
+	"object.h"
 	"object.h"
 
-1493041271 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/plane.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/plane.cpp
+	"plane.h"
+	<cmath>
 	"plane.h"
 	<cmath>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/ray.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/ray.cpp
+	"ray.h"
 	"ray.h"
 
-1493153549 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
+1493220828 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
+	"scene.h"
+	<cmath>
 	"scene.h"
 	<cmath>
 
-1493148246 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
+	"sphere.h"
+	<cmath>
 	"sphere.h"
 	<cmath>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.cpp
+	"vec3.h"
+	<cmath>
 	"vec3.h"
 	<cmath>
 
-1492704094 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
+	"compositeobject.h"
 	"compositeobject.h"
 
-1492704152 /home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.h
+	"object.h"
+	<algorithm>
 	"object.h"
 	<algorithm>
 
-1493050310 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/interval.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/interval.cpp
+	"interval.h"
+	"globals.h"
 	"interval.h"
 	"globals.h"
 
-1493140686 /home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.h
+	<vector>
+	"intersect.h"
 	<vector>
 	"intersect.h"
 
-1493150187 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.cpp
+	"mergehits.h"
+	"globals.h"
+	<iostream>
 	"mergehits.h"
 	"globals.h"
 	<iostream>
 
-1493147100 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.cpp
+	"csgnode.h"
 	"csgnode.h"
 
-1493145991 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.h
+	<vector>
+	"intersect.h"
+	"ray.h"
 	<vector>
 	"intersect.h"
 	"ray.h"
 
-1493147679 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.cpp
+	"csgprimitive.h"
+	<iostream>
 	"csgprimitive.h"
 	<iostream>
 
-1493146024 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.h
+	"object.h"
+	"csgnode.h"
 	"object.h"
 	"csgnode.h"
 
-1493146083 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.h
+	<vector>
+	"intersect.h"
+	"csgnode.h"
 	<vector>
 	"intersect.h"
 	"csgnode.h"
 
-1493147679 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.cpp
+	"csgoperation.h"
+	"mergehits.h"
+	<iostream>
 	"csgoperation.h"
 	"mergehits.h"
 	<iostream>
 
-1493151689 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.h
+1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.h
+	"object.h"
+	"csgnode.h"
 	"object.h"
 	"csgnode.h"
 
-1493151689 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.cpp
+1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.cpp
+	"csgobject.h"
+	"globals.h"
+	<vector>
 	"csgobject.h"
 	"globals.h"
 	<vector>
@@ -772,7 +872,7 @@
 	"mergehits.h"
 	<iostream>
 
-1493166007 c:\users\adria\desktop\my_raytracer\rt\csgoperation.h
+1493843546 c:\users\adria\desktop\my_raytracer\rt\csgoperation.h
 	<vector>
 	"intersect.h"
 	"csgnode.h"
@@ -785,7 +885,7 @@
 	"csgprimitive.h"
 	<iostream>
 
-1493166007 c:\users\adria\desktop\my_raytracer\rt\csgprimitive.h
+1493843581 c:\users\adria\desktop\my_raytracer\rt\csgprimitive.h
 	"object.h"
 	"csgnode.h"
 
@@ -793,186 +893,4 @@
 	"mergehits.h"
 	"globals.h"
 	<iostream>
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/box.cpp
-	"box.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/box.h
-	"object.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
-	"intersect.h"
-	"ray.h"
-	"globals.h"
-	"scene.h"
-	"light.h"
-	<iostream>
-	<vector>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/intersect.h
-	"color.h"
-	"vec3.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/color.h
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.h
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/ray.h
-	"vec3.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/scene.h
-	"color.h"
-	"object.h"
-	"light.h"
-	<vector>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/light.h
-	"vec3.h"
-	"color.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/color.cpp
-	"color.h"
-	<algorithm>
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
-	"compositeobject.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.h
-	"object.h"
-	<algorithm>
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.cpp
-	"csgnode.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.h
-	<vector>
-	"intersect.h"
-	"ray.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.cpp
-	"csgobject.h"
-	"globals.h"
-	<vector>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.h
-	"object.h"
-	"csgnode.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.cpp
-	"csgoperation.h"
-	"mergehits.h"
-	<iostream>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.h
-	<vector>
-	"intersect.h"
-	"csgnode.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.h
-	<vector>
-	"intersect.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.cpp
-	"csgprimitive.h"
-	<iostream>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.h
-	"object.h"
-	"csgnode.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/image.cpp
-	"image.h"
-	<fstream>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/image.h
-	<vector>
-	<iostream>
-	"color.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/interval.cpp
-	"interval.h"
-	"globals.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/interval.h
-	<vector>
-	<iostream>
-	<algorithm>
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/light.cpp
-	"light.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/material.cpp
-	"material.h"
-	"globals.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/material.h
-	"intersect.h"
-	"scene.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/mergehits.cpp
-	"mergehits.h"
-	"globals.h"
-	<iostream>
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/object.cpp
-	"object.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/plane.cpp
-	"plane.h"
-	<cmath>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/plane.h
-	"object.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/ray.cpp
-	"ray.h"
-
-1493220828 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
-	"scene.h"
-	<cmath>
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
-	"sphere.h"
-	<cmath>
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
-	"object.h"
-
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.cpp
-	"vec3.h"
-	<cmath>
-
-1493219276 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/camera.cpp
-	"camera.h"
-	"material.h"
-
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/camera.h
-	"vec3.h"
-	"scene.h"
-	"ray.h"
-	"image.h"
-
-1493220805 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
-	<iostream>
-	<cstdlib>
-	"color.h"
-	"vec3.h"
-	"image.h"
-	"ray.h"
-	"sphere.h"
-	<cmath>
-	"plane.h"
-	"camera.h"
-	"scene.h"
-	"material.h"
-	"box.h"
-	"globals.h"
-	"mergehits.h"
-	"interval.h"
-	"csgnode.h"
-	"csgprimitive.h"
-	"csgoperation.h"
-	"csgobject.h"
 
