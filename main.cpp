@@ -28,13 +28,14 @@
 
 
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
-                            for(int l = 0; l < A.size(); l++)       \
-                            {                                       \
-                                printVar(l);                        \
-                                printVec(A[l].hitPoint);             \
-                                printVec(r.rayPoint(A[l].t));       \
-                                cout<<A[l].t<<endl;                 \
-                            } cout<<endl<<endl;
+                            for(int l = 0; l < A.size(); l++)                                          \
+                            {                                                                          \
+                                printVar(l);                                                           \
+                                printVec(A[l].hitPoint);                                               \
+                                printVec(r.rayPoint(A[l].t));                                          \
+                                cout<<A[l].t<<endl;                                                    \
+                            }                                                                          \
+                            cout<<endl<<endl;
 
 
 
@@ -169,14 +170,14 @@ int main(int argc, char** argv)
 
 
 
-    int NUM_SPH = 10;
+    int NUM_SPH = 300;
     cin >> NUM_SPH;
     cout<<"Esferas: " << NUM_SPH<<endl;
     Sphere * s;
     for(int j = 0; j < NUM_SPH; j++)
     {
-        float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
-        Color col2 = Color(1.0, 0.0, (j%11)*0.1);
+        float x = rand() % 1000 -500, y = rand() % 200 -100, z = rand() % 200 -100;
+        Color col2 = Color((j%3)*0.5, (j%6)*0.2, (j%11)*0.1);
         s = new Sphere(Vec3d(x, y, z), 15);
         s->m = new Material(col2);
         SCENE.addObject(s);

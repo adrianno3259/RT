@@ -954,7 +954,7 @@
 	"ray.h"
 	"image.h"
 
-1493220805 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+1493221181 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"

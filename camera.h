@@ -11,7 +11,7 @@ class Camera
 {
 public:
     Vec3d eye, lookpt, lookDirection, up, gaze, u, v, w;
-    int hres, vres;
+    int hres, vres, samples;
     float pixelSize, dist, exposure;
     Image img;
     Camera();
