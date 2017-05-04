@@ -1,0 +1,37 @@
+Classes a serem documentadas:
+
+- Box: subclasse de Object. Contém os dados e métodos de um cubóide (paralelepípedo cujas faces formam ângulos retos entre si)
+
+- Camera: contém as informações e métodos de uma câmera virtual
+
+- Color: armazena uma cor RGB
+
+- Image: armazena pixels de uma imagem e contém métodos parar salvá-la em disco
+
+- Intersect: possui informações sobre um ponto de interseção Raio-Objeto
+
+- Light: contém informações e métodos de uma fonte de luz pontual
+
+- Material: representa o material da superfície de um objeto. Essa classe é responsável pela interação do raio de luz com a superfície do objeto
+
+- Object: super classe de todos os objetos 3D. Serve como interface que permite a adição de novos objetos 3D no sistema.
+
+- Plane: classe que contém as informações de um plano infinito
+
+- Ray: contém informações de um raio de luz virtual.
+
+- Scene: contém informações do espaço virtual como os objetos e fontes de luz contidos no mesmo
+
+- Sphere: classe que contém as informações de uma esfera
+
+- Vec3d: classe que guarda as coordenadas de um ponto ou vetor de três dimensões
+
+- CSGObject: subclasse de Object. Nessa classe está armazenada a estrutura de árvore binária de um Objeto CSG
+
+- CSGNode: Classe abstrata que é superclasse dos dois tipos de nós da árvore. Objetos primitivos e operações
+
+OK - CSGOperation: representa uma operação entre objetos primitivos no Ray Tracer CSG
+
+OK - CSGPrimitive: representa os objetos primitivos na árvore do CSG
+
+- MergeHits: classe que possui os métodos através dos quais as operações entre primitivas são feitas
