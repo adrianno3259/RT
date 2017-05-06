@@ -356,9 +356,10 @@
 	<iostream>
 	<vector>
 
-1492106836 c:\users\adria\desktop\my_raytracer\rt\intersect.h
+1494045877 c:\users\adria\desktop\my_raytracer\rt\intersect.h
 	"color.h"
 	"vec3.h"
+	"ray.h"
 
 1492023902 c:\users\adria\desktop\my_raytracer\rt\ray.h
 	"vec3.h"
@@ -374,7 +375,7 @@
 	<iostream>
 	"color.h"
 
-1492043126 c:\users\adria\desktop\my_raytracer\rt\material.h
+1494002519 c:\users\adria\desktop\my_raytracer\rt\material.h
 	"intersect.h"
 	"scene.h"
 
@@ -389,7 +390,7 @@
 1492023902 source:c:\users\adria\desktop\my_raytracer\rt\light.cpp
 	"light.h"
 
-1492148301 source:c:\users\adria\desktop\my_raytracer\rt\material.cpp
+1494002550 source:c:\users\adria\desktop\my_raytracer\rt\material.cpp
 	"material.h"
 	"globals.h"
 
@@ -513,7 +514,7 @@
 	"vec3.h"
 	<cmath>
 
-1493840388 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1494043218 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -526,6 +527,7 @@
 	"camera.h"
 	"scene.h"
 	"material.h"
+	"matte.h"
 	"box.h"
 	"globals.h"
 	"mergehits.h"
@@ -537,14 +539,14 @@
 
 1493166007 .h"
 
-1493080085 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
+1494046090 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
 	"plane.h"
 	<cmath>
 
 1493080085 c:\users\adria\desktop\my_raytracer\rt\plane.h
 	"object.h"
 
-1493166007 source:c:\users\adria\desktop\my_raytracer\rt\box.cpp
+1494045949 source:c:\users\adria\desktop\my_raytracer\rt\box.cpp
 	"box.h"
 
 1493080085 c:\users\adria\desktop\my_raytracer\rt\box.h
@@ -858,7 +860,7 @@
 	"intersect.h"
 	"ray.h"
 
-1493169699 source:c:\users\adria\desktop\my_raytracer\rt\csgobject.cpp
+1494001149 source:c:\users\adria\desktop\my_raytracer\rt\csgobject.cpp
 	"csgobject.h"
 	"globals.h"
 	<vector>
@@ -872,7 +874,7 @@
 	"mergehits.h"
 	<iostream>
 
-1493843546 c:\users\adria\desktop\my_raytracer\rt\csgoperation.h
+1493843678 c:\users\adria\desktop\my_raytracer\rt\csgoperation.h
 	<vector>
 	"intersect.h"
 	"csgnode.h"
@@ -885,7 +887,7 @@
 	"csgprimitive.h"
 	<iostream>
 
-1493843581 c:\users\adria\desktop\my_raytracer\rt\csgprimitive.h
+1493852664 c:\users\adria\desktop\my_raytracer\rt\csgprimitive.h
 	"object.h"
 	"csgnode.h"
 
@@ -893,4 +895,16 @@
 	"mergehits.h"
 	"globals.h"
 	<iostream>
+
+1493998168 c:\users\adria\desktop\my_raytracer\rt\matte.h
+	"material.h"
+
+1493998549 source:c:\users\adria\desktop\my_raytracer\rt\matte.cpp
+	"matte.h"
+
+1494046070 source:c:\users\adria\desktop\my_raytracer\rt\phong.cpp
+	"phong.h"
+
+1494046053 c:\users\adria\desktop\my_raytracer\rt\phong.h
+	"material.h"
 

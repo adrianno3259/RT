@@ -3,7 +3,7 @@
 
 #include "color.h"
 #include "vec3.h"
-
+#include "ray.h"
 
 #define printInters(A) std::cout <<"Intersection "<< #A <<":"<<std::endl; printVar(A.hit); printVar(A.t); printVec(A.hitPoint); printVar(A.entering); printCol(A.c)
 
@@ -25,6 +25,7 @@ typedef struct Intersect
         this->m = 0;
         this->c = Color();
     }
+    Ray r;
     bool hit;
     float t; // ponto paramétrico t no raio que atingiu o objeto
     Object* obj; // objeto atingido

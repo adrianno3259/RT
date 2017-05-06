@@ -4,16 +4,14 @@
 #include "intersect.h"
 #include "scene.h"
 
-//int N = 0;
-
 class Material
 {
 public:
-    Color c;
     Material(const Color& c);
-    Color shade(const Scene& sc, Intersect& it);
+    virtual Color shade(const Scene& sc, Intersect& it) = 0;
 protected:
-    float checkShadow(const Scene& sc, Light* l, const Intersect& it, float dist) const;
+    Color c;
+
 };
 
 #endif // MATERIAL_H
