@@ -25,7 +25,7 @@
 #include "csgoperation.h"
 #include "csgobject.h"
 
-
+#include "phong.h"
 
 
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
@@ -49,7 +49,8 @@ namespace debug
     void T_Ray();
     void T_Sphere();
 }*/
-
+void setupScene();
+void csgExemple();
 
 Camera CAMERA;
 Scene SCENE;
@@ -71,93 +72,8 @@ int main(int argc, char** argv)
     CAMERA.pixelSize /= ZOOM;
     SCENE = Scene();
     SCENE.bg = Color();
-    Color col = Color(0.3, 0.3, 0.3);
 
-    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
-    s->c = col;
-    s->m = new Matte(col);
-
-    Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
-    b->c = col;
-    b->m = new Matte(col);
-
-
-    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
-    s2->c = col;
-    s2->m = new Matte(col);
-    //SCENE.addObject(s2);
-
-
-    Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
-    b2->c = col;
-    b2->m = new Matte(col);
-
-
-    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
-    s3->c = col;
-    s3->m = new Matte(col);
-
-    Ray r = Ray(Vec3d(-25.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
-    vector<Intersect> v1 = b->hitList(r);
-    vector<Intersect> v2 = s->hitList(r);
-    vector<Intersect> v4 = b2->hitList(r);
-    vector<Intersect> v3 = s2->hitList(r);
-    vector<Intersect> v5 = s3->hitList(r);
-    vector<Intersect> vr = MergeHits::csg_minus(v2, v3);
-
-    ////////////////////////////////////////////////////////////////////////////////////
-    // (b - s3) - s
-    CSGNode* node = new CSGPrimitive(s);
-    CSGNode* node2 = new CSGPrimitive(b);
-    CSGNode* node3 = new CSGPrimitive(s3);
-
-    CSGNode* nodeOp1 = new CSGOperation(node2, node3, '-');
-    CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
-    vr = nodeOp2->getHitPoints(r);
-    //printHitList(vr);
-
-    CSGObject * obj = new CSGObject(nodeOp2);
-    //printInters(obj->hit(r));
-    obj->m = new Matte(col);
-    SCENE.addObject(obj);
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    CSGNode *box = new CSGPrimitive(b2);
-    CSGNode *sph = new CSGPrimitive(s2);
-    CSGNode *BSMinus = new CSGOperation(box, sph, '-');
-    CSGObject* obj2 = new CSGObject(BSMinus);
-    obj2->m = new Matte(Color(0.0, 0.0, 1.0));
-    SCENE.addObject(obj2);
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
-
-    Sphere* s5 = new Sphere(Vec3d(15.0, 0.0, 0.0), 6);
-    s5->m = new Matte(col);
-
-    Box* b5 = new Box(Vec3d(13, -2, -10), Vec3d(17, 2, 10));
-    b5->m = new Matte(col);
-
-    Box* b6 = new Box(Vec3d(13, -10, -2), Vec3d(17, 10, 2));
-    b6->m = new Matte(col);
-
-    CSGNode *sph2 = new CSGPrimitive(s5);
-    CSGNode *box2 = new CSGPrimitive(b5);
-    CSGNode *box3 = new CSGPrimitive(b6);
-    CSGNode *BSMinus2 = new CSGOperation(sph2, box2, '-');
-    CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
-    CSGObject* obj3 = new CSGObject(BSMinus3);
-    obj3->m = new Matte(Color(1.0, 1.0, 0.0));
-    SCENE.addObject(obj3);
-
-    Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
-    p->m = new Matte(Color(1.0));
-    SCENE.addObject(p);
-
-    Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
-    sphere->m = new Matte(Color(1.0, 0.3, 0.6));
-    SCENE.addObject(sphere);
+    csgExemple();
 
     Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
              1.0,
@@ -183,8 +99,18 @@ int main(int argc, char** argv)
 //        SCENE.addObject(s);
 //    }
 
+    Image im = CAMERA.render(SCENE);
+    im.save("image.ppm");
+    system("start image.ppm");
+    return 0;
+}
 
-    int nObjs = 0, nLights = 0;
+
+void setupScene()
+{
+
+
+    int nObjs = 0, nLights = 0, i;
 
     /**
     **  Setup Objects
@@ -282,69 +208,90 @@ int main(int argc, char** argv)
             SCENE.addLight(l);
         }
     }
-    Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
-    //system("start image.ppm");
-    return 0;
+
+
 }
 
-
-void testScene()
+void csgExemple()
 {
-    Sphere* s = new Sphere(30.0);
-    Color col = Color(1.0, 0.0, 0.0);
+    Color col = Color(0.3, 0.3, 0.3);
+    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
     s->c = col;
     s->m = new Matte(col);
-    SCENE.addObject(s);
+
+    Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
+    b->c = col;
+    b->m = new Matte(col);
 
 
-    Sphere* s2 = new Sphere(Vec3d(0.0, 100.0, 0.0),
-                            30.0);
-    Color col2 = Color(1.0, 1.0, 0.0);
-    s2->c = col2;
-    s2->m = new Matte(col2);
-    SCENE.addObject(s2);
+    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
+    s2->c = col;
+    s2->m = new Matte(col);
+    //SCENE.addObject(s2);
 
 
-    Sphere* s3 = new Sphere(Vec3d(0.0, -100.0, 0.0),
-                            30.0);
-    Color col3 = Color(1.0, 1.0, 1.0);
-    s3->c = col2;
-    s3->m = new Matte(col3);
-    SCENE.addObject(s3);
+    Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
+    b2->c = col;
+    b2->m = new Matte(col);
 
 
-    Sphere* s4 = new Sphere(Vec3d(0.0, 0.0, 90.0),
-                            30.0);
-    Color col4 = Color(1.0, 0.0, 1.0);
-    s4->c = col2;
-    s4->m = new Matte(col4);
-    SCENE.addObject(s4);
+    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
+    s3->c = col;
+    s3->m = new Matte(col);
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    // (b - s3) - s
+    CSGNode* node = new CSGPrimitive(s);
+    CSGNode* node2 = new CSGPrimitive(b);
+    CSGNode* node3 = new CSGPrimitive(s3);
+
+    CSGNode* nodeOp1 = new CSGOperation(node2, node3, '-');
+    CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
 
 
-    Sphere* s5 = new Sphere(Vec3d(0.0, 0.0, -90.0),
-                            40.0);
-    s5->c = col2;
-    s5->m = new Matte(col2);
-    SCENE.addObject(s5);
+    CSGObject * obj = new CSGObject(nodeOp2);
+    //printInters(obj->hit(r));
+    obj->m = new Matte(col);
+    SCENE.addObject(obj);
+
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    CSGNode *box = new CSGPrimitive(b2);
+    CSGNode *sph = new CSGPrimitive(s2);
+    CSGNode *BSMinus = new CSGOperation(box, sph, '-');
+    CSGObject* obj2 = new CSGObject(BSMinus);
+    obj2->m = new Matte(Color(0.0, 0.0, 1.0));
+    SCENE.addObject(obj2);
+
+    ////////////////////////////////////////////////////////////////////////////////////
 
 
+    Sphere* s5 = new Sphere(Vec3d(15.0, 0.0, 0.0), 6);
+    s5->m = new Matte(col);
 
-    Light* l2 = new Light(Vec3d(100.0, 0.0, 0.0),
-                     1.0,
-                     Color(1.0));
-    printLight((*l2));
-    SCENE.addLight(l2);
+    Box* b5 = new Box(Vec3d(13, -2, -10), Vec3d(17, 2, 10));
+    b5->m = new Matte(col);
 
-    Light* l = new Light(Vec3d(100.0, 0.0, 100.0),
-                 1.0,
-                 Color(1.0));
-    printLight((*l));
-    SCENE.addLight(l);
+    Box* b6 = new Box(Vec3d(13, -10, -2), Vec3d(17, 10, 2));
+    b6->m = new Matte(col);
 
+    CSGNode *sph2 = new CSGPrimitive(s5);
+    CSGNode *box2 = new CSGPrimitive(b5);
+    CSGNode *box3 = new CSGPrimitive(b6);
+    CSGNode *BSMinus2 = new CSGOperation(sph2, box2, '-');
+    CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
+    CSGObject* obj3 = new CSGObject(BSMinus3);
+    obj3->m = new Matte(Color(1.0, 1.0, 0.0));
+    SCENE.addObject(obj3);
 
+    Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
+    p->m = new Matte(Color(1.0));
+    SCENE.addObject(p);
+
+    Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
+    sphere->m = new Phong(Color(1.0, 0.3, 0.6));
+    SCENE.addObject(sphere);
 }
-
 
 /*
 void debug::T_Color()

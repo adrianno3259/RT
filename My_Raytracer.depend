@@ -404,7 +404,7 @@
 	"scene.h"
 	<cmath>
 
-1493166007 source:c:\users\adria\desktop\my_raytracer\rt\sphere.cpp
+1494046113 source:c:\users\adria\desktop\my_raytracer\rt\sphere.cpp
 	"sphere.h"
 	<cmath>
 
@@ -514,7 +514,7 @@
 	"vec3.h"
 	<cmath>
 
-1494043218 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1494088506 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -536,6 +536,7 @@
 	"csgprimitive.h"
 	"csgoperation.h"
 	"csgobject.h"
+	"phong.h"
 
 1493166007 .h"
 
@@ -902,9 +903,10 @@
 1493998549 source:c:\users\adria\desktop\my_raytracer\rt\matte.cpp
 	"matte.h"
 
-1494046070 source:c:\users\adria\desktop\my_raytracer\rt\phong.cpp
+1494089225 source:c:\users\adria\desktop\my_raytracer\rt\phong.cpp
 	"phong.h"
+	<cmath>
 
-1494046053 c:\users\adria\desktop\my_raytracer\rt\phong.h
+1494046653 c:\users\adria\desktop\my_raytracer\rt\phong.h
 	"material.h"
 
