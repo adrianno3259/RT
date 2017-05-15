@@ -26,7 +26,7 @@
 #include "csgobject.h"
 
 #include "phong.h"
-
+#include "reflective.h"
 
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
                             for(int l = 0; l < A.size(); l++)       \
@@ -64,23 +64,18 @@ int main(int argc, char** argv)
 {
     int i;
 
-
     camSceneSetup();
     csgExemple();
-    randomSpheres(200);
+    //randomSpheres(50);
 
     Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
-             1.0,
+             2.0,
              Color(1.0));
     SCENE.addLight(l);
     Light* l1 = new Light(Vec3d(-100.0, -100.0, 100.0),
-             0.5,
+             1.0,
              Color(1.0));
     SCENE.addLight(l1);
-
-
-
-
 
     Image im = CAMERA.render(SCENE);
     im.save("image.ppm");
@@ -92,7 +87,7 @@ int main(int argc, char** argv)
 
 void camSceneSetup()
 {
-    CAMERA = Camera(Vec3d(20, 20, 20.0),
+    CAMERA = Camera(Vec3d(0, 25, 20.0),
                 Vec3d(0, 0.0, 0.0),
                 Vec3d(0.0, 0.0, 1.0),
                 HORIZONTAL_RES,
@@ -107,7 +102,21 @@ void camSceneSetup()
 void csgExemple()
 {
     Color col = Color(0.3, 0.3, 0.3);
+    Phong* spec = new Phong(Color(1.0, 0.3, 0.6));
 
+    Reflective* reflect = new Reflective(Color(1.0, 0.5, 0.0));
+    reflect->setKd(0.5);
+    reflect->setCd(WHITE);
+    reflect->setKs(0.8);
+    reflect->setExp(20);
+    reflect->setKr(0.9);
+    reflect->setCr(WHITE);
+
+    Phong* reflect2 = new Phong(Color(1.0, 0.5, 0.0));
+    reflect2->setKd(.5);
+    reflect2->setKs(0.15);
+    reflect2->setCd(ORANGE);
+    reflect2->setExp(30.0);
 
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -125,7 +134,7 @@ void csgExemple()
     CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
 
     CSGObject * obj = new CSGObject(nodeOp2);
-    obj->m = new Matte(col);
+    obj->m = spec;//new Matte(col);
     SCENE.addObject(obj);
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -139,7 +148,7 @@ void csgExemple()
     CSGNode *BSMinus = new CSGOperation(box, sph, '-');
 
     CSGObject* obj2 = new CSGObject(BSMinus);
-    obj2->m = new Matte(Color(0.0, 0.0, 1.0));
+    obj2->m = reflect2;// new Matte(Color(0.0, 0.0, 1.0));
     SCENE.addObject(obj2);
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -163,18 +172,23 @@ void csgExemple()
     ///////////////////////////////////////////////////////////////////////////
 
     Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
-    p->m = new Matte(Color(1.0));
+    p->m = reflect2; //new Matte(Color(1.0));
     SCENE.addObject(p);
 
+
     Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
-    sphere->m = new Phong(Color(1.0, 0.3, 0.6));
+    sphere->m = reflect2;
     SCENE.addObject(sphere);
+
+    Sphere *sphere2 = new Sphere(Vec3d(20,-20,15), 8);
+    sphere2->m = reflect;
+    SCENE.addObject(sphere2);
 }
 
 void randomSpheres(int ns)
 {
     int NUM_SPH = ns;
-    cin >> NUM_SPH;
+    //cin >> NUM_SPH;
     cout<<"Esferas: " << NUM_SPH<<endl;
     Sphere * s;
     for(int j = 0; j < NUM_SPH; j++)
@@ -182,7 +196,7 @@ void randomSpheres(int ns)
         float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
         Color col2 = Color(1.0, 0.0, (j%11)*0.1);
         s = new Sphere(Vec3d(x, y, z), 3);
-        s->m = new Material(col2);
+        s->m = new Matte(col2);
         SCENE.addObject(s);
     }
 }

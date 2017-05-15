@@ -327,11 +327,11 @@
 	"world.h"
 	"image.h"
 
-1493833005 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
+1494671168 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
 	"camera.h"
 	"material.h"
 
-1492148377 c:\users\adria\desktop\my_raytracer\rt\camera.h
+1494693677 c:\users\adria\desktop\my_raytracer\rt\camera.h
 	"vec3.h"
 	"scene.h"
 	"ray.h"
@@ -339,13 +339,13 @@
 
 1492023902 c:\users\adria\desktop\my_raytracer\rt\vec3.h
 
-1492099379 c:\users\adria\desktop\my_raytracer\rt\scene.h
+1494736933 c:\users\adria\desktop\my_raytracer\rt\scene.h
 	"color.h"
 	"object.h"
 	"light.h"
 	<vector>
 
-1492023901 c:\users\adria\desktop\my_raytracer\rt\color.h
+1494652414 c:\users\adria\desktop\my_raytracer\rt\color.h
 
 1493080085 c:\users\adria\desktop\my_raytracer\rt\object.h
 	"intersect.h"
@@ -356,7 +356,7 @@
 	<iostream>
 	<vector>
 
-1494045877 c:\users\adria\desktop\my_raytracer\rt\intersect.h
+1494697264 c:\users\adria\desktop\my_raytracer\rt\intersect.h
 	"color.h"
 	"vec3.h"
 	"ray.h"
@@ -364,7 +364,7 @@
 1492023902 c:\users\adria\desktop\my_raytracer\rt\ray.h
 	"vec3.h"
 
-1492098978 c:\users\adria\desktop\my_raytracer\rt\globals.h
+1494742750 c:\users\adria\desktop\my_raytracer\rt\globals.h
 
 1492023902 c:\users\adria\desktop\my_raytracer\rt\light.h
 	"vec3.h"
@@ -375,9 +375,10 @@
 	<iostream>
 	"color.h"
 
-1494002519 c:\users\adria\desktop\my_raytracer\rt\material.h
+1494696467 c:\users\adria\desktop\my_raytracer\rt\material.h
 	"intersect.h"
 	"scene.h"
+	"lambertian.h"
 
 1492023901 source:c:\users\adria\desktop\my_raytracer\rt\color.cpp
 	"color.h"
@@ -390,7 +391,7 @@
 1492023902 source:c:\users\adria\desktop\my_raytracer\rt\light.cpp
 	"light.h"
 
-1494002550 source:c:\users\adria\desktop\my_raytracer\rt\material.cpp
+1494653810 source:c:\users\adria\desktop\my_raytracer\rt\material.cpp
 	"material.h"
 	"globals.h"
 
@@ -400,9 +401,11 @@
 1492106907 source:c:\users\adria\desktop\my_raytracer\rt\ray.cpp
 	"ray.h"
 
-1493833005 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
+1494742743 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
 	"scene.h"
 	<cmath>
+	<iostream>
+	"material.h"
 
 1494046113 source:c:\users\adria\desktop\my_raytracer\rt\sphere.cpp
 	"sphere.h"
@@ -514,7 +517,7 @@
 	"vec3.h"
 	<cmath>
 
-1494088506 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1494742507 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -537,6 +540,7 @@
 	"csgoperation.h"
 	"csgobject.h"
 	"phong.h"
+	"reflective.h"
 
 1493166007 .h"
 
@@ -897,16 +901,55 @@
 	"globals.h"
 	<iostream>
 
-1493998168 c:\users\adria\desktop\my_raytracer\rt\matte.h
+1494696495 c:\users\adria\desktop\my_raytracer\rt\matte.h
 	"material.h"
 
-1493998549 source:c:\users\adria\desktop\my_raytracer\rt\matte.cpp
+1494698840 source:c:\users\adria\desktop\my_raytracer\rt\matte.cpp
 	"matte.h"
+	<iostream>
 
-1494089225 source:c:\users\adria\desktop\my_raytracer\rt\phong.cpp
+1494735287 source:c:\users\adria\desktop\my_raytracer\rt\phong.cpp
 	"phong.h"
 	<cmath>
 
-1494046653 c:\users\adria\desktop\my_raytracer\rt\phong.h
+1494696366 c:\users\adria\desktop\my_raytracer\rt\phong.h
 	"material.h"
+	"lambertian.h"
+	"glossyspecular.h"
+
+1494696834 source:c:\users\adria\desktop\my_raytracer\rt\brdf.cpp
+	"brdf.h"
+
+1494696811 c:\users\adria\desktop\my_raytracer\rt\brdf.h
+	"color.h"
+	"vec3.h"
+	"intersect.h"
+
+1494695707 c:\users\adria\desktop\my_raytracer\rt\lambertian.h
+	"brdf.h"
+
+1494695743 source:c:\users\adria\desktop\my_raytracer\rt\lambertian.cpp
+	"lambertian.h"
+	"globals.h"
+
+1494698911 source:c:\users\adria\desktop\my_raytracer\rt\glossyspecular.cpp
+	"glossyspecular.h"
+	<cmath>
+
+1494694600 c:\users\adria\desktop\my_raytracer\rt\glossyspecular.h
+	"brdf.h"
+
+1494699720 source:c:\users\adria\desktop\my_raytracer\rt\perfectspecular.cpp
+	"perfectspecular.h"
+	<iostream>
+
+1494696113 c:\users\adria\desktop\my_raytracer\rt\perfectspecular.h
+	"brdf.h"
+
+1494738747 source:c:\users\adria\desktop\my_raytracer\rt\reflective.cpp
+	"reflective.h"
+
+1494703386 c:\users\adria\desktop\my_raytracer\rt\reflective.h
+	"phong.h"
+	"perfectspecular.h"
 

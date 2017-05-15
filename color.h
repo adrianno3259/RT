@@ -3,6 +3,16 @@
 
 #define printCol(A) std::cout << #A << " = (" << (A).r <<", "<<(A).g<<", "<<(A).b<<")"<<std::endl
 
+#define BLACK Color(0.0)
+#define WHITE Color(1.0)
+#define RED Color(1.0, 0.0, 0.0)
+#define GREEN Color(0.0, 1.0, 0.0)
+#define BLUE Color(0.0, 0.0, 1.0)
+#define YELLOW Color(1.0, 1.0, 0.0)
+#define MAGENTA Color(0.0, 1.0, 1.0)
+#define ORANGE Color(1.0, 0.5, 0.0)
+
+
 class Color
 {
 public:

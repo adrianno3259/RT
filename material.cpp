@@ -3,4 +3,3 @@
 
 Material::Material(const Color& col) : c(col){}
 
-

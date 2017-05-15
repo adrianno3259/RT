@@ -16,6 +16,7 @@ typedef struct Intersect
     : hit(ht), t(tnum), obj(o), entering(ent), hitPoint(htp), normal(norm), m(mat), c(col) {}
     Intersect()
     {
+        this->depth = 0;
         this->hit = false;
         this->entering = false;
         this->t = 0.0;
@@ -30,6 +31,7 @@ typedef struct Intersect
     float t; // ponto paramétrico t no raio que atingiu o objeto
     Object* obj; // objeto atingido
     bool entering; // se o raio da interseção está entrando ou não no objeto
+    int depth;
     Vec3d hitPoint;
     Vec3d normal;
     Material* m;
