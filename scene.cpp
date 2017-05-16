@@ -1,5 +1,7 @@
 #include "scene.h"
 #include <cmath>
+#include<iostream>
+#include "material.h"
 
 Scene::Scene()
 {
@@ -45,7 +47,7 @@ bool Scene::lightHitsPoint(int lightId, const Intersect& it, float maxDist) cons
     float distToLight = lightVector.length();
     lightVector.normalize();
 
-    Vec3d origin = it.hitPoint +(it.normal*(0.01));
+    Vec3d origin = it.hitPoint +(it.normal*K_EPSILON);
     Ray r = Ray(origin, lightVector);
 
     i = hitObject(r);
@@ -64,4 +66,41 @@ void Scene::addObject(Object* o)
 void Scene::addLight(Light* l)
 {
     lights.push_back(l);
+}
+
+Color Scene::traceRay(const Ray& ray) const
+{
+    Intersect intersect = hitObject(ray);
+    Color L = Color(0.0);
+
+    if(intersect.hit)
+    {
+        intersect.r = ray;
+        L = intersect.m->shade((*this), intersect);
+    }
+    else
+        L = intersect.c;
+
+    return L;
+
+}
+
+Color Scene::traceRayWhitted(const Ray& ray, const int depth) const
+{
+    //std::cout<<"depth = "<<depth<<std::endl;
+    if(depth > MAX_DEPTH)
+        return BLACK;
+    else
+    {
+        Intersect it = hitObject(ray);
+        if(it.hit)
+        {
+            it.depth = depth;
+            it.r = ray;
+            return it.m->shade((*this), it);
+
+        }
+        else
+            return it.c;
+    }
 }

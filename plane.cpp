@@ -9,6 +9,7 @@ Plane::~Plane(){}
 Intersect Plane::hit(const Ray& ray) const
 {
     Intersect i;
+    i.r = ray;
     i.hit = false;
     i.entering = false;
 

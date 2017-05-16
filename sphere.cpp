@@ -21,6 +21,7 @@ Intersect Sphere::hit(const Ray& ray) const
     i.hitPoint = Vec3d();
     i.normal = Vec3d();
     i.obj = NULL;
+    i.r = ray;
 
     //printVar(a); printVar(b); printVar(c); printVar(disc);
     if(disc < 0.0) {i.hit = false; return i;}
@@ -82,6 +83,8 @@ std::vector<Intersect> Sphere::hitList(const Ray& ray) const
     double b = 2.0 * temp * ray.direction;
     double c = temp*temp - radius*radius;
     double disc = b * b - (4.0 * a * c);
+
+    i1.r = i2.r = ray;
 
     if(disc > 0.0){
 

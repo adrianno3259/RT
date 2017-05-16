@@ -57,15 +57,18 @@ Image Camera::render(const Scene& sc){
 
         L = Color();
         R = generateRay(r, c);
-        intersect = sc.hitObject(R);
-        if(r%50 == 0 && c%50 == 0){ printVar(r); printVar(c);}
 
-        if(intersect.hit)
-        {
-            L = intersect.m->shade(sc, intersect);
-        }
-        else
-            L = intersect.c;
+//        intersect = sc.hitObject(R);
+//        //if(r%50 == 0 && c%50 == 0){ printVar(r); printVar(c);}
+//
+//        if(intersect.hit)
+//        {
+//            L = intersect.m->shade(sc, intersect);
+//        }
+//        else
+//            L = intersect.c;
+
+        L = sc.traceRay(R);
 
         i.setPixel(r, c, L.clamp());
     }

@@ -14,7 +14,6 @@ CSGObject::~CSGObject()
 
 Intersect CSGObject::hit(const Ray& r) const
 {
-
     std::vector<Intersect> vl = root->getHitPoints(r);
     float tmin = 999999999999;
     int i;

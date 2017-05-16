@@ -12,6 +12,7 @@
 #include "camera.h"
 #include "scene.h"
 #include "material.h"
+#include "matte.h"
 #include "box.h"
 #include "globals.h"
 
@@ -24,8 +25,10 @@
 #include "csgoperation.h"
 #include "csgobject.h"
 
-#include <ctime>
 
+#include <ctime>
+#include "phong.h"
+#include "reflective.h"
 
 
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
@@ -51,9 +54,16 @@ namespace debug
     void T_Sphere();
 }*/
 
+
 void startChrono();
 double stopChrono();
 //void setupCamera();
+
+void objsLightsSetup();
+void csgExemple();
+void randomSpheres(int ns);
+void camSceneSetup();
+
 
 time_t timeT0, timeTf;
 Camera CAMERA;
@@ -68,35 +78,70 @@ int main(int argc, char** argv)
 
     cout<< "Iniciando setup..."<<endl;
     startChrono();
+    camSceneSetup();
+    csgExemple();
+    //randomSpheres(50);
 
-    // Setup da Câmera
+    Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
+             2.0,
+             Color(1.0));
+    SCENE.addLight(l);
+    Light* l1 = new Light(Vec3d(-100.0, -100.0, 100.0),
+             1.0,
+             Color(1.0));
+    SCENE.addLight(l1);
 
-    CAMERA = Camera(Vec3d(20, 20, 20.0),
-                    Vec3d(0, 0.0, 0.0),
-                    Vec3d(0.0, 0.0, 1.0),
-                    HORIZONTAL_RES,
-                    VERTICAL_RES,
-                    500.0);
+    Image im = CAMERA.render(SCENE);
+    im.save("image.ppm");
+    //system("start image.ppm");
+    return 0;
+}
 
+
+
+void camSceneSetup()
+{
+    CAMERA = Camera(Vec3d(0, 25, 20.0),
+                Vec3d(0, 0.0, 0.0),
+                Vec3d(0.0, 0.0, 1.0),
+                HORIZONTAL_RES,
+                VERTICAL_RES,
+                500.0);
     CAMERA.pixelSize /= ZOOM;
 
     // Setup da Cena
 
     SCENE = Scene();
     SCENE.bg = Color();
-    Color col = Color(1.0, 1.0, 0.0);
+
+}
+
+void csgExemple()
+{
+    Color col = Color(0.3, 0.3, 0.3);
+    Phong* spec = new Phong(Color(1.0, 0.3, 0.6));
+
+    Reflective* reflect = new Reflective(Color(1.0, 0.5, 0.0));
+    reflect->setKd(0.5);
+    reflect->setCd(WHITE);
+    reflect->setKs(0.8);
+    reflect->setExp(20);
+    reflect->setKr(0.9);
+    reflect->setCr(WHITE);
+
+    Phong* reflect2 = new Phong(Color(1.0, 0.5, 0.0));
+    reflect2->setKd(.5);
+    reflect2->setKs(0.15);
+    reflect2->setCd(ORANGE);
+    reflect2->setExp(30.0);
+
 
     ////////////////////////////////////////////////////////////////////////////////////
     // (b - s3) - s
 
     Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
-    //s->m = new Material(col);
-
     Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
-    //b->m = new Material(col);
-
     Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
-    //s3->m = new Material(col);
 
     CSGNode* node = new CSGPrimitive(s);
     CSGNode* node2 = new CSGPrimitive(b);
@@ -106,36 +151,29 @@ int main(int argc, char** argv)
     CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
 
     CSGObject * obj = new CSGObject(nodeOp2);
-    obj->m = new Material(col);
+    obj->m = spec;//new Matte(col);
     SCENE.addObject(obj);
 
     ////////////////////////////////////////////////////////////////////////////////////
-    // (b2 - s2)
 
     Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
-    //s2->m = new Material(col);
-
     Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
-    //b2->m = new Material(col);
 
     CSGNode *box = new CSGPrimitive(b2);
     CSGNode *sph = new CSGPrimitive(s2);
+
     CSGNode *BSMinus = new CSGOperation(box, sph, '-');
+
     CSGObject* obj2 = new CSGObject(BSMinus);
-    obj2->m = new Material(Color(1.0, 1.0, 0.0));
+    obj2->m = reflect2;// new Matte(Color(0.0, 0.0, 1.0));
     SCENE.addObject(obj2);
 
     ////////////////////////////////////////////////////////////////////////////////////
-    //
+
 
     Sphere* s5 = new Sphere(Vec3d(15.0, 0.0, 0.0), 6);
-    s5->m = new Material(col);
-
     Box* b5 = new Box(Vec3d(13, -2, -10), Vec3d(17, 2, 10));
-    b5->m = new Material(col);
-
     Box* b6 = new Box(Vec3d(13, -10, -2), Vec3d(17, 10, 2));
-    b6->m = new Material(col);
 
     CSGNode *sph2 = new CSGPrimitive(s5);
     CSGNode *box2 = new CSGPrimitive(b5);
@@ -145,52 +183,54 @@ int main(int argc, char** argv)
     CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
 
     CSGObject* obj3 = new CSGObject(BSMinus3);
-
-    obj3->m = new Material(Color(1.0, 0.3, 0.3));
-
+    obj3->m = new Matte(Color(1.0, 1.0, 0.0));
     SCENE.addObject(obj3);
 
-    ///////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
-    p->m = new Material(Color(1.0));
+    p->m = reflect2; //new Matte(Color(1.0));
     SCENE.addObject(p);
 
+    Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
+    sphere->m = reflect2;
+    SCENE.addObject(sphere);
 
+    Sphere *sphere2 = new Sphere(Vec3d(20,-20,15), 8);
+    sphere2->m = reflect;
+    SCENE.addObject(sphere2);
+}
 
-    Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
-             1.0,
-             Color(1.0));
-    SCENE.addLight(l);
-    Light* l1 = new Light(Vec3d(-100.0, -100.0, 100.0),
-             0.5,
-             Color(1.0));
-    SCENE.addLight(l1);
-
-    // Esferas Aleatórias;
-
-    int NUM_SPH = 100;
+void randomSpheres(int ns)
+{
+    int NUM_SPH = ns;
     //cin >> NUM_SPH;
     cout<<"Esferas: " << NUM_SPH<<endl;
-    Sphere * sphere;
+    Sphere * s;
 
     for(int j = 0; j < NUM_SPH; j++)
     {
         float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
         Color col2 = Color(1.0, 0.0, (j%11)*0.1);
-        sphere = new Sphere(Vec3d(x, y, z), 2);
-        sphere->m = new Material(col2);
-        SCENE.addObject(sphere);
-    }
 
-    int nObjs = 0, nLights = 0;
+        s = new Sphere(Vec3d(x, y, z), 3);
+        s->m = new Matte(col2);
+        SCENE.addObject(s);
+    }
+}
+
+void objsLightsSetup()
+{
+
+
+    int nObjs = 0, nLights = 0, i;
 
     /**
     **  Setup Objects
     **/
 
-    //cin>>nObjs;
-    //cout<<nObjs<<" objetos..."<<endl;
+    cin>>nObjs;
+    cout<<nObjs<<" objetos..."<<endl;
     for(i = 0; i < nObjs; i++)
     {
         string type;
@@ -212,7 +252,7 @@ int main(int argc, char** argv)
             Color col = Color(a, b, c);
             Sphere* s = new Sphere(center, r);
             s->c = col;
-            s->m = new Material(col);
+            s->m = new Matte(col);
             SCENE.addObject(s);
         }
         else if(type == "plane")
@@ -232,7 +272,7 @@ int main(int argc, char** argv)
             Color col = Color(a, b, c);
             Plane* p = new Plane(point, normal);
             p->c = col;
-            p->m = new Material(col);
+            p->m = new Matte(col);
             SCENE.addObject(p);
         }
         else if(type == "box")
@@ -252,7 +292,7 @@ int main(int argc, char** argv)
             Color col = Color(a, b, c);
             Box* box = new Box(min_point, max_point);
             box->c = col;
-            box->m = new Material(col);
+            box->m = new Matte(col);
             SCENE.addObject(box);
         }
 
@@ -262,7 +302,7 @@ int main(int argc, char** argv)
     **  Setup Lights
     **/
 
-    //cin>>nLights;
+    cin>>nLights;
 
     for(i = 0; i < nLights; i++)
     {
@@ -282,16 +322,7 @@ int main(int argc, char** argv)
         }
     }
 
-    cout<<"Tempo de Setup: "<<stopChrono()<<" s"<<endl;
 
-    startChrono();
-    Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
-    cout<<"Tempo de Render: "<<stopChrono()<<" s"<<endl;
-
-    //system("start image.ppm");
-
-    return 0;
 }
 
 
@@ -305,181 +336,3 @@ double stopChrono()
     time(&timeTf);
     return difftime(timeTf, timeT0);
 }
-
-
-void testScene()
-{
-    Sphere* s = new Sphere(30.0);
-    Color col = Color(1.0, 0.0, 0.0);
-    s->c = col;
-    s->m = new Material(col);
-    SCENE.addObject(s);
-
-
-    Sphere* s2 = new Sphere(Vec3d(0.0, 100.0, 0.0),
-                            30.0);
-    Color col2 = Color(1.0, 1.0, 0.0);
-    s2->c = col2;
-    s2->m = new Material(col2);
-    SCENE.addObject(s2);
-
-
-    Sphere* s3 = new Sphere(Vec3d(0.0, -100.0, 0.0),
-                            30.0);
-    Color col3 = Color(1.0, 1.0, 1.0);
-    s3->c = col2;
-    s3->m = new Material(col3);
-    SCENE.addObject(s3);
-
-
-    Sphere* s4 = new Sphere(Vec3d(0.0, 0.0, 90.0),
-                            30.0);
-    Color col4 = Color(1.0, 0.0, 1.0);
-    s4->c = col2;
-    s4->m = new Material(col4);
-    SCENE.addObject(s4);
-
-
-    Sphere* s5 = new Sphere(Vec3d(0.0, 0.0, -90.0),
-                            40.0);
-    s5->c = col2;
-    s5->m = new Material(col2);
-    SCENE.addObject(s5);
-
-
-
-    Light* l2 = new Light(Vec3d(100.0, 0.0, 0.0),
-                     1.0,
-                     Color(1.0));
-    printLight((*l2));
-    SCENE.addLight(l2);
-
-    Light* l = new Light(Vec3d(100.0, 0.0, 100.0),
-                 1.0,
-                 Color(1.0));
-    printLight((*l));
-    SCENE.addLight(l);
-
-
-}
-
-
-/*
-void debug::T_Color()
-{
-    Color red = Color(1.0, 0.0, 0.0);
-    Color white = Color(1.0);
-    Color black = Color();
-    Color red2 = Color(red);
-    Color white2 = white;
-
-    printCol(red);
-    printCol(white);
-    printCol(black);
-
-    printCol(red2);
-    printCol(white2);
-    printCol(red+black);
-    printCol(white * 0.5);
-    printCol(white-red);
-    printCol(red/2);
-}
-
-void debug::T_Vec3d()
-{
-        Vec3d zero = Vec3d(),
-            v1 = Vec3d(1.0),
-            X = Vec3d(1.0, 0.0, 0.0),
-            X2 = Vec3d(X),
-            v2 = v1;
-    QP(-----------------------------------Vec3d-----------------------------------------);
-    //constructors + assignment
-    printVec(zero);
-    printVec(v1);
-    printVec(X);
-    printVec(X2);
-    printVec(v2);
-    //printVectors(5, &zero, &v1, &X, &X2, &v2);
-    // menos unário --------
-    QP(Menos unário);
-    printVec(-v1);
-    // produto por escalar --------
-    QP(Produto por escalar);
-    Vec3d tmp = 2*X;
-    printVec(2*X);
-    printVec(X*2);
-    // divisão por escalar
-    QP(Divisão por escalar);
-    printVec(X/2);
-    //soma
-    QP(Soma);
-    printVec(v1+X);
-    //soma e atribuição
-    QP(Soma e atribuição);
-    v2 += X;
-    printVec(v2);
-    //subtração
-    QP(Subtração);
-    printVec(v2 - X);
-    printVec(X - v2);
-    // Dot
-    QP(Dot Product);
-    cout<<(X*v1)<<endl;
-    //cross
-    Vec3d c1 = Vec3d(3, -3, 1), c2 = Vec3d(4, 9, 2);
-    QP(Cross Product);
-    QP(Expected Result: (-15, -2, 39));
-    printVec(c1 ^ c2);
-}
-
-void debug::T_Image()
-{
-    QP(--------------------------------------image----------------------------------------);
-    Image im = Image();
-    for(int i = 0; i < im.w; i++)
-    for(int j = 0; j < im.h; j++)
-    {
-        //cout<<"i = "<<i <<" j = "<<j<<endl;
-        //printCol(im.getPixel(i, j));
-        if( (int)sqrt(i*i + j*j) % 40 > 35 || (int)sqrt(i*i + j*j) % 40 <10)
-            im.setPixel(i, j, Color(2.0, 2.0, 2.0));
-    }
-    im.save("teste.ppm");
-}
-
-void debug::T_Ray()
-{
-    QP(-------------------------------------- Ray ----------------------------------------);
-    Vec3d o1 = Vec3d(1.0), d1 = Vec3d(1.0);
-    d1.normalize();
-    printVec(o1); printVec(d1);
-    Ray r1 = Ray(o1, d1), r2 = Ray(), r3 = Ray(r1), r4 = r2;
-    printRay(r1); printRay(r2);
-    printRay(r3); printRay(r4);
-
-}
-
-void debug::T_Sphere()
-{
-
-    QP(--------------------------------------Sphere----------------------------------------);
-    Vec3d v1(1.0, 0.0, 0.0);
-    float r1 = 1.0;
-    Ray r = Ray(Vec3d(-2.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
-    Intersect i;
-
-    Sphere s1 = Sphere(v1, r1), s2 = Sphere();
-    printRay(r);
-    printObject((s1));
-    printObject(s2);
-    //cout<<"hit s1: "<<s1.hit(r, i)<<endl;
-    printInters(i);
-    printVec(r.rayPoint(i.t));
-    printVec(s1.getNormal(r.rayPoint(i.t)));
-
-}
-*/
-
-
-
-

@@ -21,6 +21,12 @@ public:
     void addLight(Light* l);
     Intersect hitObject(const Ray& ray) const;
     bool lightHitsPoint(int lightId, const Intersect& it, float dist) const;
+
+    Color traceRay(const Ray& ray) const;
+    Color traceRayWhitted(const Ray& ray, const int depth) const;
+
+private:
+    static const int MAX_DEPTH = 4;
 };
 
 #endif // SCENE_H

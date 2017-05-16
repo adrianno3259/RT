@@ -3,17 +3,17 @@
 
 #include "intersect.h"
 #include "scene.h"
-
-//int N = 0;
+#include "lambertian.h"
 
 class Material
 {
 public:
-    Color c;
     Material(const Color& c);
-    Color shade(const Scene& sc, Intersect& it);
+    virtual Color shade(const Scene& sc, Intersect& it) const = 0;
 protected:
-    float checkShadow(const Scene& sc, Light* l, const Intersect& it, float dist) const;
+    Color c;
+private:
+
 };
 
 #endif // MATERIAL_H

@@ -15,7 +15,7 @@ Box::~Box()
 Intersect Box::hit(const Ray& r) const
 {
     Intersect i = Intersect();
-
+    i.r = r;
     float ox = r.origin.x, oy = r.origin.y, oz = r.origin.z;
     float dx = r.direction.x, dy = r.direction.y, dz = r.direction.z;
 
@@ -229,6 +229,7 @@ std::vector<Intersect> Box::hitList(const Ray& r) const
         i.hitPoint = r.rayPoint(i.t);
         i.normal = getNormal(face_in);
         i.entering = true;
+        i.r = r;
         v.push_back(i);
 
 

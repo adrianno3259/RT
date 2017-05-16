@@ -18,6 +18,9 @@ public:
     Camera(const Vec3d& e, const Vec3d& l, const Vec3d& upv, const int hr, const int vr, const float vpd);
     Ray generateRay(const int r, const int c) const;
     Image render(const Scene& sc);
+private:
+    static const int INIT_DEPTH = 0;
+
 };
 
 #endif // CAMERA_H
