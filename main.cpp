@@ -24,6 +24,7 @@
 #include "csgoperation.h"
 #include "csgobject.h"
 
+#include <ctime>
 
 
 
@@ -50,7 +51,11 @@ namespace debug
     void T_Sphere();
 }*/
 
+void startChrono();
+double stopChrono();
+//void setupCamera();
 
+time_t timeT0, timeTf;
 Camera CAMERA;
 Scene SCENE;
 int VERTICAL_RES = 800;
@@ -61,6 +66,11 @@ int main(int argc, char** argv)
 {
     int i;
 
+    cout<< "Iniciando setup..."<<endl;
+    startChrono();
+
+    // Setup da Câmera
+
     CAMERA = Camera(Vec3d(20, 20, 20.0),
                     Vec3d(0, 0.0, 0.0),
                     Vec3d(0.0, 0.0, 1.0),
@@ -69,59 +79,44 @@ int main(int argc, char** argv)
                     500.0);
 
     CAMERA.pixelSize /= ZOOM;
+
+    // Setup da Cena
+
     SCENE = Scene();
     SCENE.bg = Color();
     Color col = Color(1.0, 1.0, 0.0);
 
-    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
-    s->c = col;
-    s->m = new Material(col);
-
-    Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
-    b->c = col;
-    b->m = new Material(col);
-
-
-    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
-    s2->c = col;
-    s2->m = new Material(col);
-    //SCENE.addObject(s2);
-
-
-    Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
-    b2->c = col;
-    b2->m = new Material(col);
-
-
-    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
-    s3->c = col;
-    s3->m = new Material(col);
-
-    Ray r = Ray(Vec3d(-25.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0));
-    vector<Intersect> v1 = b->hitList(r);
-    vector<Intersect> v2 = s->hitList(r);
-    vector<Intersect> v4 = b2->hitList(r);
-    vector<Intersect> v3 = s2->hitList(r);
-    vector<Intersect> v5 = s3->hitList(r);
-    vector<Intersect> vr = MergeHits::csg_minus(v2, v3);
-
     ////////////////////////////////////////////////////////////////////////////////////
     // (b - s3) - s
+
+    Sphere* s = new Sphere(Vec3d(-10.0, 0.0, 0.0), 8);
+    //s->m = new Material(col);
+
+    Box* b = new Box(Vec3d(-23, -10, -10), Vec3d(-10, 10, 10));
+    //b->m = new Material(col);
+
+    Sphere* s3 = new Sphere(Vec3d(-20.0, 0.0, 10.0), 5);
+    //s3->m = new Material(col);
+
     CSGNode* node = new CSGPrimitive(s);
     CSGNode* node2 = new CSGPrimitive(b);
     CSGNode* node3 = new CSGPrimitive(s3);
 
     CSGNode* nodeOp1 = new CSGOperation(node2, node3, '-');
     CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
-    vr = nodeOp2->getHitPoints(r);
-    //printHitList(vr);
 
     CSGObject * obj = new CSGObject(nodeOp2);
-    //printInters(obj->hit(r));
     obj->m = new Material(col);
     SCENE.addObject(obj);
 
     ////////////////////////////////////////////////////////////////////////////////////
+    // (b2 - s2)
+
+    Sphere* s2 = new Sphere(Vec3d(0.0, 0.0, 0.0), 6);
+    //s2->m = new Material(col);
+
+    Box* b2 = new Box(Vec3d(-5, -5, -5), Vec3d(5, 5, 5));
+    //b2->m = new Material(col);
 
     CSGNode *box = new CSGPrimitive(b2);
     CSGNode *sph = new CSGPrimitive(s2);
@@ -131,7 +126,7 @@ int main(int argc, char** argv)
     SCENE.addObject(obj2);
 
     ////////////////////////////////////////////////////////////////////////////////////
-
+    //
 
     Sphere* s5 = new Sphere(Vec3d(15.0, 0.0, 0.0), 6);
     s5->m = new Material(col);
@@ -145,11 +140,17 @@ int main(int argc, char** argv)
     CSGNode *sph2 = new CSGPrimitive(s5);
     CSGNode *box2 = new CSGPrimitive(b5);
     CSGNode *box3 = new CSGPrimitive(b6);
+
     CSGNode *BSMinus2 = new CSGOperation(sph2, box2, '-');
     CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
+
     CSGObject* obj3 = new CSGObject(BSMinus3);
-    obj3->m = new Material(Color(1.0, 1.0, 0.0));
+
+    obj3->m = new Material(Color(1.0, 0.3, 0.3));
+
     SCENE.addObject(obj3);
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
     p->m = new Material(Color(1.0));
@@ -166,18 +167,21 @@ int main(int argc, char** argv)
              Color(1.0));
     SCENE.addLight(l1);
 
-//    int NUM_SPH = 10;
-//    cin >> NUM_SPH;
-//    cout<<"Esferas: " << NUM_SPH<<endl;
-//    Sphere * s;
-//    for(int j = 0; j < NUM_SPH; j++)
-//    {
-//        float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
-//        Color col2 = Color(1.0, 0.0, (j%11)*0.1);
-//        s = new Sphere(Vec3d(x, y, z), 15);
-//        s->m = new Material(col2);
-//        SCENE.addObject(s);
-//    }
+    // Esferas Aleatórias;
+
+    int NUM_SPH = 100;
+    //cin >> NUM_SPH;
+    cout<<"Esferas: " << NUM_SPH<<endl;
+    Sphere * sphere;
+
+    for(int j = 0; j < NUM_SPH; j++)
+    {
+        float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
+        Color col2 = Color(1.0, 0.0, (j%11)*0.1);
+        sphere = new Sphere(Vec3d(x, y, z), 2);
+        sphere->m = new Material(col2);
+        SCENE.addObject(sphere);
+    }
 
     int nObjs = 0, nLights = 0;
 
@@ -277,10 +281,29 @@ int main(int argc, char** argv)
             SCENE.addLight(l);
         }
     }
+
+    cout<<"Tempo de Setup: "<<stopChrono()<<" s"<<endl;
+
+    startChrono();
     Image im = CAMERA.render(SCENE);
     im.save("image.ppm");
+    cout<<"Tempo de Render: "<<stopChrono()<<" s"<<endl;
+
     //system("start image.ppm");
+
     return 0;
+}
+
+
+void startChrono()
+{
+    time(&timeT0);
+}
+
+double stopChrono()
+{
+    time(&timeTf);
+    return difftime(timeTf, timeT0);
 }
 
 

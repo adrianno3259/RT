@@ -23,7 +23,7 @@ Intersect CSGObject::hit(const Ray& r) const
         {
             Intersect ret = vl[i];
             ret.m = m;
-            return vl[i];
+            return ret;
         }
     return Intersect();
 }
