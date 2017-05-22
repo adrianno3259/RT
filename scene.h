@@ -26,7 +26,7 @@ public:
     Color traceRayWhitted(const Ray& ray, const int depth) const;
 
 private:
-    static const int MAX_DEPTH = 4;
+    static const int MAX_DEPTH = 1;
 };
 
 #endif // SCENE_H

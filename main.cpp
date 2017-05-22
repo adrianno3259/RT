@@ -70,7 +70,7 @@ Camera CAMERA;
 Scene SCENE;
 int VERTICAL_RES = 800;
 int HORIZONTAL_RES = 800;
-float ZOOM = 0.7;
+float ZOOM = 2;
 
 int main(int argc, char** argv)
 {
@@ -151,7 +151,7 @@ void csgExemple()
     CSGNode* nodeOp2 = new CSGOperation(nodeOp1, node, '-');
 
     CSGObject * obj = new CSGObject(nodeOp2);
-    obj->m = spec;//new Matte(col);
+    obj->m = reflect;//new Matte(col);
     SCENE.addObject(obj);
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -183,13 +183,13 @@ void csgExemple()
     CSGNode *BSMinus3 = new CSGOperation(BSMinus2, box3, '-');
 
     CSGObject* obj3 = new CSGObject(BSMinus3);
-    obj3->m = new Matte(Color(1.0, 1.0, 0.0));
+    obj3->m = reflect;// new Matte(Color(1.0, 1.0, 0.0));
     SCENE.addObject(obj3);
 
     ///////////////////////////////////////////////////////////////////////////
 
     Plane* p = new Plane(Vec3d(0, 0, -11), Vec3d(0.0, 0.0, 1.0));
-    p->m = reflect2; //new Matte(Color(1.0));
+    p->m = new Matte(Color(1.0));
     SCENE.addObject(p);
 
     Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
