@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "scene.h"
 #include "light.h"
+#include "boundingbox.h"
 #include <iostream>
 #include <vector>
 
@@ -24,6 +25,7 @@ public:
     virtual void printData(void) const;
     virtual Vec3d getNormal(const Vec3d& P) const ;
     virtual std::vector<Intersect> hitList(const Ray& ray) const;
+    virtual BoundingBox getBoudingBox();
 };
 
 #endif // OBJECT_H

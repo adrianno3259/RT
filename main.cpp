@@ -30,6 +30,9 @@
 #include "phong.h"
 #include "reflective.h"
 
+#include "boundingbox.h"
+#include "grid.h"
+#include "compositeobject.h"
 
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
                             for(int l = 0; l < A.size(); l++)                                          \
@@ -42,6 +45,10 @@
                             cout<<endl<<endl;
 
 
+
+#define DIFFUSE 0
+#define SPECULAR 1
+#define MIRROR 2
 
 using namespace std;
 /*
@@ -61,9 +68,9 @@ double stopChrono();
 
 void objsLightsSetup();
 void csgExemple();
-void randomSpheres(int ns);
+void randomSpheres(int ns, int mat, float radius);
 void camSceneSetup();
-
+void render();
 
 time_t timeT0, timeTf;
 Camera CAMERA;
@@ -74,14 +81,63 @@ float ZOOM = 0.7;
 
 int main(int argc, char** argv)
 {
-    int i;
 
     cout<< "Iniciando setup..."<<endl;
-    startChrono();
+    //startChrono();
     camSceneSetup();
-    csgExemple();
-    //randomSpheres(50);
+    //csgExemple();
+    randomSpheres(1000, MIRROR, 1);
 
+    Grid* g = new Grid();
+    g->o
+
+
+    Vec3d min_point = Vec3d(-10);
+    Vec3d max_point = Vec3d(10);
+    Box* box = new Box(min_point, max_point);
+    /*
+    Color col = Color(1.0);
+
+    box->m = new Matte(col);
+    printVec(box->getBoudingBox().getMinPoint());
+    printVec(box->getBoudingBox().getMaxPoint());
+    Sphere* s = new Sphere(Vec3d(1), 10);
+    printVec(s->getBoudingBox().getMinPoint());
+    printVec(s->getBoudingBox().getMaxPoint());
+    Ray r = Ray(Vec3d(-200, 0, 0), Vec3d(1.0, 0.0, 0.0));
+    CompositeObject* co = new CompositeObject();
+    Sphere* s2 = new Sphere(Vec3d(1.0, 0, 0), 10);
+    co->addObject(box);
+    co->addObject(s2);
+    Intersect it = (co->hit(r));
+    printVec(it.hitPoint);
+
+
+
+    g->objects.push_back(box);
+    g->objects.push_back(s);
+    printVec(g->minCoordinates());
+    printVec(g->maxCoordinates());
+
+    cout << "bounding box calculation: "<<endl;
+    Ray r = Ray(Vec3d(-200, 0, 0), Vec3d(1.0, 0.0, 0.0));
+    printRay(r);
+    Vec3d bbmax = Vec3d(10, 10, 10);
+    Vec3d bbmin = Vec3d(-10, -10, -10);
+    cout<< "BoundingBox b:"<<endl;
+    printVec(bbmin);
+    printVec(bbmax);
+    BoundingBox b = BoundingBox(bbmin, bbmax);
+    cout<<"hit: "<<boolalpha<<b.hit(r)<<endl;
+    cout<< "Box bx:"<<endl;
+    Box bx = Box(bbmin, bbmax);
+    cout<<"hit: "<<boolalpha<<bx.hit(r).hit<<endl;
+
+    r = Ray(Vec3d(-200, 0, 50), Vec3d(1.0, 0.0, 0.0));
+    printRay(r);
+    cout<<"hit bb: "<<boolalpha<<b.hit(r)<<endl;
+    cout<<"hit bx: "<<boolalpha<<bx.hit(r).hit<<endl;
+    */
     Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
              2.0,
              Color(1.0));
@@ -90,13 +146,17 @@ int main(int argc, char** argv)
              1.0,
              Color(1.0));
     SCENE.addLight(l1);
+    render();
 
-    Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
-    //system("start image.ppm");
     return 0;
 }
 
+void render()
+{
+    Image im = CAMERA.render(SCENE);
+    im.save("image.ppm");
+    system("start image.ppm");
+}
 
 
 void camSceneSetup()
@@ -201,20 +261,39 @@ void csgExemple()
     SCENE.addObject(sphere2);
 }
 
-void randomSpheres(int ns)
+void randomSpheres(int ns, int mat, float r)
 {
     int NUM_SPH = ns;
     //cin >> NUM_SPH;
     cout<<"Esferas: " << NUM_SPH<<endl;
     Sphere * s;
 
+
     for(int j = 0; j < NUM_SPH; j++)
     {
+        srand(ns+j);
         float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
+        float radius;
         Color col2 = Color(1.0, 0.0, (j%11)*0.1);
+        if(r == 0)
+        {
+            srand(ns+2*j);
+            radius = (rand() % 20) + 5;
+        }
+        else
+            radius = r;
 
-        s = new Sphere(Vec3d(x, y, z), 3);
-        s->m = new Matte(col2);
+        s = new Sphere(Vec3d(x, y, z), radius);
+        switch(mat)
+        {
+            case SPECULAR:
+                s->m = new Phong(col2); break;
+            case MIRROR:
+                s->m = new Reflective(col2); break;
+            case DIFFUSE:
+            default:
+                s->m = new Matte(col2); break;
+        }
         SCENE.addObject(s);
     }
 }

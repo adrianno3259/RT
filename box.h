@@ -17,6 +17,7 @@ class Box : public Object
         virtual Vec3d getNormal(const Vec3d& P) const ;
         virtual Vec3d getNormal(const int face) const;
         virtual std::vector<Intersect> hitList(const Ray& ray) const;
+        virtual BoundingBox getBoudingBox();
     protected:
     private:
 };

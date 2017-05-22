@@ -140,7 +140,11 @@ Vec3d Box::getNormal(const int face) const
     }
 }
 
-
+BoundingBox Box::getBoudingBox()
+{
+    Vec3d margin = Vec3d(K_EPSILON);
+    return BoundingBox(minPoint-margin, maxPoint+margin);
+}
 
 std::vector<Intersect> Box::hitList(const Ray& r) const
 {

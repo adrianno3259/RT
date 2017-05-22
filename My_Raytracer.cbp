@@ -22,6 +22,8 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="boundingbox.cpp" />
+		<Unit filename="boundingbox.h" />
 		<Unit filename="box.cpp" />
 		<Unit filename="box.h" />
 		<Unit filename="brdf.cpp" />
@@ -43,6 +45,8 @@
 		<Unit filename="globals.h" />
 		<Unit filename="glossyspecular.cpp" />
 		<Unit filename="glossyspecular.h" />
+		<Unit filename="grid.cpp" />
+		<Unit filename="grid.h" />
 		<Unit filename="image.cpp" />
 		<Unit filename="image.h" />
 		<Unit filename="intersect.h" />
