@@ -116,3 +116,25 @@ std::vector<Intersect> Sphere::hitList(const Ray& ray) const
 
     return li;
 }
+
+
+BoundingBox Sphere::getBoudingBox()
+{
+    BoundingBox b = BoundingBox();
+    Vec3d minp = Vec3d();
+    Vec3d maxp = Vec3d();
+    Vec3d margin = Vec3d(K_EPSILON);
+
+    minp.x = center.x -radius;
+    minp.y = center.y -radius;
+    minp.z = center.z -radius;
+
+    maxp.x = center.x +radius;
+    maxp.y = center.y +radius;
+    maxp.z = center.z +radius;
+
+    b.setMinPoint(minp - margin);
+    b.setMaxPoint(maxp + margin);
+
+    return b;
+}

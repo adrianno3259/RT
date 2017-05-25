@@ -30,6 +30,9 @@
 #include "phong.h"
 #include "reflective.h"
 
+#include "boundingbox.h"
+#include "grid.h"
+#include "compositeobject.h"
 
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
                             for(int l = 0; l < A.size(); l++)                                          \
@@ -42,6 +45,10 @@
                             cout<<endl<<endl;
 
 
+
+#define DIFFUSE 0
+#define SPECULAR 1
+#define MIRROR 2
 
 using namespace std;
 /*
@@ -61,27 +68,88 @@ double stopChrono();
 
 void objsLightsSetup();
 void csgExemple();
-void randomSpheres(int ns);
+void randomSpheres(int ns, int mat, float radius);
 void camSceneSetup();
-
+void render();
 
 time_t timeT0, timeTf;
 Camera CAMERA;
 Scene SCENE;
 int VERTICAL_RES = 800;
 int HORIZONTAL_RES = 800;
-float ZOOM = 2;
+float ZOOM = 0.8;
 
 int main(int argc, char** argv)
 {
-    int i;
 
     cout<< "Iniciando setup..."<<endl;
-    startChrono();
+    //startChrono();
     camSceneSetup();
     csgExemple();
-    //randomSpheres(50);
+    randomSpheres(250, MIRROR, 10);
 
+    Grid* g = new Grid();
+    box->m = new Matte(col);
+    printVec(box->getBoudingBox().getMinPoint());
+    printVec(box->getBoudingBox().getMaxPoint());
+    Sphere* s = new Sphere(Vec3d(1), 10);
+    printVec(s->getBoudingBox().getMinPoint());
+    printVec(s->getBoudingBox().getMaxPoint());
+
+    Vec3d bbmax = Vec3d(10, 10, 10);
+    Vec3d bbmin = Vec3d(-10, -10, -10);
+    cout<< "BoundingBox b:"<<endl;
+    printVec(bbmin);
+    printVec(bbmax);
+    BoundingBox b = BoundingBox(bbmin, bbmax);
+    Ray r = Ray(Vec3d(0, 0, 0), Vec3d(1.0, 0.0, 0.0));
+    Ray r2 = Ray(Vec3d(-9.99999, 0, 0), Vec3d(1.0, 0.0, 0.0));
+    Ray r3 = Ray(Vec3d(-20, 0, 0), Vec3d(1.0, 0.0, 0.0));
+
+//    printVar(b.inside(r));
+//    printVar(b.inside(r2));
+//    printVar(b.inside(r3));
+
+
+
+
+    /*
+    Vec3d min_point = Vec3d(-10);
+    Vec3d max_point = Vec3d(10);
+    Box* box = new Box(min_point, max_point);
+
+    Color col = Color(1.0);
+
+
+
+    CompositeObject* co = new CompositeObject();
+    Sphere* s2 = new Sphere(Vec3d(1.0, 0, 0), 10);
+    co->addObject(box);
+    co->addObject(s2);
+    Intersect it = (co->hit(r));
+    printVec(it.hitPoint);
+
+
+
+    g->objects.push_back(box);
+    g->objects.push_back(s);
+    printVec(g->minCoordinates());
+    printVec(g->maxCoordinates());
+
+    cout << "bounding box calculation: "<<endl;
+    Ray r = Ray(Vec3d(-200, 0, 0), Vec3d(1.0, 0.0, 0.0));
+    printRay(r);
+
+    cout<<"hit: "<<boolalpha<<b.hit(r)<<endl;
+    cout<< "Box bx:"<<endl;
+    Box bx = Box(bbmin, bbmax);
+    cout<<"hit: "<<boolalpha<<bx.hit(r).hit<<endl;
+
+    r = Ray(Vec3d(-200, 0, 50), Vec3d(1.0, 0.0, 0.0));
+    printRay(r);
+    cout<<"hit bb: "<<boolalpha<<b.hit(r)<<endl;
+    cout<<"hit bx: "<<boolalpha<<bx.hit(r).hit<<endl;
+    */
     Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
              2.0,
              Color(1.0));
@@ -90,23 +158,37 @@ int main(int argc, char** argv)
              1.0,
              Color(1.0));
     SCENE.addLight(l1);
+    //render();
 
-    Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
-    //system("start image.ppm");
     return 0;
 }
 
+void render()
+{
+    Image im = CAMERA.render(SCENE);
+    im.save("image.ppm");
+    system("start image.ppm");
+}
 
 
 void camSceneSetup()
 {
-    CAMERA = Camera(Vec3d(0, 25, 20.0),
-                Vec3d(0, 0.0, 0.0),
-                Vec3d(0.0, 0.0, 1.0),
-                HORIZONTAL_RES,
-                VERTICAL_RES,
-                500.0);
+
+    /*
+    CAMERA = Camera(Vec3d(200, 0, 50.0),
+            Vec3d(0, 0.0, 0.0),
+            Vec3d(0.0, 0.0, 1.0),
+            HORIZONTAL_RES,
+            VERTICAL_RES,
+            500.0);
+    */
+    CAMERA = Camera(Vec3d(-25, 25, 20.0),
+            Vec3d(0, 0.0, 0.0),
+            Vec3d(0.0, 0.0, 1.0),
+            HORIZONTAL_RES,
+            VERTICAL_RES,
+            500.0);
+
     CAMERA.pixelSize /= ZOOM;
 
     // Setup da Cena
@@ -118,6 +200,10 @@ void camSceneSetup()
 
 void csgExemple()
 {
+
+
+    //SCENE.setShadows(false);
+
     Color col = Color(0.3, 0.3, 0.3);
     Phong* spec = new Phong(Color(1.0, 0.3, 0.6));
 
@@ -165,7 +251,7 @@ void csgExemple()
     CSGNode *BSMinus = new CSGOperation(box, sph, '-');
 
     CSGObject* obj2 = new CSGObject(BSMinus);
-    obj2->m = reflect2;// new Matte(Color(0.0, 0.0, 1.0));
+    obj2->m = new Matte(Color(1.0, 0.0, 0.0));
     SCENE.addObject(obj2);
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -184,7 +270,7 @@ void csgExemple()
 
     CSGObject* obj3 = new CSGObject(BSMinus3);
     obj3->m = reflect;// new Matte(Color(1.0, 1.0, 0.0));
-    SCENE.addObject(obj3);
+    //SCENE.addObject(obj3);
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -194,27 +280,46 @@ void csgExemple()
 
     Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
     sphere->m = reflect2;
-    SCENE.addObject(sphere);
+    //SCENE.addObject(sphere);
 
     Sphere *sphere2 = new Sphere(Vec3d(20,-20,15), 8);
     sphere2->m = reflect;
     SCENE.addObject(sphere2);
 }
 
-void randomSpheres(int ns)
+void randomSpheres(int ns, int mat, float r)
 {
     int NUM_SPH = ns;
     //cin >> NUM_SPH;
     cout<<"Esferas: " << NUM_SPH<<endl;
     Sphere * s;
 
+
     for(int j = 0; j < NUM_SPH; j++)
     {
+        srand(ns+j);
         float x = rand() % 200 -100, y = rand() % 200 -100, z = rand() % 200 -100;
+        float radius;
         Color col2 = Color(1.0, 0.0, (j%11)*0.1);
+        if(r == 0)
+        {
+            srand(ns+2*j);
+            radius = (rand() % 20) + 5;
+        }
+        else
+            radius = r;
 
-        s = new Sphere(Vec3d(x, y, z), 3);
-        s->m = new Matte(col2);
+        s = new Sphere(Vec3d(x, y, z), radius);
+        switch(mat)
+        {
+            case SPECULAR:
+                s->m = new Phong(col2); break;
+            case MIRROR:
+                s->m = new Reflective(col2); break;
+            case DIFFUSE:
+            default:
+                s->m = new Matte(col2); break;
+        }
         SCENE.addObject(s);
     }
 }

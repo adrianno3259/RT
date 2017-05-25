@@ -25,8 +25,11 @@ public:
     Color traceRay(const Ray& ray) const;
     Color traceRayWhitted(const Ray& ray, const int depth) const;
 
+    void setShadows(bool v);
+
 private:
-    static const int MAX_DEPTH = 1;
+    bool shadows = true;
+    static const int MAX_DEPTH = 4;
 };
 
 #endif // SCENE_H

@@ -22,3 +22,8 @@ std::vector<Intersect> Object::hitList(const Ray& r) const
 {
     return std::vector<Intersect>();
 }
+
+BoundingBox Object::getBoudingBox()
+{
+    return BoundingBox(Vec3d(), Vec3d());
+}

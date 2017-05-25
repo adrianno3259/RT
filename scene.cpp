@@ -41,20 +41,28 @@ Intersect Scene::hitObject(const Ray& ray) const
 
 bool Scene::lightHitsPoint(int lightId, const Intersect& it, float maxDist) const
 {
-    Intersect i;
-    Light* li = lights[lightId];
-    Vec3d lightVector = (li->position - it.hitPoint);
-    float distToLight = lightVector.length();
-    lightVector.normalize();
+    if(shadows)
+    {
 
-    Vec3d origin = it.hitPoint +(it.normal*K_EPSILON);
-    Ray r = Ray(origin, lightVector);
+        Intersect i;
+        Light* li = lights[lightId];
+        Vec3d lightVector = (li->position - it.hitPoint);
+        float distToLight = lightVector.length();
+        lightVector.normalize();
 
-    i = hitObject(r);
-    if(!i.hit || i.t > distToLight)
-        if(distToLight < maxDist)
-            return 0.0;
-    else return 1.0;
+        Vec3d origin = it.hitPoint +(it.normal*0.001);
+        Ray r = Ray(origin, lightVector);
+
+        i = hitObject(r);
+        printVar(i.hit);
+        if(!i.hit || i.t > distToLight)
+            if(distToLight < maxDist)
+                return 0.0;
+        else return 1.0;
+    }
+    else {
+        return 0.0;
+    }
 
 }
 
@@ -103,4 +111,9 @@ Color Scene::traceRayWhitted(const Ray& ray, const int depth) const
         else
             return it.c;
     }
+}
+
+void Scene::setShadows(bool v)
+{
+    shadows = v;
 }

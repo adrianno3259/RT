@@ -31,7 +31,8 @@ Color Matte::shade(const Scene& sc, Intersect& it) const
             //L += ld_dot_n*(sc.lights[i]->getL())*c; |
             //----------------------------------------|
             //std::cout<<"teste "<<diffuse_brdf->f(it, wo, wi).r<<std::endl;
-            L += ld_dot_n*(sc.lights[i]->getL())*diffuse_brdf->f(it, wi, wo);
+            L += (ld_dot_n*(sc.lights[i]->getL())*diffuse_brdf->f(it, wi, wo));
+
             //std::cout<<"teste depois"<<std::endl;
         }
     }
