@@ -14,6 +14,7 @@ class BoundingBox
         virtual ~BoundingBox();
         bool hit(const Ray& ray) const;
         bool hit(const Ray& ray, float& tf) const;
+        bool hit(const Ray& ray, float& tf, float& ti) const;
         Vec3d getMinPoint() const;
         Vec3d getMaxPoint() const;
         void setMinPoint(const Vec3d& v);

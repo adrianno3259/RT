@@ -23,7 +23,6 @@ Intersect Scene::hitObject(const Ray& ray) const
 
     for(int o = 0; o < objects.size(); o++)
     {
-
         i = objects[o]->hit(ray);
         if(i.hit)
         {
@@ -36,6 +35,7 @@ Intersect Scene::hitObject(const Ray& ray) const
     }
 
     if(!ret.hit) ret.c = bg;
+//    else{std::cout<<"------------ SCENEEEEEE -------__---__---__---"<<std::endl; ret.obj->printData();}
     return ret;
 }
 
@@ -54,7 +54,7 @@ bool Scene::lightHitsPoint(int lightId, const Intersect& it, float maxDist) cons
         Ray r = Ray(origin, lightVector);
 
         i = hitObject(r);
-        printVar(i.hit);
+        //printVar(i.hit);
         if(!i.hit || i.t > distToLight)
             if(distToLight < maxDist)
                 return 0.0;
@@ -81,6 +81,8 @@ Color Scene::traceRay(const Ray& ray) const
     Intersect intersect = hitObject(ray);
     Color L = Color(0.0);
 
+    //printVar(intersect.hit);
+
     if(intersect.hit)
     {
         intersect.r = ray;
@@ -88,6 +90,7 @@ Color Scene::traceRay(const Ray& ray) const
     }
     else
         L = intersect.c;
+
 
     return L;
 
@@ -116,4 +119,9 @@ Color Scene::traceRayWhitted(const Ray& ray, const int depth) const
 void Scene::setShadows(bool v)
 {
     shadows = v;
+}
+
+void Scene::useGrid(bool v)
+{
+    grid = v;
 }

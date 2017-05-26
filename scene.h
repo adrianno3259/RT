@@ -15,7 +15,6 @@ public:
     Color bg;
     std::vector <Object*> objects;
     std::vector <Light*> lights;
-
     Scene();
     void addObject(Object* o);
     void addLight(Light* l);
@@ -26,8 +25,11 @@ public:
     Color traceRayWhitted(const Ray& ray, const int depth) const;
 
     void setShadows(bool v);
+    void useGrid(bool v);
+    bool useGrid(){ return grid; }
 
 private:
+    bool grid = false;
     bool shadows = true;
     static const int MAX_DEPTH = 4;
 };

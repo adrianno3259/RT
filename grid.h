@@ -24,8 +24,8 @@ class Grid : public Object
         virtual BoundingBox getBoudingBox();
         void setup();
         virtual bool hitGrid(const Ray& r, float& t);
-        virtual Intersect hit(const Ray& r);
-        inline float clamp(float x, float minp, float maxp) { return ( x<minp? minp : (x>maxp? maxp : x) ); }
+        virtual Intersect hit(const Ray& r) const;
+        inline float clamp(const float x, const float minp, const float maxp) const { return ( x<minp? minp : (x>maxp? maxp : x) ); }
         void addObject(Object* o);
     protected:
 

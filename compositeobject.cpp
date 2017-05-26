@@ -19,7 +19,7 @@ void CompositeObject::addObject(Object* o)
 
 Intersect CompositeObject::hit(const Ray& r) const
 {
-    std::cout<<"---------- begin-----------"<<std::endl;
+    //std::cout<<"---------- begin-----------"<<std::endl;
     int nObjs = objs.size();
     Intersect ret = Intersect();
     float tmin = INFINITY;

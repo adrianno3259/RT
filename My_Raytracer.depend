@@ -170,7 +170,7 @@
 1495305934 c:\users\adria\desktop\my_raytracer\rt\box.h
 	"object.h"
 
-1495402926 c:\users\adria\desktop\my_raytracer\rt\object.h
+1495745651 c:\users\adria\desktop\my_raytracer\rt\object.h
 	"intersect.h"
 	"ray.h"
 	"globals.h"
@@ -192,9 +192,9 @@
 1492023902 c:\users\adria\desktop\my_raytracer\rt\ray.h
 	"vec3.h"
 
-1494742750 c:\users\adria\desktop\my_raytracer\rt\globals.h
+1495728680 c:\users\adria\desktop\my_raytracer\rt\globals.h
 
-1494736933 c:\users\adria\desktop\my_raytracer\rt\scene.h
+1495742124 c:\users\adria\desktop\my_raytracer\rt\scene.h
 	"color.h"
 	"object.h"
 	"light.h"
@@ -216,12 +216,12 @@
 	"color.h"
 	<algorithm>
 
-1495413171 source:c:\users\adria\desktop\my_raytracer\rt\compositeobject.cpp
+1495746789 source:c:\users\adria\desktop\my_raytracer\rt\compositeobject.cpp
 	"compositeobject.h"
 	"math.h"
 	<iostream>
 
-1495408260 c:\users\adria\desktop\my_raytracer\rt\compositeobject.h
+1495728680 c:\users\adria\desktop\my_raytracer\rt\compositeobject.h
 	"object.h"
 	<algorithm>
 
@@ -308,7 +308,7 @@
 	"scene.h"
 	"lambertian.h"
 
-1494698840 source:c:\users\adria\desktop\my_raytracer\rt\matte.cpp
+1495728680 source:c:\users\adria\desktop\my_raytracer\rt\matte.cpp
 	"matte.h"
 	<iostream>
 
@@ -356,7 +356,7 @@
 	"phong.h"
 	"perfectspecular.h"
 
-1494742743 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
+1495773469 source:c:\users\adria\desktop\my_raytracer\rt\scene.cpp
 	"scene.h"
 	<cmath>
 	<iostream>
@@ -373,7 +373,7 @@
 	"vec3.h"
 	<cmath>
 
-1495068331 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
+1495771180 source:c:\users\adria\desktop\my_raytracer\rt\camera.cpp
 	"camera.h"
 	"material.h"
 
@@ -383,16 +383,16 @@
 	"ray.h"
 	"image.h"
 
-1495306071 source:c:\users\adria\desktop\my_raytracer\rt\boundingbox.cpp
+1495747113 source:c:\users\adria\desktop\my_raytracer\rt\boundingbox.cpp
 	"boundingbox.h"
 	<iostream>
 
-1495306073 c:\users\adria\desktop\my_raytracer\rt\boundingbox.h
+1495747142 c:\users\adria\desktop\my_raytracer\rt\boundingbox.h
 	"ray.h"
 	"vec3.h"
 	"globals.h"
 
-1495410809 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1495759374 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
@@ -421,11 +421,12 @@
 	"grid.h"
 	"compositeobject.h"
 
-1495413943 source:c:\users\adria\desktop\my_raytracer\rt\grid.cpp
+1495773537 source:c:\users\adria\desktop\my_raytracer\rt\grid.cpp
 	"grid.h"
 	"math.h"
+	<cstdlib>
 
-1495413893 c:\users\adria\desktop\my_raytracer\rt\grid.h
+1495746185 c:\users\adria\desktop\my_raytracer\rt\grid.h
 	<vector>
 	"ray.h"
 	"object.h"

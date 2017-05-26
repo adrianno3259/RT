@@ -70,6 +70,7 @@ Image Camera::render(const Scene& sc){
 
         L = sc.traceRay(R);
 
+
         i.setPixel(r, c, L.clamp());
     }
 
