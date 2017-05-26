@@ -28,12 +28,12 @@ Intersect Grid::hit(const Ray& r) const
     //std::cout<<"antes da bbox"<<std::endl;
     Intersect inter = Intersect();
     int ix, iy, iz;
-    float ox = r.origin.x, oy = r.origin.y, oz = r.origin.z, t0, t1;
+    float t0, t1;//ox = r.origin.x, oy = r.origin.y, oz = r.origin.z, t0, t1;
 
     // Verifica se o raio atinge a grid em algum ponto
 
-    if(bbox.hit(r, t0, t1)) // Se o raio atinge a grid, calcula a célula mais próxima da origem
-    {
+    //if(bbox.hit(r, t0, t1)) // Se o raio atinge a grid, calcula a célula mais próxima da origem
+    //{
 
             Vec3d minp = bbox.getMinPoint(), maxp = bbox.getMaxPoint();
         /* ---------------------------------------------------------------------------------- */
@@ -88,8 +88,8 @@ Intersect Grid::hit(const Ray& r) const
             }
 
 
-//            pr3(txMin, tyMin, tzMin);
-//            pr3(txMax, tyMax, tzMax);
+            pr3(txMin, tyMin, tzMin);
+            pr3(txMax, tyMax, tzMax);
 
             //double t0, t1;
 
@@ -237,19 +237,20 @@ Intersect Grid::hit(const Ray& r) const
             Object* obj = cells[ ix + (nx*iy) + (nx*ny*iz) ];
 //            printVar( ix + (nx*iy) + (nx*ny*iz) );
             //std::cout<<"PIXELLLLL!!!!!!!!"<<(int)obj<<std::endl;
+//            printVar(ix);
+//            printVar(iy);
+//            printVar(iz);
 
-//            printVar(txNext);
-//            printVar(tyNext);
-//            printVar(tzNext);
-//            printVar(txNext < tyNext);
-//            printVar(txNext < tzNext);
+            printVar(txNext);
+            printVar(tyNext);
+            printVar(tzNext);
+            printVar(txNext < tyNext);
+            printVar(txNext < tzNext);
             if(txNext < tyNext && txNext < tzNext) // avança no eixo X
             {
 
+                prIdx("X pode avançar...",ix,iy,iz);
 //                std::cout<<"X pode avançar..."<<std::endl;
-//                printVar(ix);
-//                printVar(iy);
-//                printVar(iz);
                 if(obj) // Se célula não é vazia
                 {
                     inter = obj->hit(r);
@@ -260,11 +261,11 @@ Intersect Grid::hit(const Ray& r) const
 //                        printVar(ix);
 //                        printVar(iy);
 //                        printVar(iz);
-//                        std::cout<<"acerteeeei -------------------- "<<std::endl;
-//                        printVar(inter.t < txNext);
-//                        printVar(inter.t);
-//                        printVar(txNext);
-//                        printObjectPtr((inter.obj));
+                        std::cout<<"acerteeeei -------------------- "<<std::endl;
+                        printVar(inter.t < txNext);
+                        printVar(inter.t);
+                        printVar(txNext);
+                        printObjectPtr((inter.obj));
                     }
 
                     if(inter.hit && inter.t < txNext)
@@ -287,7 +288,7 @@ Intersect Grid::hit(const Ray& r) const
             else if(tyNext < tzNext)
             {
 //                std::cout<<std::endl;
-//                prIdx("Y pode avançar...",ix,iy,iz);
+                prIdx("Y pode avançar...",ix,iy,iz);
                 if(obj) // Se célula não é vazia
                 {
                     inter = obj->hit(r);
@@ -299,9 +300,9 @@ Intersect Grid::hit(const Ray& r) const
 //                        printVar(ix);
 //                        printVar(iy);
 //                        printVar(iz);
-//                        std::cout<<"acerteeeei -------------------- "<<std::endl;
-//                        printVar(inter.t < tyNext);
-//                        printObjectPtr((inter.obj));
+                        std::cout<<"acerteeeei -------------------- "<<std::endl;
+                        printVar(inter.t < tyNext);
+                        printObjectPtr((inter.obj));
                     }
                     if(inter.hit && inter.t < tyNext)
                     {
@@ -323,7 +324,7 @@ Intersect Grid::hit(const Ray& r) const
             else
             {
 //                std::cout<<std::endl;
-//                prIdx("Z pode avançar...",ix,iy,iz);
+                prIdx("Z pode avançar...",ix,iy,iz);
                 if(obj) // Se célula não é vazia
                 {
 //                    std::cout<<"PIXELLLLL!!!!!!!!"<<(int)obj<<std::endl;
@@ -337,9 +338,9 @@ Intersect Grid::hit(const Ray& r) const
 //                        printVar(ix);
 //                        printVar(iy);
 //                        printVar(iz);
-//                        std::cout<<"acerteeeei -------------------- "<<std::endl;
-//                        printVar(inter.t < tyNext);
-//                        printObjectPtr((inter.obj));
+                        std::cout<<"acerteeeei -------------------- "<<std::endl;
+                        printVar(inter.t < tyNext);
+                        printObjectPtr((inter.obj));
                     }
                     if(inter.hit && inter.t < tzNext)
                     {
@@ -362,13 +363,13 @@ Intersect Grid::hit(const Ray& r) const
             }
 
         }
-    }
-    else
-    {
-        //std::cout<<"ERROOOOOU!"<<std::endl;
-        inter.hit = false;
-        return inter;
-    }
+//    }
+//    else
+//    {
+//        //std::cout<<"ERROOOOOU!"<<std::endl;
+//        inter.hit = false;
+//        return inter;
+//    }
 
 }
 
@@ -418,6 +419,7 @@ void Grid::setup()
 
     for(int j = 0; j < numObjs; j++)
     {
+        objects[j]->printData();
         objBB = objects[j]->getBoudingBox();
         Vec3d bbmin = objBB.getMinPoint();
         Vec3d bbmax = objBB.getMaxPoint();
@@ -429,6 +431,9 @@ void Grid::setup()
         int iymax = clamp( (bbmax.y - p0.y)*ny/(p1.y - p0.y), 0, ny - 1 );
         int izmax = clamp( (bbmax.z - p0.z)*nz/(p1.z - p0.z), 0, nz - 1 );
 
+        pr3(ixmin, iymin, izmin);
+        pr3(ixmax, iymax, izmax);
+
         // Adicionando o objeto às celulas
 
         for(int iz = izmin; iz <= izmax; iz++)
@@ -436,8 +441,11 @@ void Grid::setup()
         for(int ix = ixmin; ix <= ixmax; ix++)
         {
             index = ix + nx *iy + nx*ny*iz;
+            printVar(index);
+            printVar(counts[index]);
             if(counts[index] == 0)
             {
+                cout<<"ninguem"<<endl;
                 cells[index] = objects[j];
                 counts[index] += 1;
             }
@@ -445,6 +453,7 @@ void Grid::setup()
             {
                 if(counts[index] == 1)
                 {
+                    cout<<"UM"<<endl;
                     // cria um CompositeObject (um conjunto de objetos)
                     CompositeObject* comp = new CompositeObject();
                     // adiciona o objeto da célula ao conjunto
@@ -456,6 +465,7 @@ void Grid::setup()
                 }
                 else
                 {
+                    cout<<"MUITOS"<<endl;
                     ((CompositeObject*)cells[index])->addObject(objects[j]);
                     counts[index] += 1;
                 }

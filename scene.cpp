@@ -24,6 +24,8 @@ Intersect Scene::hitObject(const Ray& ray) const
     for(int o = 0; o < objects.size(); o++)
     {
         i = objects[o]->hit(ray);
+
+
         if(i.hit)
         {
             if(i.t < t)
@@ -50,11 +52,14 @@ bool Scene::lightHitsPoint(int lightId, const Intersect& it, float maxDist) cons
         float distToLight = lightVector.length();
         lightVector.normalize();
 
-        Vec3d origin = it.hitPoint +(it.normal*0.001);
+        Vec3d origin = it.hitPoint +(it.normal*0.01);
         Ray r = Ray(origin, lightVector);
 
         i = hitObject(r);
-        //printVar(i.hit);
+//        printVar(i.hit);
+//        if(i.hit)
+//        printObjectPtr(i.obj);
+
         if(!i.hit || i.t > distToLight)
             if(distToLight < maxDist)
                 return 0.0;

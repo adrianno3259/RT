@@ -76,9 +76,9 @@ time_t timeT0, timeTf;
 Camera CAMERA;
 Scene SCENE;
 Grid* g;
-int VERTICAL_RES = 400;
-int HORIZONTAL_RES = 400;
-float ZOOM = 2;
+int VERTICAL_RES = 1000;
+int HORIZONTAL_RES = 1000;
+float ZOOM = 0.6;
 
 int main(int argc, char** argv)
 {
@@ -87,24 +87,45 @@ int main(int argc, char** argv)
 
     //startChrono();
     camSceneSetup();
-    //csgExemple();
+    csgExemple();
 
+    SCENE.setShadows(true);
+/*
     int BM=5, Bm=-5, R=5;
     Vec3d bbmax = Vec3d(BM);
     Vec3d bbmin = Vec3d(Bm);
 
     g = new Grid();
-    SCENE.useGrid(true);
-    randomSpheres(25000, MIRROR, 10);
+    //SCENE.useGrid(true);
+    //randomSpheres(200, DIFFUSE, 10);
+
+    float x = 20, y = 20 , z = 30;
+    float radius = 10;
+    Color col2 = Color(1.0, 1.0, 1.0);
+    Sphere* s = new Sphere(Vec3d(x, y, z), radius);
+    s->m = new Matte(col2);
+    g->addObject(s);
+//    SCENE.addObject(s);
+
+    x = -20, y = -20 , z = -30;
+    radius = 30;
+    col2 = Color(1.0, 1.0, 0.0);
+    Sphere *s2 = new Sphere(Vec3d(x, y, z), radius);
+    s2->m = new Matte(col2);
+    g->addObject(s2);
+//    SCENE.addObject(s2);
+
+
+
     printVar( g->objects.size());
 
-    Box *b1 = new Box(bbmin+Vec3d(-10,0,0), bbmax+Vec3d(-10,0,0));
-    Sphere *s2 = new Sphere(Vec3d(0), R);
-    Sphere *s1 = new Sphere(Vec3d(10), R);
-    Box *b2 = new Box(bbmin+Vec3d(10,0,0), bbmax+Vec3d(10,0,0));
-
-    g->addObject(b1); g->addObject(b2);
-    g->addObject(s1); g->addObject(s2);
+//    Box *b1 = new Box(bbmin+Vec3d(-10,0,0), bbmax+Vec3d(-10,0,0));
+//    Sphere *s2 = new Sphere(Vec3d(0), R);
+//    Sphere *s1 = new Sphere(Vec3d(10), R);
+//    Box *b2 = new Box(bbmin+Vec3d(10,0,0), bbmax+Vec3d(10,0,0));
+//
+//    g->addObject(b1); g->addObject(b2);
+//    g->addObject(s1); g->addObject(s2);
     g->setup();
     printVar(g->nx); printVar(g->ny); printVar(g->nz);
     cout<< "BoundingBox b:"<<endl;
@@ -114,10 +135,20 @@ int main(int argc, char** argv)
     printVar(SCENE.objects.size());
 
 
+    Ray r = Ray(Vec3d(200, 20, 30), Vec3d(-1.0 ,0,0));
+    Intersect it = s->hit(r);
+    printVar(it.hit);
+    printVec(r.rayPoint(it.t));
+    it = s2->hit(r);
+    printVar(it.hit);
+
+    cout<<"---------------------"<<endl;
+    it = g->hit(r);
+    printVar(it.hit);
+    printVec(r.rayPoint(it.t));
 
 
-    //
-
+    */
 
 
 //    printVar(b.inside(r));
@@ -173,6 +204,7 @@ int main(int argc, char** argv)
     cout<<"hit bb: "<<boolalpha<<b.hit(r)<<endl;
     cout<<"hit bx: "<<boolalpha<<bx.hit(r).hit<<endl;
     */
+
     Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
              2.0,
              Color(1.0));
@@ -194,28 +226,28 @@ void render()
 {
     Image im = CAMERA.render(SCENE);
     im.save("image.ppm");
-    system("start image.ppm");
+    //system("start image.ppm");
 }
 
 
 void camSceneSetup()
 {
-
-    CAMERA = Camera(Vec3d(500, 500, 500.0),
+/*
+    CAMERA = Camera(Vec3d(200, 0, 0),
             Vec3d(0, 0.0, 0.0),
             Vec3d(0.0, 0.0, 1.0),
             HORIZONTAL_RES,
             VERTICAL_RES,
             500.0);
-    /*
 
-    CAMERA = Camera(Vec3d(-25, 25, 20.0),
+*/
+    CAMERA = Camera(Vec3d(0, 20, 15.0),
             Vec3d(0, 0.0, 0.0),
             Vec3d(0.0, 0.0, 1.0),
             HORIZONTAL_RES,
             VERTICAL_RES,
             500.0);
-    */
+
     CAMERA.pixelSize /= ZOOM;
 
     // Setup da Cena
@@ -229,7 +261,7 @@ void csgExemple()
 {
 
 
-    //SCENE.setShadows(false);
+    SCENE.setShadows(false);
 
     Color col = Color(0.3, 0.3, 0.3);
     Phong* spec = new Phong(Color(1.0, 0.3, 0.6));
@@ -265,7 +297,7 @@ void csgExemple()
 
     CSGObject * obj = new CSGObject(nodeOp2);
     obj->m = reflect;//new Matte(col);
-    SCENE.addObject(obj);
+    //SCENE.addObject(obj);
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -279,7 +311,7 @@ void csgExemple()
 
     CSGObject* obj2 = new CSGObject(BSMinus);
     obj2->m = new Matte(Color(1.0, 0.0, 0.0));
-    SCENE.addObject(obj2);
+    //SCENE.addObject(obj2);
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -307,7 +339,7 @@ void csgExemple()
 
     Sphere *sphere = new Sphere(Vec3d(0,0,15), 5);
     sphere->m = reflect2;
-    //SCENE.addObject(sphere);
+    SCENE.addObject(sphere);
 
     Sphere *sphere2 = new Sphere(Vec3d(20,-20,15), 8);
     sphere2->m = reflect;
@@ -325,7 +357,7 @@ void randomSpheres(int ns, int mat, float r)
     for(int j = 0; j < NUM_SPH; j++)
     {
         srand(ns+j);
-        float x = rand() % 400 - 200, y = rand() % 200 -100, z = rand() % 200 -100;
+        float x = rand() % 200 - 100, y = rand() % 200 - 100, z = rand() % 200 - 100;
         float radius;
         Color col2 = Color(1.0, 0.0, (j%11)*0.1);
         if(r == 0)

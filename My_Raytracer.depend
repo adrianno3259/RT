@@ -5,7 +5,7 @@
 
 1494943747 /home/admin01/Documentos/Adrianno_IC/RT/RT/color.h
 
-1495458532 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
+1495807841 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
 	"compositeobject.h"
 	"math.h"
 	<iostream>
@@ -14,7 +14,7 @@
 	"object.h"
 	<algorithm>
 
-1495455904 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
+1495807841 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
 	"intersect.h"
 	"ray.h"
 	"globals.h"
@@ -34,9 +34,9 @@
 1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/ray.h
 	"vec3.h"
 
-1495479242 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
+1495825194 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
 
-1495480903 /home/admin01/Documentos/Adrianno_IC/RT/RT/scene.h
+1495807841 /home/admin01/Documentos/Adrianno_IC/RT/RT/scene.h
 	"color.h"
 	"object.h"
 	"light.h"
@@ -126,7 +126,7 @@
 	"vec3.h"
 	"intersect.h"
 
-1494944545 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/camera.cpp
+1495807841 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/camera.cpp
 	"camera.h"
 	"material.h"
 
@@ -433,7 +433,7 @@
 	"boundingbox.h"
 	"compositeobject.h"
 
-1495563584 /home/admin01/Documentos/Adrianno_IC/RT/RT/boundingbox.h
+1495807841 /home/admin01/Documentos/Adrianno_IC/RT/RT/boundingbox.h
 	"ray.h"
 	"vec3.h"
 	"globals.h"
@@ -479,21 +479,22 @@
 	"phong.h"
 	"perfectspecular.h"
 
-1495480747 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
+1495825172 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
 	"scene.h"
 	<cmath>
 	<iostream>
 	"material.h"
 
-1495564009 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/boundingbox.cpp
+1495807841 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/boundingbox.cpp
 	"boundingbox.h"
 	<iostream>
 
-1495568594 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/grid.cpp
+1495821609 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/grid.cpp
 	"grid.h"
 	"math.h"
+	<cstdlib>
 
-1495564637 /home/admin01/Documentos/Adrianno_IC/RT/RT/grid.h
+1495807841 /home/admin01/Documentos/Adrianno_IC/RT/RT/grid.h
 	<vector>
 	"ray.h"
 	"object.h"
@@ -507,7 +508,7 @@
 1495455904 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
 	"object.h"
 
-1495564643 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+1495824363 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"
