@@ -71,7 +71,6 @@ Vec3d Sphere::getNormal(const Vec3d& P) const
     return tmp;
 }
 
-
 std::vector<Intersect> Sphere::hitList(const Ray& ray) const
 {
 
@@ -116,7 +115,6 @@ std::vector<Intersect> Sphere::hitList(const Ray& ray) const
 
     return li;
 }
-
 
 BoundingBox Sphere::getBoudingBox()
 {

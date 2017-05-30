@@ -9,9 +9,10 @@
 #include "boundingbox.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
-#define printObject(A) std::cout<< #A << " ----------" <<std::endl; A.printData()
-#define printObjectPtr(A) std::cout<< #A << " ----------" <<std::endl; A->printData()
+#define printObject(A) std::cout<< #A << " -----"<<A.name<<"-----" <<std::endl; printVar(A.name); A.printData()
+#define printObjectPtr(A) std::cout<< #A << " -----"<<A->name<<"-----" <<std::endl; A->printData()
 
 class Material;
 class Scene;
@@ -21,6 +22,7 @@ public:
     Object();
     Material* m;
     Color c;
+    std::string name;
     virtual Intersect hit(const Ray& r) const;
     virtual void printData(void) const;
     virtual Vec3d getNormal(const Vec3d& P) const ;

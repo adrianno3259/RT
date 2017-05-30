@@ -3,7 +3,7 @@
 
 #include "vec3.h"
 
-#define printRay(R) cout<< #R << " ----------" <<endl; printVec(R.origin); printVec(R.direction);
+#define printRay(R) std::cout<< #R << " ----------" <<std::endl; printVec(R.origin); printVec(R.direction);
 
 class Ray
 {

@@ -5,16 +5,16 @@
 
 1494943747 /home/admin01/Documentos/Adrianno_IC/RT/RT/color.h
 
-1495807841 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
+1496156884 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.cpp
 	"compositeobject.h"
 	"math.h"
 	<iostream>
 
-1495563282 /home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.h
+1496154875 /home/admin01/Documentos/Adrianno_IC/RT/RT/compositeobject.h
 	"object.h"
 	<algorithm>
 
-1495807841 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
+1496063589 /home/admin01/Documentos/Adrianno_IC/RT/RT/object.h
 	"intersect.h"
 	"ray.h"
 	"globals.h"
@@ -23,6 +23,7 @@
 	"boundingbox.h"
 	<iostream>
 	<vector>
+	<string>
 
 1494943747 /home/admin01/Documentos/Adrianno_IC/RT/RT/intersect.h
 	"color.h"
@@ -31,10 +32,10 @@
 
 1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/vec3.h
 
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/ray.h
+1496154319 /home/admin01/Documentos/Adrianno_IC/RT/RT/ray.h
 	"vec3.h"
 
-1495825194 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
+1496158164 /home/admin01/Documentos/Adrianno_IC/RT/RT/globals.h
 
 1495807841 /home/admin01/Documentos/Adrianno_IC/RT/RT/scene.h
 	"color.h"
@@ -479,7 +480,7 @@
 	"phong.h"
 	"perfectspecular.h"
 
-1495825172 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
+1495825324 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/scene.cpp
 	"scene.h"
 	<cmath>
 	<iostream>
@@ -489,7 +490,7 @@
 	"boundingbox.h"
 	<iostream>
 
-1495821609 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/grid.cpp
+1496157807 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/grid.cpp
 	"grid.h"
 	"math.h"
 	<cstdlib>
@@ -501,14 +502,14 @@
 	"boundingbox.h"
 	"compositeobject.h"
 
-1495455904 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
+1496076490 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.cpp
 	"sphere.h"
 	<cmath>
 
 1495455904 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
 	"object.h"
 
-1495824363 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+1496158128 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
 	<iostream>
 	<cstdlib>
 	"color.h"

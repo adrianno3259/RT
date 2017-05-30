@@ -23,21 +23,23 @@ Intersect CompositeObject::hit(const Ray& r) const
     int nObjs = objs.size();
     Intersect ret = Intersect();
     float tmin = INFINITY;
+
     for(int i = 0; i < nObjs; i++)
     {
         Intersect it = objs[i]->hit(r);
-        if(it.t < tmin)
+        if(it.t < tmin && it.hit)
         {
             tmin = it.t;
             ret = it;
-
         }
     }
+
     return ret;
 }
+
 void CompositeObject::printData(void) const{}
 
-Vec3d CompositeObject::getNormal(const Vec3d& P) const{}
+Vec3d CompositeObject::getNormal(const Vec3d& P) const{ }
 
 std::vector<Intersect> CompositeObject::hitList(const Ray& ray) const{}
 

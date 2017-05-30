@@ -1,39 +1,40 @@
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
+#include <cmath>
+
+
 
 #include "color.h"
 #include "vec3.h"
 #include "image.h"
 #include "ray.h"
+
 #include "sphere.h"
-#include <cmath>
 #include "plane.h"
-
-#include "camera.h"
-#include "scene.h"
-#include "material.h"
-#include "matte.h"
 #include "box.h"
-#include "globals.h"
-
-
-#include "mergehits.h"
-#include "interval.h"
+#include "compositeobject.h"
 
 #include "csgnode.h"
 #include "csgprimitive.h"
 #include "csgoperation.h"
 #include "csgobject.h"
+#include "mergehits.h"
 
-
-#include <ctime>
+#include "material.h"
+#include "matte.h"
 #include "phong.h"
 #include "reflective.h"
 
+#include "globals.h"
+#include "camera.h"
+#include "scene.h"
+
+
 #include "boundingbox.h"
 #include "grid.h"
-#include "compositeobject.h"
 
+/*
 #define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
                             for(int l = 0; l < A.size(); l++)                                          \
                             {                                                                          \
@@ -44,13 +45,15 @@
                             }                                                                          \
                             cout<<endl<<endl;
 
+#define printBBox(A) cout<<#A<<endl; printVec(A.getMinPoint()); printVec(A.getMaxPoint())
+*/
 
-
-#define DIFFUSE 0
-#define SPECULAR 1
-#define MIRROR 2
+#define MATERIAL_DIFFUSE 0
+#define MATERIAL_SPECULAR 1
+#define MATERIAL_MIRROR 2
 
 using namespace std;
+
 /*
 namespace debug
 {
@@ -59,7 +62,8 @@ namespace debug
     void T_Image();
     void T_Ray();
     void T_Sphere();
-}*/
+}
+*/
 
 
 void startChrono();
@@ -76,148 +80,51 @@ time_t timeT0, timeTf;
 Camera CAMERA;
 Scene SCENE;
 Grid* g;
-int VERTICAL_RES = 1000;
-int HORIZONTAL_RES = 1000;
-float ZOOM = 0.6;
+int VERTICAL_RES = 1800;
+int HORIZONTAL_RES = 1800;
+float ZOOM = 1.5;
 
 int main(int argc, char** argv)
 {
 
     cout<< "Iniciando setup..."<<endl;
 
-    //startChrono();
+
     camSceneSetup();
-    csgExemple();
+//    csgExemple();
 
     SCENE.setShadows(true);
-/*
-    int BM=5, Bm=-5, R=5;
-    Vec3d bbmax = Vec3d(BM);
-    Vec3d bbmin = Vec3d(Bm);
 
     g = new Grid();
-    //SCENE.useGrid(true);
-    //randomSpheres(200, DIFFUSE, 10);
-
-    float x = 20, y = 20 , z = 30;
-    float radius = 10;
-    Color col2 = Color(1.0, 1.0, 1.0);
-    Sphere* s = new Sphere(Vec3d(x, y, z), radius);
-    s->m = new Matte(col2);
-    g->addObject(s);
-//    SCENE.addObject(s);
-
-    x = -20, y = -20 , z = -30;
-    radius = 30;
-    col2 = Color(1.0, 1.0, 0.0);
-    Sphere *s2 = new Sphere(Vec3d(x, y, z), radius);
-    s2->m = new Matte(col2);
-    g->addObject(s2);
-//    SCENE.addObject(s2);
+    SCENE.useGrid(true);
+    randomSpheres(2000000, MIRROR, 3);
 
 
-
-    printVar( g->objects.size());
-
-//    Box *b1 = new Box(bbmin+Vec3d(-10,0,0), bbmax+Vec3d(-10,0,0));
-//    Sphere *s2 = new Sphere(Vec3d(0), R);
-//    Sphere *s1 = new Sphere(Vec3d(10), R);
-//    Box *b2 = new Box(bbmin+Vec3d(10,0,0), bbmax+Vec3d(10,0,0));
-//
-//    g->addObject(b1); g->addObject(b2);
-//    g->addObject(s1); g->addObject(s2);
     g->setup();
-    printVar(g->nx); printVar(g->ny); printVar(g->nz);
-    cout<< "BoundingBox b:"<<endl;
-    printVec(g->bbox.getMinPoint());
-    printVec(g->bbox.getMaxPoint());
     SCENE.addObject(g);
-    printVar(SCENE.objects.size());
 
 
-    Ray r = Ray(Vec3d(200, 20, 30), Vec3d(-1.0 ,0,0));
-    Intersect it = s->hit(r);
-    printVar(it.hit);
-    printVec(r.rayPoint(it.t));
-    it = s2->hit(r);
-    printVar(it.hit);
-
-    cout<<"---------------------"<<endl;
-    it = g->hit(r);
-    printVar(it.hit);
-    printVec(r.rayPoint(it.t));
-
-
-    */
-
-
-//    printVar(b.inside(r));
-//    printVar(b.inside(r2));
-//    printVar(b.inside(r3));
-
-
-
-
-    /*
-
-    cout<< "BoundingBox b:"<<endl;
-    printVec(bbmin);
-    printVec(bbmax);
-    BoundingBox b = BoundingBox(bbmin, bbmax);
-    Ray r = Ray(Vec3d(0, 0, 0), Vec3d(1.0, 0.0, 0.0));
-    Ray r2 = Ray(Vec3d(-9.99999, 0, 0), Vec3d(1.0, 0.0, 0.0));
-    Ray r3 = Ray(Vec3d(-20, 0, 0), Vec3d(1.0, 0.0, 0.0));
-
-
-    Vec3d min_point = Vec3d(-10);
-    Vec3d max_point = Vec3d(10);
-    Box* box = new Box(min_point, max_point);
-
-    Color col = Color(1.0);
-
-
-
-    CompositeObject* co = new CompositeObject();
-    Sphere* s2 = new Sphere(Vec3d(1.0, 0, 0), 10);
-    co->addObject(box);
-    co->addObject(s2);
-    Intersect it = (co->hit(r));
-    printVec(it.hitPoint);
-
-
-
-    g->objects.push_back(box);
-    g->objects.push_back(s);
-    printVec(g->minCoordinates());
-    printVec(g->maxCoordinates());
-
-    cout << "bounding box calculation: "<<endl;
-    Ray r = Ray(Vec3d(-200, 0, 0), Vec3d(1.0, 0.0, 0.0));
-    printRay(r);
-
-    cout<<"hit: "<<boolalpha<<b.hit(r)<<endl;
-    cout<< "Box bx:"<<endl;
-    cout<<"hit: "<<boolalpha<<bx.hit(r).hit<<endl;
-
-    r = Ray(Vec3d(-200, 0, 50), Vec3d(1.0, 0.0, 0.0));
-    printRay(r);
-    cout<<"hit bb: "<<boolalpha<<b.hit(r)<<endl;
-    cout<<"hit bx: "<<boolalpha<<bx.hit(r).hit<<endl;
-    */
-
-    Light* l = new Light(Vec3d(100.0, 100.0, 100.0),
+    Light* l = new Light(Vec3d(700.0, 700.0, 700.0),
              2.0,
              Color(1.0));
     SCENE.addLight(l);
-    Light* l1 = new Light(Vec3d(-500.0, -500.0, 500.0),
+
+    Light* l1 = new Light(Vec3d(-700.0, -700.0, 700.0),
              1.0,
              Color(1.0));
     SCENE.addLight(l1);
-    Light* l3 = new Light(Vec3d(500.0, 0.0, 0.0),
-     1.0,
-     Color(1.0));
+
+    Light* l3 = new Light(Vec3d(0.0, 0.0, 700.0),
+             1.0,
+             Color(1.0));
     SCENE.addLight(l3);
+
+    startChrono();
+
+
     render();
+
+    cout<<"Tempo: "<<stopChrono()<<"s "<<endl;
 
     return 0;
 }
@@ -232,22 +139,22 @@ void render()
 
 void camSceneSetup()
 {
-/*
-    CAMERA = Camera(Vec3d(200, 0, 0),
+
+    CAMERA = Camera(Vec3d(500, 500, 500),
             Vec3d(0, 0.0, 0.0),
             Vec3d(0.0, 0.0, 1.0),
             HORIZONTAL_RES,
             VERTICAL_RES,
             500.0);
 
-*/
+/*
     CAMERA = Camera(Vec3d(0, 20, 15.0),
             Vec3d(0, 0.0, 0.0),
             Vec3d(0.0, 0.0, 1.0),
             HORIZONTAL_RES,
             VERTICAL_RES,
             500.0);
-
+*/
     CAMERA.pixelSize /= ZOOM;
 
     // Setup da Cena
@@ -352,18 +259,16 @@ void randomSpheres(int ns, int mat, float r)
     //cin >> NUM_SPH;
     cout<<"Esferas: " << NUM_SPH<<endl;
     Sphere * s;
-
-
     for(int j = 0; j < NUM_SPH; j++)
     {
         srand(ns+j);
-        float x = rand() % 200 - 100, y = rand() % 200 - 100, z = rand() % 200 - 100;
+        float x = rand() % 600 - 300, y = rand() % 800 - 400, z = rand() % 800 - 400;
         float radius;
         Color col2 = Color(1.0, 0.0, (j%11)*0.1);
         if(r == 0)
         {
             srand(ns+2*j);
-            radius = (rand() % 5) + 2;
+            radius = ((rand() % 2) + 5);
         }
         else
             radius = r;
@@ -491,7 +396,6 @@ void objsLightsSetup()
 
 
 }
-
 
 void startChrono()
 {

@@ -17,9 +17,10 @@ public:
     virtual void printData(void) const;
     virtual Vec3d getNormal(const Vec3d& P) const;
     virtual std::vector<Intersect> hitList(const Ray& ray) const;
-private:
     std::vector<Object*> objs;
+private:
 
+    static bool first;
 
 };
 
