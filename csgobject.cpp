@@ -5,6 +5,7 @@
 CSGObject::CSGObject(CSGNode* r)
 {
     root = r;
+    bbox = root->getBoundingBox();
 }
 
 CSGObject::~CSGObject()
@@ -31,4 +32,10 @@ Intersect CSGObject::hit(const Ray& r) const
 std::vector<Intersect> CSGObject::hitList(const Ray& r) const
 {
     return root->getHitPoints(r);
+}
+
+
+BoundingBox CSGObject::getBoundingBox() const
+{
+    return bbox;
 }

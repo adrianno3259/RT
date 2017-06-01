@@ -46,6 +46,9 @@ class CSGOperation : public CSGNode
                 r - Raio com o qual as interseções serão calculadas.
         */
         virtual std::vector<Intersect> getHitPoints(const Ray& r);
+
+        virtual BoundingBox getBoundingBox() const;
+
     protected:
         /*
             Variable: left
@@ -65,6 +68,8 @@ class CSGOperation : public CSGNode
             & -> interseção
         */
         char operation;
+
+
 
     private:
 };

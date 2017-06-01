@@ -29,3 +29,27 @@ std::vector<Intersect> CSGOperation::getHitPoints(const Ray& r)
     else
         return std::vector<Intersect>();
 }
+
+
+
+BoundingBox CSGOperation::getBoundingBox() const
+{
+    BoundingBox l, r;
+    l = left->getBoundingBox();
+    r = right->getBoundingBox();
+
+    Vec3d   lminp = l.getMinPoint(),
+            lmaxp = l.getMaxPoint(),
+            rminp = r.getMinPoint(),
+            rmaxp = r.getMaxPoint();
+
+    Vec3d   minp = Vec3d((lminp.x < rminp.x ? lminp.x : rminp.x),
+                         (lminp.y < rminp.y ? lminp.y : rminp.y),
+                         (lminp.z < rminp.z ? lminp.z : rminp.z));
+
+    Vec3d   maxp = Vec3d((lmaxp.x > rmaxp.x ? lmaxp.x : rmaxp.x),
+                         (lmaxp.y > rmaxp.y ? lmaxp.y : rmaxp.y),
+                         (lmaxp.z > rmaxp.z ? lmaxp.z : rmaxp.z));
+
+    return BoundingBox(minp, maxp);
+}

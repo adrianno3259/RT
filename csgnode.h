@@ -4,6 +4,7 @@
 #include <vector>
 #include "intersect.h"
 #include "ray.h"
+#include "boundingbox.h"
 
 class CSGNode
 {
@@ -11,6 +12,7 @@ class CSGNode
         bool isPrimitive;
         virtual std::vector<Intersect> getHitPoints(const Ray& r) =0;
         virtual ~CSGNode();
+        virtual BoundingBox getBoundingBox() const =0;
     protected:
         CSGNode();
 

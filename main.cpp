@@ -85,8 +85,8 @@ time_t timeT0, timeTf;
 Camera CAMERA;
 Scene SCENE;
 Grid* g;
-int VERTICAL_RES = 1800;
-int HORIZONTAL_RES = 1800;
+int VERTICAL_RES = 800;
+int HORIZONTAL_RES = 800;
 float ZOOM = 1.5;
 
 int mode;
@@ -98,7 +98,7 @@ int material;
 int main(int argc, char** argv)
 {
 
-    cout<< "Iniciando setup..."<<endl;
+    cerr<< "Iniciando setup..."<<endl;
 
     camSceneSetup();
 
@@ -120,13 +120,11 @@ int main(int argc, char** argv)
     {
         g = new Grid();
         SCENE.useGrid(useGrid);
+        randomSpheres(nObjects, material, 20);
+        g->setup();
+        SCENE.addObject(g);
     }
-
-    randomSpheres(nObjects, material, 20);
-
-    g->setup();
-    SCENE.addObject(g);
-
+    else randomSpheres(nObjects, material, 20);
 
     Light* l = new Light(Vec3d(700.0, 700.0, 700.0),
              2.0,
@@ -147,12 +145,15 @@ int main(int argc, char** argv)
 
     string fname;
     ostringstream conv;
-    conv<<"image_"<<useGrid<<"_"<<material<<"_"<<nObjects;
+    conv<<"image_"<<useGrid<<"_"<<material<<"_"<<shadows<<"_"<<nObjects;
     fname = conv.str();
 
     render(fname);
 
-    cout<<"Tempo: "<<stopChrono()<<"s "<<endl;
+    double t = stopChrono();
+
+    cout<<"Tempo: "<<t<<"s "<<endl;
+    cerr<<"Tempo: "<<t<<"s "<<endl;
 
     return 0;
 }

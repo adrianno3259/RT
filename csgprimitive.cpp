@@ -16,3 +16,9 @@ std::vector<Intersect> CSGPrimitive::getHitPoints(const Ray& r)
     //std::cout<<"primitive"<<std::endl;
     return object->hitList(r);
 }
+
+
+BoundingBox CSGPrimitive::getBoundingBox() const
+{
+    return object->getBoudingBox();
+}

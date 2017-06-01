@@ -3,7 +3,7 @@
 
 #include "object.h"
 #include "csgnode.h"
-
+#include "boundingbox.h"
 
 
 class CSGObject : public Object
@@ -14,8 +14,9 @@ class CSGObject : public Object
         virtual ~CSGObject();
         virtual Intersect hit(const Ray& r) const ;
         virtual std::vector<Intersect> hitList(const Ray& ray) const;
+        virtual BoundingBox getBoundingBox() const;
     protected:
-
+        BoundingBox bbox;
     private:
 };
 

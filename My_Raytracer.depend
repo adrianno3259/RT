@@ -50,17 +50,18 @@
 1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.cpp
 	"csgnode.h"
 
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.h
+1496349114 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgnode.h
 	<vector>
 	"intersect.h"
 	"ray.h"
+	"boundingbox.h"
 
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.cpp
+1496349552 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.cpp
 	"csgoperation.h"
 	"mergehits.h"
 	<iostream>
 
-1493926096 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.h
+1496348931 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgoperation.h
 	<vector>
 	"intersect.h"
 	"csgnode.h"
@@ -69,11 +70,11 @@
 	<vector>
 	"intersect.h"
 
-1493219088 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.cpp
+1496349161 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.cpp
 	"csgprimitive.h"
 	<iostream>
 
-1493926096 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.h
+1496348811 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgprimitive.h
 	"object.h"
 	"csgnode.h"
 
@@ -145,14 +146,15 @@
 1494943747 /home/admin01/Documentos/Adrianno_IC/RT/RT/lambertian.h
 	"brdf.h"
 
-1494943747 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.cpp
+1496349080 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.cpp
 	"csgobject.h"
 	"globals.h"
 	<vector>
 
-1493219088 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.h
+1496348978 /home/admin01/Documentos/Adrianno_IC/RT/RT/csgobject.h
 	"object.h"
 	"csgnode.h"
+	"boundingbox.h"
 
 1494943747 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/glossyspecular.cpp
 	"glossyspecular.h"
@@ -490,7 +492,7 @@
 	"boundingbox.h"
 	<iostream>
 
-1496157807 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/grid.cpp
+1496343478 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/grid.cpp
 	"grid.h"
 	"math.h"
 	<cstdlib>
@@ -509,34 +511,36 @@
 1495455904 /home/admin01/Documentos/Adrianno_IC/RT/RT/sphere.h
 	"object.h"
 
-1496158128 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
+1496350180 source:/home/admin01/Documentos/Adrianno_IC/RT/RT/main.cpp
 	<iostream>
 	<cstdlib>
+	<ctime>
+	<cmath>
+	<typeinfo>
+	<string>
+	<sstream>
 	"color.h"
 	"vec3.h"
 	"image.h"
 	"ray.h"
 	"sphere.h"
-	<cmath>
 	"plane.h"
-	"camera.h"
-	"scene.h"
-	"material.h"
-	"matte.h"
 	"box.h"
-	"globals.h"
-	"mergehits.h"
-	"interval.h"
+	"compositeobject.h"
 	"csgnode.h"
 	"csgprimitive.h"
 	"csgoperation.h"
 	"csgobject.h"
-	<ctime>
+	"mergehits.h"
+	"material.h"
+	"matte.h"
 	"phong.h"
 	"reflective.h"
+	"globals.h"
+	"camera.h"
+	"scene.h"
 	"boundingbox.h"
 	"grid.h"
-	"compositeobject.h"
 
 1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/boundingbox.cpp
 	"boundingbox.h"

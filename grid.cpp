@@ -295,8 +295,8 @@ void Grid::setup()
     Vec3d p0 = minCoordinates();
     Vec3d p1 = maxCoordinates();
 
-    printVec(p0);
-    printVec(p1);
+//    printVec(p0);
+//    printVec(p1);
 
     // alterar bounding box
     bbox.setMinPoint(p0);
@@ -400,7 +400,7 @@ void Grid::setup()
 
     objects.erase(objects.begin(), objects.end());
 
-    #ifdef __STATISTICS_
+/*
 
 	int num_zeroes 	= 0;
 	int num_ones 	= 0;
@@ -429,7 +429,7 @@ void Grid::setup()
 	cout << "num_cells =" << numCells << endl;
 	cout << "numZeroes = " << num_zeroes << "  numOnes = " << num_ones << "  numTwos = " << num_twos << endl;
 	cout << "numThrees = " << num_threes << "  numGreater = " << num_greater << endl;
-	#endif // __STATISTICS_
+*/
     counts.erase(counts.begin(), counts.end());
 }
 
