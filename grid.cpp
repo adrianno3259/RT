@@ -305,27 +305,27 @@ void Grid::setup()
     //computar o número de células
 
     int numObjs = objects.size();
-    cout<<numObjs<<endl;
+//    cout<<numObjs<<endl;
     float wx = p1.x - p0.x;
     float wy = p1.y - p0.y;
     float wz = p1.z - p0.z;
-    pr3(wx, wy, wz);
+//    pr3(wx, wy, wz);
 
     float multiplier = 2.0;
-    printVar(multiplier);
+//    printVar(multiplier);
 
     float s = pow(wx*wy*wz/numObjs, 0.3333333);
-    printVar(s);
+//    printVar(s);
 
     nx = multiplier * wx / s + 1;
     ny = multiplier * wy / s + 1;
     nz = multiplier * wz / s + 1;
-    pr3(nx, ny, nz);
+//    pr3(nx, ny, nz);
 
     // setup do array de células com ponteiros nulos
 
     int numCells = nx*ny*nz;
-    printVar(numCells);
+//    printVar(numCells);
     cells.reserve(numCells);
 
     for(int j = 0; j < numCells; j++)

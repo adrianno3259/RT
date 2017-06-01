@@ -2,18 +2,27 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <typeinfo>
+#include <string>
+#include <sstream>
 
-
+/************ UTILS ************/
 
 #include "color.h"
 #include "vec3.h"
 #include "image.h"
 #include "ray.h"
 
+/************ OBJECTS ************/
+
+// Simple objects
+
 #include "sphere.h"
 #include "plane.h"
 #include "box.h"
 #include "compositeobject.h"
+
+// CSG Objects
 
 #include "csgnode.h"
 #include "csgprimitive.h"
@@ -21,60 +30,56 @@
 #include "csgobject.h"
 #include "mergehits.h"
 
+/************ MATERIALS ************/
+
 #include "material.h"
 #include "matte.h"
 #include "phong.h"
 #include "reflective.h"
 
+/************ CAMERA, SCENE & GLOBAL VARIABLES ************/
+
 #include "globals.h"
 #include "camera.h"
 #include "scene.h"
 
+/************ GRID ************/
 
 #include "boundingbox.h"
 #include "grid.h"
 
-/*
-#define printHitList(A)     cout<<"-------------------------"<<endl<<"inters "<<#A<<": "<<endl;        \
-                            for(int l = 0; l < A.size(); l++)                                          \
-                            {                                                                          \
-                                printVar(l);                                                           \
-                                printVec(A[l].hitPoint);                                               \
-                                printVec(r.rayPoint(A[l].t));                                          \
-                                cout<<A[l].t<<endl;                                                    \
-                            }                                                                          \
-                            cout<<endl<<endl;
 
-#define printBBox(A) cout<<#A<<endl; printVec(A.getMinPoint()); printVec(A.getMaxPoint())
-*/
+/************************ DEFINES ************************/
+
+/************ MATERIALS ************/
 
 #define MATERIAL_DIFFUSE 0
 #define MATERIAL_SPECULAR 1
 #define MATERIAL_MIRROR 2
 
+
+/************ USE MODES ************/
+
+
+#define MODE_RANDOM_SPHERES 0
+#define MODE_CSG_EXAMPLE 1
+#define MODE_RANDOM_BOXES 2
+#define MODE_RANDOM_BOX_SPHERE 3
+#define MODE_CUSTOM 4
+
 using namespace std;
-
-/*
-namespace debug
-{
-    void T_Color();
-    void T_Vec3d();
-    void T_Image();
-    void T_Ray();
-    void T_Sphere();
-}
-*/
-
 
 void startChrono();
 double stopChrono();
-//void setupCamera();
 
 void objsLightsSetup();
-void csgExemple();
+void csgExemples();
 void randomSpheres(int ns, int mat, float radius);
 void camSceneSetup();
-void render();
+void render(const string& s);
+void errorExit(const string& message);
+
+// Global
 
 time_t timeT0, timeTf;
 Camera CAMERA;
@@ -84,21 +89,40 @@ int VERTICAL_RES = 1800;
 int HORIZONTAL_RES = 1800;
 float ZOOM = 1.5;
 
+int mode;
+bool useGrid;
+int nObjects;
+bool shadows;
+int material;
+
 int main(int argc, char** argv)
 {
 
     cout<< "Iniciando setup..."<<endl;
 
-
     camSceneSetup();
-//    csgExemple();
 
-    SCENE.setShadows(true);
+    cin>>mode;
+    cin>>useGrid;
+    cin>>material;
+    cin>>shadows;
+    cin>>nObjects;
 
-    g = new Grid();
-    SCENE.useGrid(true);
-    randomSpheres(2000000, MIRROR, 3);
+    printVar(mode);
+    printVar(useGrid);
+    printVar(material);
+    printVar(shadows);
+    printVar(nObjects);
 
+    SCENE.setShadows(shadows);
+
+    if(useGrid)
+    {
+        g = new Grid();
+        SCENE.useGrid(useGrid);
+    }
+
+    randomSpheres(nObjects, material, 20);
 
     g->setup();
     SCENE.addObject(g);
@@ -121,21 +145,26 @@ int main(int argc, char** argv)
 
     startChrono();
 
+    string fname;
+    ostringstream conv;
+    conv<<"image_"<<useGrid<<"_"<<material<<"_"<<nObjects;
+    fname = conv.str();
 
-    render();
+    render(fname);
 
     cout<<"Tempo: "<<stopChrono()<<"s "<<endl;
 
     return 0;
 }
 
-void render()
+void render(const string& n)
 {
+    string name = n;
+    name+=".ppm";
     Image im = CAMERA.render(SCENE);
-    im.save("image.ppm");
+    im.save(name.c_str());
     //system("start image.ppm");
 }
-
 
 void camSceneSetup()
 {
@@ -276,15 +305,15 @@ void randomSpheres(int ns, int mat, float r)
         s = new Sphere(Vec3d(x, y, z), radius);
         switch(mat)
         {
-            case SPECULAR:
+            case MATERIAL_SPECULAR:
                 s->m = new Phong(col2); break;
-            case MIRROR:
+            case MATERIAL_MIRROR:
                 s->m = new Reflective(col2); break;
-            case DIFFUSE:
+            case MATERIAL_DIFFUSE:
             default:
                 s->m = new Matte(col2); break;
         }
-        if(SCENE.useGrid())
+        if(useGrid)
             g->addObject(s);
         else
             SCENE.addObject(s);
@@ -406,4 +435,14 @@ double stopChrono()
 {
     time(&timeTf);
     return difftime(timeTf, timeT0);
+}
+
+
+void errorExit(const string& msg)
+{
+
+    cerr << "Erro: "<<endl;
+    cerr << msg <<endl;
+    exit(EXIT_FAILURE);
+
 }

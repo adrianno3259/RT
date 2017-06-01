@@ -538,3 +538,244 @@
 	"grid.h"
 	"compositeobject.h"
 
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/boundingbox.cpp
+	"boundingbox.h"
+	<iostream>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/boundingbox.h
+	"ray.h"
+	"vec3.h"
+	"globals.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/ray.h
+	"vec3.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/vec3.h
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/globals.h
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/box.cpp
+	"box.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/box.h
+	"object.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/object.h
+	"intersect.h"
+	"ray.h"
+	"globals.h"
+	"scene.h"
+	"light.h"
+	"boundingbox.h"
+	<iostream>
+	<vector>
+	<string>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/intersect.h
+	"color.h"
+	"vec3.h"
+	"ray.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/color.h
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/scene.h
+	"color.h"
+	"object.h"
+	"light.h"
+	<vector>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/light.h
+	"vec3.h"
+	"color.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/brdf.cpp
+	"brdf.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/brdf.h
+	"color.h"
+	"vec3.h"
+	"intersect.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/camera.cpp
+	"camera.h"
+	"material.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/camera.h
+	"vec3.h"
+	"scene.h"
+	"ray.h"
+	"image.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/image.h
+	<vector>
+	<iostream>
+	"color.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/material.h
+	"intersect.h"
+	"scene.h"
+	"lambertian.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/lambertian.h
+	"brdf.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/color.cpp
+	"color.h"
+	<algorithm>
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/compositeobject.cpp
+	"compositeobject.h"
+	"math.h"
+	<iostream>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/compositeobject.h
+	"object.h"
+	<algorithm>
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/csgnode.cpp
+	"csgnode.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/csgnode.h
+	<vector>
+	"intersect.h"
+	"ray.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/csgobject.cpp
+	"csgobject.h"
+	"globals.h"
+	<vector>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/csgobject.h
+	"object.h"
+	"csgnode.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/csgoperation.cpp
+	"csgoperation.h"
+	"mergehits.h"
+	<iostream>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/csgoperation.h
+	<vector>
+	"intersect.h"
+	"csgnode.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/mergehits.h
+	<vector>
+	"intersect.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/csgprimitive.cpp
+	"csgprimitive.h"
+	<iostream>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/csgprimitive.h
+	"object.h"
+	"csgnode.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/glossyspecular.cpp
+	"glossyspecular.h"
+	<cmath>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/glossyspecular.h
+	"brdf.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/grid.cpp
+	"grid.h"
+	"math.h"
+	<cstdlib>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/grid.h
+	<vector>
+	"ray.h"
+	"object.h"
+	"boundingbox.h"
+	"compositeobject.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/image.cpp
+	"image.h"
+	<fstream>
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/interval.cpp
+	"interval.h"
+	"globals.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/interval.h
+	<vector>
+	<iostream>
+	<algorithm>
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/lambertian.cpp
+	"lambertian.h"
+	"globals.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/light.cpp
+	"light.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/material.cpp
+	"material.h"
+	"globals.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/matte.cpp
+	"matte.h"
+	<iostream>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/matte.h
+	"material.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/mergehits.cpp
+	"mergehits.h"
+	"globals.h"
+	<iostream>
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/object.cpp
+	"object.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/perfectspecular.cpp
+	"perfectspecular.h"
+	<iostream>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/perfectspecular.h
+	"brdf.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/phong.cpp
+	"phong.h"
+	<cmath>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/phong.h
+	"material.h"
+	"lambertian.h"
+	"glossyspecular.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/plane.cpp
+	"plane.h"
+	<cmath>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/plane.h
+	"object.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/ray.cpp
+	"ray.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/reflective.cpp
+	"reflective.h"
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/reflective.h
+	"phong.h"
+	"perfectspecular.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/scene.cpp
+	"scene.h"
+	<cmath>
+	<iostream>
+	"material.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/sphere.cpp
+	"sphere.h"
+	<cmath>
+
+1496246857 /home/adrianno/Documents/Adrianno_IC/RT/sphere.h
+	"object.h"
+
+1496246857 source:/home/adrianno/Documents/Adrianno_IC/RT/vec3.cpp
+	"vec3.h"
+	<cmath>
+
