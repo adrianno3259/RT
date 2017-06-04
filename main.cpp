@@ -85,8 +85,9 @@ time_t timeT0, timeTf;
 Camera CAMERA;
 Scene SCENE;
 Grid* g;
-int VERTICAL_RES = 800;
-int HORIZONTAL_RES = 800;
+
+int HORIZONTAL_RES = 600;
+int VERTICAL_RES = 600;
 float ZOOM = 1.5;
 
 int mode;
@@ -147,8 +148,9 @@ int main(int argc, char** argv)
     ostringstream conv;
     conv<<"image_"<<useGrid<<"_"<<material<<"_"<<shadows<<"_"<<nObjects;
     fname = conv.str();
-
+    std::cout<<" BEFORE RENDER ------------------------------------"<<std::endl;
     render(fname);
+    std::cout<<" AFTER RENDER ------------------------------------"<<std::endl;
 
     double t = stopChrono();
 
@@ -162,8 +164,11 @@ void render(const string& n)
 {
     string name = n;
     name+=".ppm";
+    std::cout<<" RENDER BG ------------------------------------"<<std::endl;
     Image im = CAMERA.render(SCENE);
+    std::cout<<" RENDER ------------------------------------"<<std::endl;
     im.save(name.c_str());
+    std::cout<<" RENDER END ------------------------------------"<<std::endl;
     //system("start image.ppm");
 }
 

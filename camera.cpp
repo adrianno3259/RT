@@ -50,7 +50,7 @@ Image Camera::render(const Scene& sc){
     Intersect intersect;
     Image i = Image(hres, vres);
 
-
+    std::cout<<" CAM ------------------------------------"<<std::endl;
     for(int r = 0; r < vres; r++)
     for(int c = 0; c < hres; c++)
     {
@@ -59,7 +59,7 @@ Image Camera::render(const Scene& sc){
         R = generateRay(r, c);
 
 //        intersect = sc.hitObject(R);
-//        //if(r%50 == 0 && c%50 == 0){ printVar(r); printVar(c);}
+//        if(r%5 == 0 && c%50 == 0){ printVar(r); printVar(c);}
 //
 //        if(intersect.hit)
 //        {
@@ -67,12 +67,12 @@ Image Camera::render(const Scene& sc){
 //        }
 //        else
 //            L = intersect.c;
-
+//        std::cout<<" BEFORE TRACE ------------------------------------"<<std::endl;
         L = sc.traceRay(R);
-
-
+//        std::cout<<" AFTER TRACE ------------------------------------"<<std::endl;
+//        printVar(r); printVar(c);
         i.setPixel(r, c, L.clamp());
     }
-
+    std::cout<<" CAM END ------------------------------------"<<std::endl;
     return i;
 }
