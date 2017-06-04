@@ -73,7 +73,7 @@ void startChrono();
 double stopChrono();
 
 void objsLightsSetup();
-void csgExemples();
+void csgExemple();
 void randomSpheres(int ns, int mat, float radius);
 void camSceneSetup();
 void render(const string& s);
@@ -86,9 +86,9 @@ Camera CAMERA;
 Scene SCENE;
 Grid* g;
 
-int HORIZONTAL_RES = 600;
-int VERTICAL_RES = 600;
-float ZOOM = 1.5;
+int HORIZONTAL_RES = 640;
+int VERTICAL_RES = 480;
+float ZOOM = 1.0;
 
 int mode;
 bool useGrid;
@@ -100,9 +100,9 @@ int main(int argc, char** argv)
 {
 
     cerr<< "Iniciando setup..."<<endl;
-
+    SCENE.setShadows(true);
     camSceneSetup();
-
+/*
     cin>>mode;
     cin>>useGrid;
     cin>>material;
@@ -126,6 +126,13 @@ int main(int argc, char** argv)
         SCENE.addObject(g);
     }
     else randomSpheres(nObjects, material, 20);
+*/
+
+
+
+
+    csgExemple();
+
 
     Light* l = new Light(Vec3d(700.0, 700.0, 700.0),
              2.0,
@@ -140,13 +147,13 @@ int main(int argc, char** argv)
     Light* l3 = new Light(Vec3d(0.0, 0.0, 700.0),
              1.0,
              Color(1.0));
-    SCENE.addLight(l3);
+    //SCENE.addLight(l3);
 
     startChrono();
 
     string fname;
     ostringstream conv;
-    conv<<"image_"<<useGrid<<"_"<<material<<"_"<<shadows<<"_"<<nObjects;
+    conv<<"image";//_"<<useGrid<<"_"<<material<<"_"<<shadows<<"_"<<nObjects;
     fname = conv.str();
     std::cout<<" BEFORE RENDER ------------------------------------"<<std::endl;
     render(fname);
@@ -169,12 +176,12 @@ void render(const string& n)
     std::cout<<" RENDER ------------------------------------"<<std::endl;
     im.save(name.c_str());
     std::cout<<" RENDER END ------------------------------------"<<std::endl;
-    //system("start image.ppm");
+    system("start image.ppm");
 }
 
 void camSceneSetup()
 {
-
+/*
     CAMERA = Camera(Vec3d(500, 500, 500),
             Vec3d(0, 0.0, 0.0),
             Vec3d(0.0, 0.0, 1.0),
@@ -182,14 +189,14 @@ void camSceneSetup()
             VERTICAL_RES,
             500.0);
 
-/*
-    CAMERA = Camera(Vec3d(0, 20, 15.0),
+*/
+
+    CAMERA = Camera(Vec3d(0, 40, 40.0),
             Vec3d(0, 0.0, 0.0),
             Vec3d(0.0, 0.0, 1.0),
             HORIZONTAL_RES,
             VERTICAL_RES,
             500.0);
-*/
     CAMERA.pixelSize /= ZOOM;
 
     // Setup da Cena
@@ -201,9 +208,6 @@ void camSceneSetup()
 
 void csgExemple()
 {
-
-
-    SCENE.setShadows(false);
 
     Color col = Color(0.3, 0.3, 0.3);
     Phong* spec = new Phong(Color(1.0, 0.3, 0.6));
@@ -239,7 +243,7 @@ void csgExemple()
 
     CSGObject * obj = new CSGObject(nodeOp2);
     obj->m = reflect;//new Matte(col);
-    //SCENE.addObject(obj);
+    SCENE.addObject(obj);
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -253,7 +257,7 @@ void csgExemple()
 
     CSGObject* obj2 = new CSGObject(BSMinus);
     obj2->m = new Matte(Color(1.0, 0.0, 0.0));
-    //SCENE.addObject(obj2);
+    SCENE.addObject(obj2);
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -271,7 +275,7 @@ void csgExemple()
 
     CSGObject* obj3 = new CSGObject(BSMinus3);
     obj3->m = reflect;// new Matte(Color(1.0, 1.0, 0.0));
-    //SCENE.addObject(obj3);
+    SCENE.addObject(obj3);
 
     ///////////////////////////////////////////////////////////////////////////
 

@@ -1,50 +1,61 @@
 #include "image.h"
 #include <fstream>
 
-Image::Image()// imagem preta, 200 x 200
+Image::Image() : width(600), height(600)
 {
-    w = h = 200;
-    Color c = Color();
-    std::vector<Color> tmp = std::vector<Color>(200, c);
-    for(int i = 0; i < 200; i++) pixels.push_back(tmp);
-
+    Color c();
+    std::vector<Color> tmp = std::vector<Color>(width);
+    pixels = std::vector< std::vector<Color> >(height, tmp);
 }
 
-Image::Image(const int s) // imagem preta s x s
+Image::Image(const int imSize) : width(imSize), height(imSize)
 {
-    w = h = s;
-    Color c = Color();
-    std::vector<Color> tmp = std::vector<Color>(s, c);
-    for(int i = 0; i < s; i++) pixels.push_back(tmp);
+    Color c();
+    std::vector<Color> tmp(width);
+    pixels = std::vector< std::vector<Color> >(height, tmp);
 }
 
-Image::Image(const int wi, const int he) // imagem preta w x h
+
+Image::Image(const int w, const int h) : width(w), height(h)
 {
-    w = wi;
-    h = he;
-    Color c = Color();
-    std::vector<Color> tmp = std::vector<Color>(he, c);
-    for(int i = 0; i < wi; i++) pixels.push_back(tmp);
+    Color c();
+    std::vector<Color> tmp(width);
+    pixels = std::vector< std::vector<Color> >(height, tmp);
 }
 
-Image::Image( std::vector< std::vector<Color> > pxs) : pixels(pxs) { w = pxs.size(); h = pxs[0].size(); } // imagem a partir de std::vector de cores
+Image::Image( std::vector< std::vector<Color> > pxs ) : pixels(pxs)
+{
+    width = pixels.size();
+    height = pixels[0].size();
+}
 
-Color Image::getPixel(const int x, const int y) { return pixels[x][y]; } // retorna a cor de um pixel específico
+Color Image::getPixel(const int x, const int y) const
+{
+    return pixels[x][y];
+}
 
-void Image::setPixel(const int x, const int y, const Color& c) { pixels[x][y] = c; } //altera a cor de um pixel
+void Image::setPixel(const int x, const int y, const Color& c)
+{
+    pixels[x][y] = c;
+}
 
-void Image::save(const char* filepath)
+void Image::save(const std::string& filepath)
 {
     std::ofstream file;
-
-    file.open(filepath, std::ios::binary);
-    file<<'P'<<'6'<<'\n'<<pixels.size()<<' '<<pixels[0].size()<<'\n'<<'2'<<'5'<<'5'<<'\n';
-    for(int i = 0; i < w; i++)
-        for(int j = 0; j < h; j++)
+    file.open(filepath.c_str(), std::ios::binary);
+    file<<'P'<<'6'<<'\n'<<pixels[0].size()<<' '<<pixels.size()<<'\n'<<'2'<<'5'<<'5'<<'\n';
+    for(int i = 0; i < height; i++)
+        for(int j = 0; j < width; j++)
         {
             file.put(255*pixels[i][j].r);
             file.put(255*pixels[i][j].g);
             file.put(255*pixels[i][j].b);
         }
     file.close();
+
+}
+
+Image::~Image()
+{
+    //dtor
 }

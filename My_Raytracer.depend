@@ -277,14 +277,14 @@
 1494694600 c:\users\adria\desktop\my_raytracer\rt\glossyspecular.h
 	"brdf.h"
 
-1496432159 source:c:\users\adria\desktop\my_raytracer\rt\image.cpp
+1496598273 source:c:\users\adria\desktop\my_raytracer\rt\image.cpp
 	"image.h"
 	<fstream>
 
-1492023901 c:\users\adria\desktop\my_raytracer\rt\image.h
-	<vector>
-	<iostream>
+1496597884 c:\users\adria\desktop\my_raytracer\rt\image.h
 	"color.h"
+	<vector>
+	<string>
 
 1493080085 source:c:\users\adria\desktop\my_raytracer\rt\interval.cpp
 	"interval.h"
@@ -345,12 +345,13 @@
 	"lambertian.h"
 	"glossyspecular.h"
 
-1496429725 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
+1496607683 source:c:\users\adria\desktop\my_raytracer\rt\plane.cpp
 	"plane.h"
-	<cmath>
+	<iostream>
 
-1493080085 c:\users\adria\desktop\my_raytracer\rt\plane.h
+1496603750 c:\users\adria\desktop\my_raytracer\rt\plane.h
 	"object.h"
+	"globals.h"
 
 1492106907 source:c:\users\adria\desktop\my_raytracer\rt\ray.cpp
 	"ray.h"
@@ -398,7 +399,7 @@
 	"vec3.h"
 	"globals.h"
 
-1496450605 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
+1496607273 source:c:\users\adria\desktop\my_raytracer\rt\main.cpp
 	<iostream>
 	<cstdlib>
 	<ctime>

@@ -1,39 +1,46 @@
 #include "plane.h"
+#include <iostream>
+Plane::Plane() : point(Vec3d(0,0,-10)), normal(Vec3d(0,0,1))
+{
 
-#include <cmath>
+}
 
-Plane::Plane(const Vec3d& p, const Vec3d& n) : Object(), point(p), normal(n) {}
-Plane::Plane() : Object(), point(Vec3d(1.0, 0.0, 0.0)), normal(Vec3d(0.0, 0.0, 1.0)) {}
-Plane::~Plane(){}
+Plane::~Plane()
+{
+    //dtor
+}
 
-Intersect Plane::hit(const Ray& ray) const
+Plane::Plane(const Vec3d& p, const Vec3d& n) : point(p), normal(n){}
+
+Intersect Plane::hit(const Ray& r) const
 {
     Intersect i;
-    i.r = ray;
+    i.r = r;
     i.hit = false;
-    i.entering = false;
 
-    //int D = normal * (-point);
-    float vd = normal*ray.direction;
-    //printVec(normal*ray); //printVec(ray.direction);
-    //printVar((normal.x*ray.direction.x + normal.y*ray.direction.y+normal.z*ray.direction.z));
+    float vd = (r.direction * normal);
+    //printVec(r.direction);
+    //printVec(normal);
+    //std::cout<<"try hit  --- "<<vd<<std::endl;
     if(vd != 0)
     {
-        Vec3d tmp = point - ray.origin;
-        int v0 = tmp*normal;
-        int t = v0/vd;
-        if(t>K_EPSILON)
+        //std::cout<<"vd != 0"<<std::endl;
+        Vec3d tmp = (point - r.origin);
+        float v0 = tmp * normal;
+        float t =  v0/vd;
+
+        if(t > K_EPSILON)
         {
+//            std::cout<<"hitPlane"<<std::endl;
             i.hit = true;
-            i.entering = true;
-            i.obj = (Object*)(this);
-            i.m = this->m;
             i.t = t;
-            i.hitPoint = ray.rayPoint(i.t);
-            if(vd<0)
-                i.normal = normal;
-            else
-                i.normal = -normal;
+
+            i.m = m;
+            i.hitPoint = r.rayPoint(t);
+            i.obj = (Object*)this;
+            i.r = r;
+            if(vd<0){ i.normal = normal; i.entering = true;}
+            else{ i.normal = -normal; i.entering = false;}
         }
     }
     return i;
@@ -44,38 +51,43 @@ void Plane::printData(void) const
     printVec(point);
     printVec(normal);
 }
+
 Vec3d Plane::getNormal(const Vec3d& P) const
 {
     return normal;
 }
 
-
-std::vector<Intersect> Plane::hitList(const Ray& ray) const
+std::vector<Intersect> Plane::hitList(const Ray& r) const
 {
-    std::vector<Intersect> v = std::vector<Intersect>();
-    Intersect i;
-    i.hit = false;
-    i.entering = false;
-
-    float vd = normal*ray.direction;
-
+    std::vector<Intersect> it;
+    float vd = (r.direction * normal);
     if(vd != 0)
     {
-        Vec3d tmp = point - ray.origin;
-        int v0 = tmp*normal;
-        int t = v0/vd;
+        Vec3d tmp = (point - r.origin);
+        float v0 = tmp * normal;
+        float t =  v0/vd;
 
-        i.hit = true;
-        i.entering = true;
-        i.obj = (Object*)(this);
-        i.m = this->m;
-        i.t = t;
-        i.hitPoint = ray.rayPoint(i.t);
-        if(vd<0)
+        if(t < K_EPSILON)
+        {
+            Intersect i;
+            i.hit = true;
+            i.t = t;
+
+            i.m = m;
+            i.hitPoint = r.rayPoint(t);
+            i.obj = (Object*)this;
+            i.r = r;
+
+            i.entering = true;
             i.normal = normal;
-        else
+            it.push_back(i);
+
             i.normal = -normal;
-        v.push_back(i);
+            i.entering = false;
+            it.push_back(i);
+        }
     }
-    return v;
+    return it;
 }
+
+BoundingBox Plane::getBoudingBox(){ return BoundingBox();}
